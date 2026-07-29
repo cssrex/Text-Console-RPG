@@ -3,6 +3,7 @@
 #include "Skill.h"
 #include "Character.h"
 #include "StatusEffect.h"
+#include "LogManager.h"
 
 using namespace std;
 
@@ -28,8 +29,7 @@ BasicAttack::BasicAttack()
 
 void BasicAttack::Use(Character& caster, Character& target) {
     int damage = (caster.GetAttack() * percent_) / 100;
-    cout << caster.GetName() << "의 평타! " << target.GetName()
-        << "에게 " << damage << "의 피해를 입혔습니다.\n";
+    LogManager::GetInstance().PrintSkillUseBasic(caster.GetName(), target.GetName(), damage);
     target.TakeDamage(damage);
 }
 
@@ -40,14 +40,13 @@ SkillOne::SkillOne()
 
 void SkillOne::Use(Character& caster, Character& target) {
     if (!CanUse(caster.GetMp())) {
-        cout << "MP가 부족하여 " << name_ << " 스킬을 사용할 수 없습니다!\n";
+        LogManager::GetInstance().PrintSkillMpLack(name_);
         return;
     }
 
     caster.UseMp(cost_);
     int damage = (caster.GetAttack() * percent_) / 100;
-    cout << caster.GetName() << "의 " << name_ << "! " << target.GetName()
-        << "에게 " << damage << "의 강력한 피해를 입혔습니다.\n";
+    LogManager::GetInstance().PrintSkillOneUse(caster.GetName(), name_, target.GetName(), damage);
     target.TakeDamage(damage);
 
     // 상태이상 동적 할당
@@ -61,14 +60,13 @@ SkillTwo::SkillTwo()
 
 void SkillTwo::Use(Character& caster, Character& target) {
     if (!CanUse(caster.GetMp())) {
-        cout << "MP가 부족하여 " << name_ << " 스킬을 사용할 수 없습니다!\n";
+        LogManager::GetInstance().PrintSkillMpLack(name_);
         return;
     }
 
     caster.UseMp(cost_);
     int damage = (caster.GetAttack() * percent_) / 100;
-    cout << caster.GetName() << "의 " << name_ << "! " << target.GetName()
-        << "에게 " << damage << "의 피해를 입혔습니다.\n";
+    LogManager::GetInstance().PrintSkillTwoUse(caster.GetName(), name_, target.GetName(), damage);
     target.TakeDamage(damage);
 
     // 상태이상 동적 할당

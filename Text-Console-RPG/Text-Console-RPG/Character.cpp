@@ -3,76 +3,76 @@
 #include "Character.h"
 #include "Skill.h"
 #include "StatusEffect.h"
+#include "LogManager.h"
 
 using namespace std;
 
-Character::Character(const string& name, int level, int maxHp, int maxMp, int attack)
-    : name_(name), level_(level), hp_(maxHp), maxHp_(maxHp), mp_(maxMp), maxMp_(maxMp), attack_(attack) {
+Character::Character(const string& name, int level, int hp, int mp, int attack)
+    : name_(name), level_(level), hp_(hp), maxHp_(hp), mp_(mp), maxMp_(mp), attack_(attack) {
 }
 
 Character::~Character() {
-    for (auto skill : skills_) delete skill;
-    for (auto effect : statusEffects_) delete effect;
+    for (auto skill : skills_) {
+        delete skill;
+    }
     skills_.clear();
+
+    for (auto effect : statusEffects_) {
+        delete effect;
+    }
     statusEffects_.clear();
 }
 
 void Character::PrintStatus() const {
-    cout << "-----------------------------------------------\n";
-    cout << "이름: " << name_ << " | Lv." << level_ << "\n";
-    cout << "HP: " << hp_ << " / " << maxHp_ << " | MP: " << mp_ << " / " << maxMp_ << "\n";
-    cout << "공격력: " << attack_ << "\n";
-    cout << "-----------------------------------------------\n";
+    LogManager::GetInstance().PrintCharacterStatus(name_, level_, hp_, maxHp_, mp_, maxMp_, attack_);
 }
 
 void Character::ShowAllSkill() const {
-    cout << "=== " << name_ << "의 보유 스킬 목록 ===\n";
+    LogManager::GetInstance().PrintShowAllSkillHeader(name_);
     for (size_t i = 0; i < skills_.size(); ++i) {
-        cout << "[" << i + 1 << "] " << skills_[i]->GetName()
-            << " (소모 MP: " << skills_[i]->GetCost() << ")\n";
+        LogManager::GetInstance().PrintShowAllSkillItem(i + 1, skills_[i]->GetName(), skills_[i]->GetCost());
     }
-    cout << "===============================\n";
+    LogManager::GetInstance().PrintShowAllSkillFooter();
 }
 
+// 기본 피격 처리
 void Character::TakeDamage(int damage) {
     hp_ -= damage;
     if (hp_ < 0) hp_ = 0;
-    cout << name_ << "이(가) " << damage << "의 피해를 입었습니다. (남은 HP: " << hp_ << " / " << maxHp_ << ")\n";
+    LogManager::GetInstance().PrintTakeDamage(name_, damage, hp_, maxHp_);
 }
 
+// 체력 회복
 void Character::Heal(int value) {
     hp_ += value;
-    if (hp_ > maxHp_) hp_ = maxHp_;
-    cout << name_ << "의 체력이 " << value << "만큼 회복되었습니다.\n";
+    if (hp_ > maxHp_) {
+        hp_ = maxHp_;
+    }
+
+    LogManager::GetInstance().PrintHeal(name_, value);
 }
 
+// 마나 소모
 void Character::UseMp(int amount) {
     mp_ -= amount;
     if (mp_ < 0) mp_ = 0;
 }
 
-void Character::HealMp(int amount) {
-    mp_ += amount;
-    if (mp_ > maxMp_) mp_ = maxMp_;
-}
-
-bool Character::IsDead() const {
-    return hp_ <= 0;
-}
-
+// 상태이상 추가
 void Character::AddStatusEffect(StatusEffect* effect) {
-    cout << name_ << "에게 [" << effect->GetName() << "] 상태이상이 적용되었습니다!\n";
+    LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName());
     statusEffects_.push_back(effect);
 }
 
+// Turn 기반 상태이상 갱신 (턴 종료 시 호출)
 void Character::UpdateStatusEffects() {
     for (auto it = statusEffects_.begin(); it != statusEffects_.end();) {
         (*it)->ApplyEffect(*this);
 
         if ((*it)->IsExpired()) {
-            cout << name_ << "의 [" << (*it)->GetName() << "] 상태이상이 해제되었습니다.\n";
+            LogManager::GetInstance().PrintRemoveStatusEffect(name_, (*it)->GetName());
             delete* it;
-            it = statusEffects_.erase(it);
+            it = statusEffects_.erase(it); // 해제 처리
         }
         else {
             ++it;
