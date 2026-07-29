@@ -10,6 +10,7 @@ private:
 	LogManager(const LogManager&) = delete;
 	LogManager& operator=(const LogManager&) = delete;
 
+public:
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();

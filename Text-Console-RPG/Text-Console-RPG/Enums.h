@@ -5,5 +5,6 @@ enum class Scene
 	START,
 	MAIN,
 	DUNGEON,
-	WORKSHOP
+	WORKSHOP,
+	END
 };

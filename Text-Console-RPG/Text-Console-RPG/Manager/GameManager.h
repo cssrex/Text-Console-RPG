@@ -1,11 +1,15 @@
 #pragma once
+#include "Enums.h"
 
 class LogManager;
+class Player;
 
 class GameManager
 {
 private:
-
+	Player* player_;
+	Scene	curScene_;
+	Scene   nextScene_;
 
 private:
 	GameManager();
@@ -13,21 +17,22 @@ private:
 	GameManager(const GameManager&) = delete;
 	GameManager& operator=(const GameManager&) = delete;
 
-private:
+public:
 	void Update();
-	void Render();
 
-private:
+public:
 	void StartMenu();
 	void ShowMainMenu();
-	void EneterDungeon();
-	void EneterWorkshop();
+	void EnterDungeon();
+	void EnterStore();
+	void SetNextScene(Scene newScene);
+	void ChangeScene();
 
 public:
 	static GameManager& GetInstance();
-
+	Player* GetPlayer();
 public:
-	void InitializePlayer();
+	void InitializePlayer(const string& name);
 	void GameLoop();
 };
 

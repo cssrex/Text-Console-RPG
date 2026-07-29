@@ -1,9 +1,12 @@
 #include "GameManager.h"
 #include "LogManager.h"
+#include "Global.h"
+#include "Player.h"
 
 GameManager::GameManager()
 {
-	
+	curScene_ = Scene::START;
+	nextScene_ = curScene_;
 }
 
 GameManager::~GameManager()
@@ -12,26 +15,58 @@ GameManager::~GameManager()
 
 void GameManager::Update()
 {
-}
-
-void GameManager::Render()
-{
+	ChangeScene();
 }
 
 void GameManager::StartMenu()
 {
+	LogManager::GetInstance().PrintStartMenu();
+	string name;
+	cin >> name;
+	InitializePlayer(name);
 }
 
 void GameManager::ShowMainMenu()
 {
+	
 }
 
-void GameManager::EneterDungeon()
+void GameManager::EnterDungeon()
 {
 }
 
-void GameManager::EneterWorkshop()
+void GameManager::EnterStore()
 {
+}
+
+void GameManager::SetNextScene(Scene newScene)
+{
+	nextScene_ = newScene;
+}
+
+void GameManager::ChangeScene()
+{
+	if (curScene_ == nextScene_)
+		return;
+
+	curScene_ = nextScene_;
+	switch (curScene_)
+	{
+	case Scene::START:
+		StartMenu();
+		break;
+	case Scene::MAIN:
+		ShowMainMenu();
+		break;
+	case Scene::DUNGEON:
+		EnterDungeon();
+		break;
+	case Scene::WORKSHOP:
+		EnterStore();
+		break;
+	case Scene::END:
+		break;
+	}
 }
 
 GameManager& GameManager::GetInstance()
@@ -41,17 +76,20 @@ GameManager& GameManager::GetInstance()
 	return instance;
 }
 
-void GameManager::InitializePlayer()
+Player* GameManager::GetPlayer()
 {
+	return player_;
+}
 
+void GameManager::InitializePlayer(const string& name)
+{
+	player_ = new Player(name);
 }
 
 void GameManager::GameLoop()
 {
-	InitializePlayer();
-	while (true)
+	while (curScene_ != Scene::END)
 	{
 		Update();
-		Render();
 	}
 }
