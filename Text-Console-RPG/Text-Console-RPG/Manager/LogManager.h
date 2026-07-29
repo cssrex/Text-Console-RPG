@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
@@ -26,7 +26,7 @@ public:
 
 
 public:
-	// Ä³¸¯ÅÍ (Character) ·Î±×
+	// ìºë¦­í„° (Character) ë¡œê·¸
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
 	void PrintHeal(const std::string& name, int value);
 	void PrintAddStatusEffect(const std::string& name, const std::string& effectName);
@@ -37,7 +37,7 @@ public:
 	void PrintShowAllSkillItem(int index, const std::string& skillName, int cost);
 	void PrintShowAllSkillFooter();
 
-	// ÇÃ·¹ÀÌ¾î (Player) ·Î±×
+	// í”Œë ˆì´ì–´ (Player) ë¡œê·¸
 	void PrintPlayerTakeDamage(const std::string& name, int actualDamage, int defense, int currentHp, int maxHp);
 	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp, int hp, int maxHp, int mp, int maxMp, int attack, int defense);
 	void PrintSkillListHeader();
@@ -50,13 +50,13 @@ public:
 	void PrintLevelDown(int level);
 	void PrintAddGold(int gold);
 
-	// ½ºÅ³ (Skill) ·Î±×
+	// ìŠ¤í‚¬ (Skill) ë¡œê·¸
 	void PrintSkillUseBasic(const std::string& casterName, const std::string& targetName, int damage);
 	void PrintSkillOneUse(const std::string& casterName, const std::string& skillName, const std::string& targetName, int damage);
 	void PrintSkillTwoUse(const std::string& casterName, const std::string& skillName, const std::string& targetName, int damage);
 	void PrintSkillMpLack(const std::string& skillName);
 
-	// »óÅÂÀÌ»ó (StatusEffect) ·Î±×
+	// ìƒíƒœì´ìƒ (StatusEffect) ë¡œê·¸
 	void PrintStatusEffectDamage(const std::string& effectName, const std::string& targetName, int damage);
 };
 

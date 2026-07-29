@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 #include "StatusEffect.h"
 #include "Character.h"
@@ -22,17 +22,17 @@ bool StatusEffect::IsExpired() const {
     return turn_ <= 0;
 }
 
-// ÃâÇ÷ ÀÚ½Ä Å¬·¡½º »ý¼ºÀÚ
+// ì¶œí˜ˆ ìžì‹ í´ëž˜ìŠ¤ ìƒì„±ìž
 BleedEffect::BleedEffect(int damage, int turn)
-    : StatusEffect("ÃâÇ÷", damage, turn) {
+    : StatusEffect("ì¶œí˜ˆ", damage, turn) {
 }
 
-// µ¶ ÀÚ½Ä Å¬·¡½º »ý¼ºÀÚ
+// ë… ìžì‹ í´ëž˜ìŠ¤ ìƒì„±ìž
 PoisonEffect::PoisonEffect(int damage, int turn)
-    : StatusEffect("µ¶", damage, turn) {
+    : StatusEffect("ë…", damage, turn) {
 }
 
-// È­»ó ÀÚ½Ä Å¬·¡½º »ý¼ºÀÚ
+// í™”ìƒ ìžì‹ í´ëž˜ìŠ¤ ìƒì„±ìž
 BurnEffect::BurnEffect(int damage, int turn)
-    : StatusEffect("È­»ó", damage, turn) {
+    : StatusEffect("í™”ìƒ", damage, turn) {
 }

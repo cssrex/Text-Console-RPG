@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 #include "Character.h"
 #include "Skill.h"
@@ -35,14 +35,14 @@ void Character::ShowAllSkill() const {
     LogManager::GetInstance().PrintShowAllSkillFooter();
 }
 
-// ±âº» ÇÇ°Ý Ã³¸®
+// ê¸°ë³¸ í”¼ê²© ì²˜ë¦¬
 void Character::TakeDamage(int damage) {
     hp_ -= damage;
     if (hp_ < 0) hp_ = 0;
     LogManager::GetInstance().PrintTakeDamage(name_, damage, hp_, maxHp_);
 }
 
-// Ã¼·Â È¸º¹
+// ì²´ë ¥ íšŒë³µ
 void Character::Heal(int value) {
     hp_ += value;
     if (hp_ > maxHp_) {
@@ -52,19 +52,19 @@ void Character::Heal(int value) {
     LogManager::GetInstance().PrintHeal(name_, value);
 }
 
-// ¸¶³ª ¼Ò¸ð
+// ë§ˆë‚˜ ì†Œëª¨
 void Character::UseMp(int amount) {
     mp_ -= amount;
     if (mp_ < 0) mp_ = 0;
 }
 
-// »óÅÂÀÌ»ó Ãß°¡
+// ìƒíƒœì´ìƒ ì¶”ê°€
 void Character::AddStatusEffect(StatusEffect* effect) {
     LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName());
     statusEffects_.push_back(effect);
 }
 
-// Turn ±â¹Ý »óÅÂÀÌ»ó °»½Å (ÅÏ Á¾·á ½Ã È£Ãâ)
+// Turn ê¸°ë°˜ ìƒíƒœì´ìƒ ê°±ì‹  (í„´ ì¢…ë£Œ ì‹œ í˜¸ì¶œ)
 void Character::UpdateStatusEffects() {
     for (auto it = statusEffects_.begin(); it != statusEffects_.end();) {
         (*it)->ApplyEffect(*this);
@@ -72,7 +72,7 @@ void Character::UpdateStatusEffects() {
         if ((*it)->IsExpired()) {
             LogManager::GetInstance().PrintRemoveStatusEffect(name_, (*it)->GetName());
             delete* it;
-            it = statusEffects_.erase(it); // ÇØÁ¦ Ã³¸®
+            it = statusEffects_.erase(it); // í•´ì œ ì²˜ë¦¬
         }
         else {
             ++it;
