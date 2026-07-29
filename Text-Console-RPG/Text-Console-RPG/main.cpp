@@ -1,10 +1,10 @@
 #include "Global.h"
 #include "GameManager.h"
-
+#include "LogManager.h"
 
 int main()
 {
-	GameManager::GetInstance().StartMenu();
-
+	GameManager::GetInstance().GameLoop();
+	
 	return 0;
 }
