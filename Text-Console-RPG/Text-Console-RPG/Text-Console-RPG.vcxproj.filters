@@ -22,14 +22,23 @@
     <Filter Include="소스 파일\Manager">
       <UniqueIdentifier>{bc6f5084-2d11-4b9e-a122-0ac82ad468fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Monster">
-      <UniqueIdentifier>{bfe89bed-9b70-4be7-a171-9cadf0497cd8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Player">
-      <UniqueIdentifier>{34cb5684-04fb-463b-8872-243da90680e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Workshop">
       <UniqueIdentifier>{b7c7a603-6edf-4508-b033-b1eccfe2d4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Skill">
+      <UniqueIdentifier>{c8c94814-54e0-49fc-b923-b6d30e9b8b85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\StatusEffect">
+      <UniqueIdentifier>{e35d26d1-828b-43bd-bbaa-af2f550149e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Character">
+      <UniqueIdentifier>{807c1098-774d-4c02-b3bd-d5e7c3c72cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Character\Player">
+      <UniqueIdentifier>{34cb5684-04fb-463b-8872-243da90680e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Character\Monster">
+      <UniqueIdentifier>{50d8907b-9ea2-493e-9551-eb8732b90663}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +54,18 @@
     <ClCompile Include="Dungeon\Dungeon.cpp">
       <Filter>소스 파일\Dungeon</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusEffect.cpp">
+      <Filter>소스 파일\StatusEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>소스 파일\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\GameManager.h">
@@ -55,6 +76,18 @@
     </ClInclude>
     <ClInclude Include="Dungeon\Dungeon.h">
       <Filter>소스 파일\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusEffect.h">
+      <Filter>소스 파일\StatusEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>소스 파일\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>소스 파일\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
