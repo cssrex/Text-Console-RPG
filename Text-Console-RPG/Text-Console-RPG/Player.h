@@ -10,6 +10,11 @@ private:
     int gold_;
     int defense_; 
 
+    // 레벨업 시 스텟 증가 수치
+    int hpBonusPerLevel_ = 20;      
+    int attackBonusPerLevel_ = 5;   
+    int defenseBonusPerLevel_ = 2;
+
 public:
     Player(std::string name);
     virtual ~Player() = default;

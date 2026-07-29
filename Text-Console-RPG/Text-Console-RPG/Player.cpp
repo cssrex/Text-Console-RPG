@@ -1,23 +1,13 @@
 ﻿#include <iostream>
 #include <iomanip>
+#include <string.h>
 
 #include "Player.h"
 #include "Skill.h"
 #include "StatusEffect.h"
+#include "LogManager.h"
 
 using namespace std;
-
-static string MakeGaugeBar(int current, int max, int totalBlocks = 20) {
-    if (max <= 0) max = 1;
-    int filledBlocks = (current * totalBlocks) / max;
-    if (filledBlocks > totalBlocks) filledBlocks = totalBlocks;
-    if (filledBlocks < 0) filledBlocks = 0;
-
-    string bar = "";
-    for (int i = 0; i < filledBlocks; ++i) bar += "█";
-    for (int i = 0; i < totalBlocks - filledBlocks; ++i) bar += "░";
-    return bar;
-}
 
 // 초기 스텟 설정
 Player::Player(string name)
@@ -30,47 +20,20 @@ Player::Player(string name)
 }
 
 void Player::PrintStatus() const {
-    int expPercent = (maxExp_ > 0) ? (exp_ * 100 / maxExp_) : 0;
-    string expBar = "";
-    int expBlocks = expPercent / 20;
-    for (int i = 0; i < 5; ++i) {
-        if (i < expBlocks) expBar += "■";
-        else expBar += "□";
-    }
+    LogManager::GetInstance().PrintPlayerStatus(name_, level_, exp_, maxExp_, hp_, maxHp_, mp_, maxMp_, attack_, defense_);
 
-    string hpBar = MakeGaugeBar(hp_, maxHp_, 20);
-    string mpBar = MakeGaugeBar(mp_, maxMp_, 20);
-
-    cout << "==================================================\n";
-    cout << "                 [ 캐릭터 정보 ]                  \n";
-    cout << "==================================================\n";
-    cout << "  이름 : " << left << setw(24) << name_ << "직업 : 모험가\n";
-    cout << "  레벨 : Lv. " << left << setw(22) << level_ << "경험치 : [" << expBar << "] " << expPercent << "%\n";
-    cout << "--------------------------------------------------\n";
-    cout << "  [ 기본 능력치 (Stats) ]\n";
-    cout << "   • HP      : " << hpBar << " " << right << setw(3) << hp_ << " / " << setw(3) << maxHp_ << "\n";
-    cout << "   • MP      : " << mpBar << " " << right << setw(3) << mp_ << " / " << setw(3) << maxMp_ << "\n";
-    cout << "   • Power   : " << attack_ << "\n";
-    cout << "   • Defense : " << defense_ << "\n\n";
-    cout << "  <장비>\n";
-    cout << "   • 무기    : (없음)\n";
-    cout << "   • 방어구  : (없음)\n";
-    cout << "--------------------------------------------------\n";
-    cout << "  [ 보유 스킬 (Skills) ]\n";
-
+    LogManager::GetInstance().PrintSkillListHeader();
     for (size_t i = 0; i < skills_.size(); ++i) {
-        cout << "   [" << i + 1 << "] " << skills_[i]->GetName() << "\n";
-        cout << "       └ (소모 MP: " << skills_[i]->GetCost() << ")\n\n";
+        LogManager::GetInstance().PrintSkillItem(i + 1, skills_[i]->GetName(), skills_[i]->GetCost());
     }
 
     if (!statusEffects_.empty()) {
-        cout << "--------------------------------------------------\n";
-        cout << "  [ 적용 중인 상태이상 ]\n";
+        LogManager::GetInstance().PrintActiveStatusEffectsHeader();
         for (auto effect : statusEffects_) {
-            cout << "   • " << effect->GetName() << " (지속: " << effect->GetTurn() << "턴 남음)\n";
+            LogManager::GetInstance().PrintActiveStatusEffectItem(effect->GetName(), effect->GetTurn());
         }
     }
-    cout << "==================================================\n\n";
+    LogManager::GetInstance().PrintPlayerStatusFooter();
 }
 
 // 피해 계산
@@ -81,14 +44,13 @@ void Player::TakeDamage(int damage) {
     hp_ -= actualDamage;
     if (hp_ < 0) hp_ = 0;
 
-    cout << name_ << "이(가) " << actualDamage << "의 피해를 입었습니다! (방어력 "
-        << defense_ << " 감쇄 / 남은 HP: " << hp_ << " / " << maxHp_ << ")\n";
+    LogManager::GetInstance().PrintPlayerTakeDamage(name_, actualDamage, defense_, hp_, maxHp_);
 }
 
 // 경험치 획득
 void Player::AddExp(int exp) {
     exp_ += exp;
-    cout << exp << " 경험치를 획득했습니다. (현재: " << exp_ << " / " << maxExp_ << ")\n";
+    LogManager::GetInstance().PrintAddExp(exp, exp_, maxExp_);
 
     while (exp_ >= maxExp_) {
         exp_ -= maxExp_;
@@ -98,12 +60,13 @@ void Player::AddExp(int exp) {
 
 // 레벨업
 void Player::LevelUp() {
+    int oldLevel = level_;
     level_++;
     maxExp_ += 25;
 
-    int hpBonus = level_ * 20;
-    int attackBonus = level_ * 5;
-    int defenseBonus = 2;
+    int hpBonus = level_ * hpBonusPerLevel_;
+    int attackBonus = level_ * attackBonusPerLevel_;
+    int defenseBonus = defenseBonusPerLevel_;
 
     maxHp_ += hpBonus;
     maxMp_ += 10;
@@ -113,14 +76,17 @@ void Player::LevelUp() {
     hp_ = maxHp_;
     mp_ = maxMp_;
 
-    cout << "\n★ 레벨 업! (Lv. " << level_ - 1 << " -> Lv. " << level_ << ") ★\n\n";
+    LogManager::GetInstance().PrintLevelUp(oldLevel, level_);
 }
 
 void Player::LevelDown() {
-    if (level_ > 1) level_--;
+    if (level_ > 1) {
+        level_--;
+        LogManager::GetInstance().PrintLevelDown(level_);
+    }
 }
 
 void Player::AddGold(int gold) {
     gold_ += gold;
-    cout << gold << " 골드를 획득했습니다.\n";
+    LogManager::GetInstance().PrintAddGold(gold);
 }
