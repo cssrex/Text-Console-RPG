@@ -5,8 +5,9 @@
 
 GameManager::GameManager()
 {
-	curScene_ = Scene::START;
-	nextScene_ = curScene_;
+	player_ = nullptr;
+	curScene_ = Scene::NONE;
+	nextScene_ = Scene::START;
 }
 
 GameManager::~GameManager()
@@ -24,14 +25,68 @@ void GameManager::StartMenu()
 	string name;
 	cin >> name;
 	InitializePlayer(name);
+	SetNextScene(Scene::MAIN);
 }
 
 void GameManager::ShowMainMenu()
 {
-	
+	LogManager::GetInstance().PrintMainMenu();
+	int num;
+	while (true)
+	{
+		cout << "▶ 번호를 입력해주세요 : ";
+		cin >> num;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << "숫자만 입력 해주세요 !\n";
+			continue;
+		}
+		if (num >= 0 && num < 6)
+			break;
+	}
+
+	switch (num)
+	{
+	case 0:
+	{
+		SetNextScene(Scene::END);
+		break;
+	}
+	case 1:
+	{
+		SetNextScene(Scene::DUNGEON);
+		break;
+	}
+	case 2:
+	{
+		SetNextScene(Scene::STORE);
+		break;
+	}
+	case 3:
+	{
+		SetNextScene(Scene::HOTEL);
+		break;
+	}
+	case 4:
+	{
+		player_->PrintStatus();
+		break;
+	}
+	case 5:
+	{
+		// 인벤토리
+		break;
+	}
+	}
 }
 
 void GameManager::EnterDungeon()
+{
+}
+
+void GameManager::EnterHotel()
 {
 }
 
@@ -61,12 +116,16 @@ void GameManager::ChangeScene()
 	case Scene::DUNGEON:
 		EnterDungeon();
 		break;
-	case Scene::WORKSHOP:
+	case Scene::HOTEL:
+		EnterHotel();
+		break;
+	case Scene::STORE:
 		EnterStore();
 		break;
 	case Scene::END:
 		break;
 	}
+	system("cls");
 }
 
 GameManager& GameManager::GetInstance()
@@ -81,7 +140,7 @@ Player* GameManager::GetPlayer()
 	return player_;
 }
 
-void GameManager::InitializePlayer(const string& name)
+void GameManager::InitializePlayer(string name)
 {
 	player_ = new Player(name);
 }
