@@ -16,8 +16,7 @@ public:
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();
-	void PrintHotel();
-	void PrintStoreMenu();
+	void PrintWorkshopMenu();
 	void PrintDungeonMenu();
 
 public:
