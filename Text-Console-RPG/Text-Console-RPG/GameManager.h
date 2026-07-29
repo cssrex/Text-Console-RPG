@@ -1,4 +1,5 @@
 #pragma once
+#include "Global_Headers.h"
 
 class LogManager;
 
@@ -15,9 +16,9 @@ private:
 
 private:
 	void Update();
-	void Render();
 
 private:
+	void ShowStartMenu();
 	void ShowMainMenu();
 	void EneterDungeon();
 	void EneterWorkshop();
