@@ -18,6 +18,10 @@ void GameManager::Render()
 {
 }
 
+void GameManager::StartMenu()
+{
+}
+
 void GameManager::ShowMainMenu()
 {
 }

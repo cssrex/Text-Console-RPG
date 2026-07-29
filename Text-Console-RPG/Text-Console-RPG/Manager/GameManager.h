@@ -18,6 +18,7 @@ private:
 	void Render();
 
 private:
+	void StartMenu();
 	void ShowMainMenu();
 	void EneterDungeon();
 	void EneterWorkshop();

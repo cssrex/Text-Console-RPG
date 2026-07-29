@@ -11,6 +11,7 @@ private:
 	LogManager& operator=(const LogManager&) = delete;
 
 	void PrintInitializeCharacter();
+	void PrintStartMenu();
 	void PrintMainMenu();
 	void PrintWorkshopMenu();
 	void PrintDungeonMenu();
