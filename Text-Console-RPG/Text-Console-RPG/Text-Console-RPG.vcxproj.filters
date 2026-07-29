@@ -13,24 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Dungeon">
+      <UniqueIdentifier>{d107e39b-6a0e-4a9e-a539-c53b3ea510e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Item">
+      <UniqueIdentifier>{5a719adc-db3f-4a5c-b00f-31522d07a31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager">
+      <UniqueIdentifier>{bc6f5084-2d11-4b9e-a122-0ac82ad468fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Monster">
+      <UniqueIdentifier>{bfe89bed-9b70-4be7-a171-9cadf0497cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Player">
+      <UniqueIdentifier>{34cb5684-04fb-463b-8872-243da90680e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Workshop">
+      <UniqueIdentifier>{b7c7a603-6edf-4508-b033-b1eccfe2d4a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="LogManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\GameManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager\LogManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameManager.h">
-      <Filter>소스 파일</Filter>
+    <ClInclude Include="Manager\GameManager.h">
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="LogManager.h">
-      <Filter>소스 파일</Filter>
+    <ClInclude Include="Manager\LogManager.h">
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
