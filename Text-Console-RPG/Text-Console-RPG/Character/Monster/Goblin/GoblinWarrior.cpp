@@ -1,4 +1,4 @@
-#include "GoblinWarrior.h"
+﻿#include "GoblinWarrior.h"
 #include <iostream>
 
 void GoblinWarrior::Attack(Character& target){

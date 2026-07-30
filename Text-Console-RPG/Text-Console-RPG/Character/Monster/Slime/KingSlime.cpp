@@ -1,16 +1,16 @@
-#include "KingSlime.h"
+ï»¿#include "KingSlime.h"
 #include <iostream>
 
-// ÀÏ¹İ °ø°İ
+// ì¼ë°˜ ê³µê²©
 void KingSlime::Attack(Character& target){
 	target.TakeDamage(attack_);
 }
-// Æ¯¼ö °ø°İ
+// íŠ¹ìˆ˜ ê³µê²©
 void KingSlime::SpecialAttack(Character& target) {
 	target.TakeDamage(attack_);
 }
 
-// Æ¯¼ö °ø°İÀÌ ¹ßµ¿µÉ ·ÎÁ÷
+// íŠ¹ìˆ˜ ê³µê²©ì´ ë°œë™ë  ë¡œì§
 void KingSlime::TakeTurn(Character& target) {
 	turnCount_++;
 

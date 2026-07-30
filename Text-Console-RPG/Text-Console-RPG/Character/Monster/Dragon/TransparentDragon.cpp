@@ -1,16 +1,16 @@
-#include "TransparentDragon.h"
+ï»¿#include "TransparentDragon.h"
 #include <iostream>
 
 void TransparentDragon::Attack(Character& target){
 	target.TakeDamage(attack_);
 }
 
-// Æ¯¼ö °ø°İ
+// íŠ¹ìˆ˜ ê³µê²©
 void TransparentDragon::SpecialAttack(Character& target) {
 	target.TakeDamage(attack_);
 }
 
-// Æ¯¼ö °ø°İÀÌ ¹ßµ¿µÉ ·ÎÁ÷
+// íŠ¹ìˆ˜ ê³µê²©ì´ ë°œë™ë  ë¡œì§
 void TransparentDragon::TakeTurn(Character& target) {
 	turnCount_++;
 

@@ -1,13 +1,13 @@
-#include "Monster.h"
+ï»¿#include "Monster.h"
 #include <iostream>
 
-// ÇÇ°İ ¹× »ç¸Á ·ÎÁ÷
+// í”¼ê²© ë° ì‚¬ë§ ë¡œì§
 void Monster::TakeDamage(int damage){
 
 	Character::TakeDamage(damage);
 	if (IsDead()){
 
-		// ·Î±× Ã³¸®
+		// ë¡œê·¸ ì²˜ë¦¬
 	}
 }
 

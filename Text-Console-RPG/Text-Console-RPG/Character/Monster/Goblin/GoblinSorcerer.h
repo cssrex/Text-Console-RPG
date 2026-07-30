@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Monster.h"
 
@@ -6,16 +6,16 @@ class GoblinSorcerer : public Monster{
 
 public:
 	GoblinSorcerer(int level = 20) : Monster(
-		{
-			"°íºí¸° ÁÖ¼ú»ç",
+		
+			"ê³ ë¸”ë¦° ì£¼ìˆ ì‚¬",
 			level,
 			400,
 			0,
 			100,
-			"ÁÖ¼ú»çÀÇ ÁöÆÎÀÌ",
+			"ì£¼ìˆ ì‚¬ì˜ ì§€íŒ¡ì´",
 			randGold(200, 250),
 			100
-		}
+		
 	) {}
 
 	void Attack(Character& target) override;

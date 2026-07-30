@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Monster.h"
 
 class PoisonSlime : public Monster{
 public:
 	PoisonSlime(int level = 8) : Monster(
-		"µ¶ ½½¶óÀÓ",
+		"ë… ìŠ¬ë¼ì„",
 		level,
 		40,
 		0,
 		5,
-		"½½¶óÀÓ º¼",
+		"ìŠ¬ë¼ì„ ë³¼",
 		randGold(30, 40),
 		35
 	) {}

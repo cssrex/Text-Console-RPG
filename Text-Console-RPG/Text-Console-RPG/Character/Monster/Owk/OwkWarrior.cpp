@@ -1,4 +1,4 @@
-#include "OwkWarrior.h"
+﻿#include "OwkWarrior.h"
 #include <iostream>
 
 void OwkWarrior::Attack(Character& target){

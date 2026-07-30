@@ -1,5 +1,6 @@
-#include "GameManager.h"
+ï»¿#include "GameManager.h"
 #include "LogManager.h"
+#include "Dungeon.h"
 #include "Global.h"
 #include "Player.h"
 
@@ -29,13 +30,13 @@ void GameManager::ShowMainMenu() {
 	LogManager::GetInstance().PrintMainMenu();
 	int num;
 	while (true) {
-		cout << "¢º ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+		cout << "â–¶ ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš” : ";
 		cin >> num;
 		if (cin.fail())
 		{
 			cin.clear();
 			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-			cout << "¼ýÀÚ¸¸ ÀÔ·Â ÇØÁÖ¼¼¿ä !\n";
+			cout << "ìˆ«ìžë§Œ ìž…ë ¥ í•´ì£¼ì„¸ìš” !\n";
 			continue;
 		}
 		if (num >= 0 && num < 6)
@@ -64,13 +65,14 @@ void GameManager::ShowMainMenu() {
 		break;
 	}
 	case 5: {
-		// ÀÎº¥Åä¸®
+		// ì¸ë²¤í† ë¦¬
 		break;
 	}
 	}
 }
 
 void GameManager::EnterDungeon() {
+	Dungeon::GetInstance().StartDungeonLoop(player_);
 }
 
 void GameManager::EnterHotel() {

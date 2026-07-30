@@ -1,15 +1,15 @@
-#include "GoblinSorcerer.h"
+ï»¿#include "GoblinSorcerer.h"
 #include <iostream>
 
 void GoblinSorcerer::Attack(Character& target){
 	target.TakeDamage(attack_);
 }
-// Æ¯¼ö °ø°İ
+// íŠ¹ìˆ˜ ê³µê²©
 void GoblinSorcerer::SpecialAttack(Character& target) {
 	target.TakeDamage(attack_);
 }
 
-// Æ¯¼ö °ø°İÀÌ ¹ßµ¿µÉ ·ÎÁ÷
+// íŠ¹ìˆ˜ ê³µê²©ì´ ë°œë™ë  ë¡œì§
 void GoblinSorcerer::TakeTurn(Character& target) {
 	turnCount_++;
 

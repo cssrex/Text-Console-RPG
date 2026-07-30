@@ -1,16 +1,16 @@
-#include "OwkChief.h"
+ï»¿#include "OwkChief.h"
 #include <iostream>
 
 void OwkChief::Attack(Character& target){
 	target.TakeDamage(attack_);
 }
 
-// Æ¯¼ö °ø°İ
+// íŠ¹ìˆ˜ ê³µê²©
 void OwkChief::SpecialAttack(Character& target) {
 	target.TakeDamage(attack_);
 }
 
-// Æ¯¼ö °ø°İÀÌ ¹ßµ¿µÉ ·ÎÁ÷
+// íŠ¹ìˆ˜ ê³µê²©ì´ ë°œë™ë  ë¡œì§
 void OwkChief::TakeTurn(Character& target) {
 	turnCount_++;
 

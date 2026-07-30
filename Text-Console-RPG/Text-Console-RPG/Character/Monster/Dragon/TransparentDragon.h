@@ -1,20 +1,20 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Monster.h"
 
 class TransparentDragon : public Monster{
 public:
 	TransparentDragon(int level = 40) : Monster(
-		{
-			"Åõ¸í µå·¡°ï",
+		
+			"íˆ¬ëª… ë“œë˜ê³¤",
 			level,
 			2000,
 			0,
 			200,
-			"Çö»ı ±ÍÈ¯±Ç",
+			"í˜„ìƒ ê·€í™˜ê¶Œ",
 			100000000,
 			0
-		}
+		
 	) {}
 
 	void Attack(Character& target) override;

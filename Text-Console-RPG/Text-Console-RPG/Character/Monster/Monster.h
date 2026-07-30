@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Character.h"
 #include <random>
@@ -10,7 +10,7 @@ protected:
 	int dropGold_;
 	int rewardExp_;
 
-	// °ñµå ·£´ı È¹µæ
+	// ê³¨ë“œ ëœë¤ íšë“
 	int randGold(int minGold, int maxGold){
 
 		static std::random_device rd;

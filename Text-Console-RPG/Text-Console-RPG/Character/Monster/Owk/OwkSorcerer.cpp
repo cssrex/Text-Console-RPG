@@ -1,4 +1,4 @@
-#include "OwkSorcerer.h"
+﻿#include "OwkSorcerer.h"
 #include <iostream>
 
 void OwkSorcerer::Attack(Character& target){

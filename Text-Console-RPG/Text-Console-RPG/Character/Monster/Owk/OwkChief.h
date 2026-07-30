@@ -1,20 +1,20 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Monster.h"
 
 class OwkChief : public Monster{
 public:
 	OwkChief(int level = 30) : Monster(
-		{
-			"¿ÀÅ© Á·Àå",
+		
+			"ì˜¤í¬ ì¡±ì¥",
 			level,
 			1000,
 			0,
 			150,
-			"¿ÀÅ© Á·ÀåÀÇ °Å´ëÇÑ ´ë°Ë",
+			"ì˜¤í¬ ì¡±ì¥ì˜ ê±°ëŒ€í•œ ëŒ€ê²€",
 			randGold(300, 350),
 			150
-		}
+		
 	) {}
 
 	void Attack(Character& target) override;

@@ -1,4 +1,4 @@
-#include "Wyvern.h"
+﻿#include "Wyvern.h"
 #include <iostream>
 
 void Wyvern::Attack(Character& target){
