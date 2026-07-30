@@ -5,8 +5,7 @@
 #pragma comment(lib, "winmm.lib")
 
 
-class SoundManager
-{
+class SoundManager {
 private:
 	SoundManager() = default;
 	~SoundManager() = default;

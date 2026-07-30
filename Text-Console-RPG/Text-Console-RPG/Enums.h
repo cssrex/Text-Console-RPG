@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-enum class Scene
-{
+enum class Scene {
 	START,
 	MAIN,
 	DUNGEON,

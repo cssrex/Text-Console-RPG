@@ -1,5 +1,4 @@
-﻿#ifndef PLAYER_H
-#define PLAYER_H
+﻿#pragma once
 
 #include "Character.h"
 
@@ -38,4 +37,3 @@ public:
     void SetDefense(int defense) { defense_ = defense; }
 };
 
-#endif

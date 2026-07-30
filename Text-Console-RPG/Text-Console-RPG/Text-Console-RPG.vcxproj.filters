@@ -66,6 +66,15 @@
     <ClCompile Include="Character\Player\Player.cpp">
       <Filter>소스 파일\Character\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Manager\SoundManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>소스 파일\Workshop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\GameManager.h">
@@ -94,6 +103,18 @@
     </ClInclude>
     <ClInclude Include="Character\Player\Player.h">
       <Filter>소스 파일\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>소스 파일\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>소스 파일\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager\SoundManager.h">
+      <Filter>소스 파일\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>소스 파일\Workshop</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
