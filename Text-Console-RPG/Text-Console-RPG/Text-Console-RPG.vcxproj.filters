@@ -75,48 +75,6 @@
     <ClCompile Include="Character\Character.cpp">
       <Filter>소스 파일\Character</Filter>
     </ClCompile>
-<ClCompile Include="Character\Monster\Monster.cpp">
-      <Filter>소스 파일\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\GreenSlime.cpp">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\HornSlime.cpp">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\PoisonSlime.cpp">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\GoblinWarrior.cpp">
-      <Filter>소스 파일\Character\Monster\Goblin</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\GoblinArcher.cpp">
-      <Filter>소스 파일\Character\Monster\Goblin</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\OwkWarrior.cpp">
-      <Filter>소스 파일\Character\Monster\Owk</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\OwkSorcerer.cpp">
-      <Filter>소스 파일\Character\Monster\Owk</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\Wyvern.cpp">
-      <Filter>소스 파일\Character\Monster\Dragon</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\Drake.cpp">
-      <Filter>소스 파일\Character\Monster\Dragon</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\KingSlime.cpp">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\OwkChief.cpp">
-      <Filter>소스 파일\Character\Monster\Owk</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\GoblinSorcerer.cpp">
-      <Filter>소스 파일\Character\Monster\Goblin</Filter>
-    </ClCompile>
-    <ClCompile Include="Character\Monster\TransparentDragon.cpp">
-      <Filter>소스 파일\Character\Monster\Dragon</Filter>
-    </ClCompile>
     <ClCompile Include="Character\Player\Player.cpp">
       <Filter>소스 파일\Character\Player</Filter>
     </ClCompile>
@@ -128,6 +86,48 @@
     </ClCompile>
     <ClCompile Include="Store.cpp">
       <Filter>소스 파일\Workshop</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Dragon\Drake.cpp">
+      <Filter>소스 파일\Character\Monster\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Dragon\TransparentDragon.cpp">
+      <Filter>소스 파일\Character\Monster\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Dragon\Wyvern.cpp">
+      <Filter>소스 파일\Character\Monster\Dragon</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Goblin\GoblinArcher.cpp">
+      <Filter>소스 파일\Character\Monster\Goblin</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Goblin\GoblinSorcerer.cpp">
+      <Filter>소스 파일\Character\Monster\Goblin</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Goblin\GoblinWarrior.cpp">
+      <Filter>소스 파일\Character\Monster\Goblin</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Owk\OwkChief.cpp">
+      <Filter>소스 파일\Character\Monster\Owk</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Owk\OwkSorcerer.cpp">
+      <Filter>소스 파일\Character\Monster\Owk</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Owk\OwkWarrior.cpp">
+      <Filter>소스 파일\Character\Monster\Owk</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Slime\GreenSlime.cpp">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Slime\HornSlime.cpp">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Slime\KingSlime.cpp">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Slime\PoisonSlime.cpp">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="Character\Monster\Monster.cpp">
+      <Filter>소스 파일\Character\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,47 +170,47 @@
     <ClInclude Include="Store.h">
       <Filter>소스 파일\Workshop</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="Character\Monster\Dragon\Drake.h">
+      <Filter>소스 파일\Character\Monster\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Dragon\TransparentDragon.h">
+      <Filter>소스 파일\Character\Monster\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Dragon\Wyvern.h">
+      <Filter>소스 파일\Character\Monster\Dragon</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Goblin\GoblinArcher.h">
+      <Filter>소스 파일\Character\Monster\Goblin</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Goblin\GoblinSorcerer.h">
+      <Filter>소스 파일\Character\Monster\Goblin</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Goblin\GoblinWarrior.h">
+      <Filter>소스 파일\Character\Monster\Goblin</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Owk\OwkChief.h">
+      <Filter>소스 파일\Character\Monster\Owk</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Owk\OwkSorcerer.h">
+      <Filter>소스 파일\Character\Monster\Owk</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Owk\OwkWarrior.h">
+      <Filter>소스 파일\Character\Monster\Owk</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Slime\GreenSlime.h">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Slime\HornSlime.h">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Slime\KingSlime.h">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Slime\PoisonSlime.h">
+      <Filter>소스 파일\Character\Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\Monster\Monster.h">
       <Filter>소스 파일\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="GreenSlime.h">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClInclude>
-    <ClInclude Include="HornSlime.h">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClInclude>
-    <ClInclude Include="PoisonSlime.h">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClInclude>
-    <ClInclude Include="GoblinWarrior.h">
-      <Filter>소스 파일\Character\Monster\Goblin</Filter>
-    </ClInclude>
-    <ClInclude Include="GoblinArcher.h">
-      <Filter>소스 파일\Character\Monster\Goblin</Filter>
-    </ClInclude>
-    <ClInclude Include="OwkWarrior.h">
-      <Filter>소스 파일\Character\Monster\Owk</Filter>
-    </ClInclude>
-    <ClInclude Include="OwkSorcerer.h">
-      <Filter>소스 파일\Character\Monster\Owk</Filter>
-    </ClInclude>
-    <ClInclude Include="Wyvern.h">
-      <Filter>소스 파일\Character\Monster\Dragon</Filter>
-    </ClInclude>
-    <ClInclude Include="Drake.h">
-      <Filter>소스 파일\Character\Monster\Dragon</Filter>
-    </ClInclude>
-    <ClInclude Include="KingSlime.h">
-      <Filter>소스 파일\Character\Monster\Slime</Filter>
-    </ClInclude>
-    <ClInclude Include="OwkChief.h">
-      <Filter>소스 파일\Character\Monster\Owk</Filter>
-    </ClInclude>
-    <ClInclude Include="GoblinSorcerer.h">
-      <Filter>소스 파일\Character\Monster\Goblin</Filter>
-    </ClInclude>
-    <ClInclude Include="TransparentDragon.h">
-      <Filter>소스 파일\Character\Monster\Dragon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
