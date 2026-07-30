@@ -1,5 +1,4 @@
-﻿#ifndef INVENTORY_H
-#define INVENTORY_H
+﻿#pragma once
 
 #include <iostream>
 #include <vector>
