@@ -39,7 +39,7 @@ void GameManager::ShowMainMenu()
 		if (cin.fail())
 		{
 			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
 			cout << "숫자만 입력 해주세요 !\n";
 			continue;
 		}

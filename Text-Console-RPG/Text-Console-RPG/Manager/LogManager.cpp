@@ -2,7 +2,6 @@
 #include "Global.h"
 #include "GameManager.h"
 #include "Player.h"
-#include <Player.cpp>
 
 LogManager::LogManager()
 {

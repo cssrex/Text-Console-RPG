@@ -4,6 +4,8 @@
 
 int main()
 {
+	SetConsoleOutputCP(CP_UTF8);
+
 	GameManager::GetInstance().GameLoop();
 	
 	return 0;

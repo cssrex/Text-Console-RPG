@@ -12,16 +12,19 @@ private:
 	LogManager(const LogManager&) = delete;
 	LogManager& operator=(const LogManager&) = delete;
 	
-	void PrintInitializeCharacter();
-	void PrintStartMenu();
-	void PrintMainMenu();
-	void PrintWorkshopMenu();
-	void PrintDungeonMenu();
-
 public:
 	static LogManager& GetInstance();
 
 public:
+	// 게임 매니저 관련
+	void PrintInitializeCharacter();
+	void PrintStartMenu();
+	void PrintMainMenu();
+	void PrintHotel();
+	void PrintStoreMenu();
+	void PrintWorkshopMenu();
+	void PrintDungeonMenu();
+
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
 	void PrintHeal(const std::string& name, int value);
