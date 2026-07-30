@@ -144,14 +144,18 @@
     <ClCompile Include="Character\Monster\Slime\PoisonSlime.cpp" />
     <ClCompile Include="Character\Player\Player.cpp" />
     <ClCompile Include="Dungeon\Dungeon.cpp" />
-    <ClCompile Include="Item\Inventory.cpp" />
+    <ClCompile Include="Item\Inventory.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Manager\LogManager.cpp" />
     <ClCompile Include="Manager\SoundManager.cpp" />
     <ClCompile Include="Skill\Skill.cpp" />
     <ClCompile Include="StatusEffect\StatusEffect.cpp" />
-    <ClCompile Include="Workshop\Store.cpp" />
+    <ClCompile Include="Workshop\Store.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character\Character.h" />
@@ -173,14 +177,20 @@
     <ClInclude Include="Dungeon\Dungeon.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="Item\Inventory.h" />
-    <ClInclude Include="Item\Item.h" />
+    <ClInclude Include="Item\Inventory.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Item\Item.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\LogManager.h" />
     <ClInclude Include="Manager\SoundManager.h" />
     <ClInclude Include="Skill\Skill.h" />
     <ClInclude Include="StatusEffect\StatusEffect.h" />
-    <ClInclude Include="Workshop\Store.h" />
+    <ClInclude Include="Workshop\Store.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
