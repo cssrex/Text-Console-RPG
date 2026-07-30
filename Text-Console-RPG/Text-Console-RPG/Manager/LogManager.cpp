@@ -1,7 +1,8 @@
-#include "LogManager.h"
+﻿#include "LogManager.h"
 #include "Global.h"
 #include "GameManager.h"
 #include "Player.h"
+#include <Player.cpp>
 
 LogManager::LogManager()
 {
@@ -38,8 +39,9 @@ void LogManager::PrintStartMenu()
 |                                                                                                                     |
 +====================================================================================================================+
 )";
-	cout << "이름을 입력 해주세요 : ";
+	cout << "▶ 이름을 입력해주세요 : ";
 }
+
 
 void LogManager::PrintMainMenu()
 {
@@ -61,9 +63,9 @@ void LogManager::PrintMainMenu()
 |                                                                                 |
 |                                                                                 |
 |                                                                                 |
-|             1. ���� ����          2. ����             3. ����                   |
+|             1. 던전 입장          2. 상점             3. 여관                   |
 |                                                                                 |
-|             4. �÷��̾� ����      5. �κ��丮         0. ���� ����              |
+|             4. 플레이어 정보      5. 인벤토리         0. 게임 종료              |
 |                                                                                 |
 |                                                                                 |
 |                                                                                 |
@@ -90,8 +92,7 @@ LogManager& LogManager::GetInstance()
 	return instance;
 }
 
-
-// 캐릭터 (Character) 로그
+// 캐릭터 (Character) 관련
 void LogManager::PrintTakeDamage(const string& name, int damage, int currentHp, int maxHp)
 {
 	cout << name << "이(가) " << damage << "의 피해를 입었습니다. (남은 HP: " << currentHp << " / " << maxHp << ")\n";
@@ -136,7 +137,7 @@ void LogManager::PrintShowAllSkillFooter()
 	cout << "===============================\n";
 }
 
-// 플레이어 (Player) 로그
+// 플레이어 (Player) 관련
 static string MakeGaugeBar(int current, int max, int totalBlocks = 20) {
 	if (max <= 0) max = 1;
 	int filledBlocks = (current * totalBlocks) / max;
@@ -229,8 +230,7 @@ void LogManager::PrintAddGold(int gold)
 	cout << gold << " 골드를 획득했습니다.\n";
 }
 
-
-// 스킬 (Skill) 로그
+// 스킬 (Skill) 관련
 void LogManager::PrintSkillUseBasic(const string& casterName, const string& targetName, int damage)
 {
 	cout << casterName << "의 평타! " << targetName << "에게 " << damage << "의 피해를 입혔습니다.\n";
@@ -251,7 +251,7 @@ void LogManager::PrintSkillMpLack(const string& skillName)
 	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n";
 }
 
-// 상태이상 (StatusEffect) 로그
+// 상태이상 (StatusEffect) 관련
 void LogManager::PrintStatusEffectDamage(const string& effectName, const string& targetName, int damage)
 {
 	cout << "[" << effectName << "] 효과 발생! " << targetName << "에게 " << damage << "의 지속 피해를 입깁니다.\n";

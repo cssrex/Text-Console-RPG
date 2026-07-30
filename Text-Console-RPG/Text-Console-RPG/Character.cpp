@@ -64,7 +64,7 @@ void Character::AddStatusEffect(StatusEffect* effect) {
     statusEffects_.push_back(effect);
 }
 
-// Turn 기반 상태이상 갱신 (턴 종료 시 호출)
+// Turn 기반 상태이상 갱신(턴 종료 시 호출)
 void Character::UpdateStatusEffects() {
     for (auto it = statusEffects_.begin(); it != statusEffects_.end();) {
         (*it)->ApplyEffect(*this);
@@ -72,7 +72,7 @@ void Character::UpdateStatusEffects() {
         if ((*it)->IsExpired()) {
             LogManager::GetInstance().PrintRemoveStatusEffect(name_, (*it)->GetName());
             delete* it;
-            it = statusEffects_.erase(it); // 해제 처리
+            it = statusEffects_.erase(it);
         }
         else {
             ++it;
