@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\Character\Monster\Dragon">
       <UniqueIdentifier>{9605a419-9bed-4902-81b6-109103ffed5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\AsciiArt">
+      <UniqueIdentifier>{1a3ae964-6075-4a07-b0bb-c8ec6c6e5a0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -211,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="Item\Item.h">
       <Filter>소스 파일\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="AsciiArt\TownAsciiArt.h">
+      <Filter>소스 파일\AsciiArt</Filter>
+    </ClInclude>
+    <ClInclude Include="AsciiArt\MonsterAsciiArt.h">
+      <Filter>소스 파일\AsciiArt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

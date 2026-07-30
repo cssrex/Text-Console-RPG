@@ -158,6 +158,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsciiArt\MonsterAsciiArt.h" />
+    <ClInclude Include="AsciiArt\TownAsciiArt.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Monster\Dragon\Drake.h" />
     <ClInclude Include="Character\Monster\Dragon\TransparentDragon.h" />
