@@ -31,7 +31,7 @@ public:
     virtual void Heal(int value);
     void UseMp(int amount);
     void HealMp(int amount);
-    bool IsDead() const;
+    bool IsDead() const { return hp_ <= 0; };
 
     // 상태이상 연산
     void AddStatusEffect(StatusEffect* effect);

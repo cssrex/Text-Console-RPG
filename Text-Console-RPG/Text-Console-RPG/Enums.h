@@ -25,8 +25,14 @@ enum class ItemEffectType {
 	HealMP,
 	HealBoth,
 	FullRecovery,
-	Antidote
+	Antidote,
 
 	// 강화
 	EnhanceStone
+};
+
+enum class DayType
+{
+	MORNING,
+	NIGHT
 };

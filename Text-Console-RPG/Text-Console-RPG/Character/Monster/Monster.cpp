@@ -1,31 +1,25 @@
 #include "Monster.h"
 #include <iostream>
-
-// ÇÇ°İ ¹× »ç¸Á ·ÎÁ÷
+// í”¼ê²© ë° ì‚¬ë§ ë¡œì§
 void Monster::TakeDamage(int damage){
-
 	Character::TakeDamage(damage);
 	if (IsDead()){
 		if (RollDropChance())
 		{
-			// ¾ÆÀÌÅÛ È¹µæ
+			// ì•„ì´í…œ íšë“
 		}
-		// ·Î±× Ã³¸®
+		// ë¡œê·¸ ì²˜ë¦¬
 	}
 }
-
-// Æ¯¼ö ½ºÅ³ »ç¿ë ±âÁØ
+// íŠ¹ìˆ˜ ìŠ¤í‚¬ ì‚¬ìš© ê¸°ì¤€
 bool Monster::SpecialAttackTurn() const{
 	return (turnCount_ % 2 == 0);
 }
-
-// ±Ã±Ø±â ½ºÅ³ »ç¿ë ±âÁØ
+// ê¶ê·¹ê¸° ìŠ¤í‚¬ ì‚¬ìš© ê¸°ì¤€
 bool Monster::HyperAttackTurn() const{
 	return (GetHp() <= GetMaxHp() * 0.3f);
 }
-
 void Monster::Attack(Player* player) {
-
 	turnCount_++;
 	if (HyperAttackTurn())
 	{
@@ -40,7 +34,5 @@ void Monster::Attack(Player* player) {
 		BasicAttack(player);
 	}
 }
-
 void Monster::Reward(Player* player) {
-
 }

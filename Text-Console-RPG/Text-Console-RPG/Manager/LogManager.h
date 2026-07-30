@@ -1,7 +1,10 @@
 ﻿#pragma once
 
 #include <string>
+#include <vector>
 
+struct Room;
+class Monster;
 class LogManager {
 private:
 
@@ -15,6 +18,9 @@ public:
 	static LogManager& GetInstance();
 
 public:
+	void ClearScreen();
+	void PrintInpuErrorMessage();
+
 	// 게임 매니저 관련
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
@@ -58,4 +64,8 @@ public:
 
 	// 상태이상 (StatusEffect) 관련
 	void PrintStatusEffectDamage(const std::string& effectName, const std::string& targetName, int damage);
+
+	// 던전 (Dungeon) 관련
+	void PrintDungeonList(const std::vector<std::string>& roomList);
+	void PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster);
 };
