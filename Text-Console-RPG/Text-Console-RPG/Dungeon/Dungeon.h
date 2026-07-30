@@ -1,3 +1,4 @@
+#pragma once
 #include <map>
 #include <vector>
 #include <string>
@@ -5,15 +6,13 @@
 class Player;
 class Monster;
 
-struct Room
-{
+struct Room {
 	std::string name_;
 	int floor_;
 	std::vector<Monster*> monsters_;
 };
 
-class Dungeon
-{
+class Dungeon {
 private:
 	// std::map<Monster, int> killedMonsterList_;
 	std::vector<Room*> rooms_;

@@ -1,5 +1,4 @@
-#ifndef STATUSEFFECT_H
-#define STATUSEFFECT_H
+﻿#pragma once
 
 #include <string>
 
@@ -38,4 +37,3 @@ public:
     BurnEffect(int damage = 20, int turn = 2);
 };
 
-#endif

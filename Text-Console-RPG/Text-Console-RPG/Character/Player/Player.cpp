@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <iomanip>
-#include <string.h>
 
+#include "Character.h"
 #include "Player.h"
 #include "Skill.h"
 #include "StatusEffect.h"
