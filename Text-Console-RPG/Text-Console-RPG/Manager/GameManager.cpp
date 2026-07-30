@@ -8,6 +8,7 @@ GameManager::GameManager()
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
+	days_ = 0;
 }
 
 GameManager::~GameManager()
