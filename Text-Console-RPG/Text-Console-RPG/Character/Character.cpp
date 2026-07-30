@@ -79,3 +79,20 @@ void Character::UpdateStatusEffects() {
         }
     }
 }
+
+// 상태이상 해제
+void Character::ClearStatusEffects() {
+    for (auto effect : statusEffects_)
+    {
+        delete effect;
+    }
+
+    statusEffects_.clear();
+
+    LogManager::GetInstance().PrintRemoveAllStatusEffect(name_);
+}
+
+// 상태이상 여부 검사
+bool HasStatusEffect() const {
+    return !statusEffects_.empty();
+}

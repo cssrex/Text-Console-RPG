@@ -1,5 +1,4 @@
-﻿#ifndef STORE_H
-#define STORE_H
+﻿#pragma once
 
 #include <vector>
 #include "Enums.h"
@@ -26,5 +25,3 @@ public:
     // 아이템 판매
     void SellItem(Player& player, Inventory& inventory);
 };
-
-#endif
