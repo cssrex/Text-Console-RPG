@@ -1,19 +1,22 @@
 #include <map>
 #include <vector>
+#include <string>
 
 class Player;
 class Monster;
 
 struct Room
 {
-	int floor;
-	std::vector<Monster*> monster;
+	std::string name_;
+	int floor_;
+	std::vector<Monster*> monsters_;
 };
 
 class Dungeon
 {
 private:
-	static std::map<Monster, int> killedMonsterList;
+	// std::map<Monster, int> killedMonsterList_;
+	std::vector<Room*> rooms_;
 
 private:
 	Dungeon();
@@ -23,10 +26,10 @@ private:
 
 public:
 	static Dungeon& GetInstance();
-	void Enter(Player& player);
+	void Enter(Player& player, int roomIndex);
 
 private:
 	Monster* CreateMonster(int level);
 	void Battle(Player& player, Monster& monster);
-	void GiveReward(Player& player);
+	void GiveReward(Player& player, Monster& monster);
 };

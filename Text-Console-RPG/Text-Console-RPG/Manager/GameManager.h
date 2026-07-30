@@ -1,33 +1,40 @@
 #pragma once
+#include <string>
+#include "Enums.h"
 
 class LogManager;
+class Player;
 
 class GameManager
 {
 private:
-
-
+	Player* player_;
+	Scene	curScene_;
+	Scene   nextScene_;
+	int		days_;
 private:
 	GameManager();
 	~GameManager();
 	GameManager(const GameManager&) = delete;
 	GameManager& operator=(const GameManager&) = delete;
 
-private:
+public:
 	void Update();
-	void Render();
 
-private:
+public:
 	void StartMenu();
 	void ShowMainMenu();
-	void EneterDungeon();
-	void EneterWorkshop();
+	void EnterDungeon();
+	void EnterHotel();
+	void EnterStore();
+	void SetNextScene(Scene newScene);
+	void ChangeScene();
 
 public:
 	static GameManager& GetInstance();
-
+	Player* GetPlayer();
 public:
-	void InitializePlayer();
+	void InitializePlayer(std::string name);
 	void GameLoop();
 };
 

@@ -1,4 +1,4 @@
-#ifndef PLAYER_H
+ï»¿#ifndef PLAYER_H
 #define PLAYER_H
 
 #include "Character.h"
@@ -10,17 +10,22 @@ private:
     int gold_;
     int defense_; 
 
+    // ë ˆë²¨ì—… ì‹œ ìŠ¤í…Ÿ ì¦ê°€ ìˆ˜ì¹˜
+    int hpBonusPerLevel_ = 20;      
+    int attackBonusPerLevel_ = 5;   
+    int defenseBonusPerLevel_ = 2;
+
 public:
     Player(std::string name);
     virtual ~Player() = default;
 
-    // »óÅÂÃ¢ ¿À¹ö¶óÀÌµù(UI µğÀÚÀÎ ·¹ÀÌ¾Æ¿ô)
+    // ìƒíƒœì°½ ì˜¤ë²„ë¼ì´ë”©(UI ë””ìì¸ ë ˆì´ì•„ì›ƒ)
     void PrintStatus() const override;
 
-    // ÇÇ°İ ·ÎÁ÷ ¿À¹ö¶óÀÌµù
+    // í”¼ê²© ë¡œì§ ì˜¤ë²„ë¼ì´ë”©
     void TakeDamage(int damage) override;
 
-    // ÇÃ·¹ÀÌ¾î Àü¿ë ¸Ş¼­µå
+    // í”Œë ˆì´ì–´ ì „ìš© ë©”ì„œë“œ
     void AddExp(int exp);
     void AddGold(int gold);
     void LevelUp();

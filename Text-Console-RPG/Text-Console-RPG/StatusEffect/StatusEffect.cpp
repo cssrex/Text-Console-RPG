@@ -1,7 +1,8 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 #include "StatusEffect.h"
 #include "Character.h"
+#include "LogManager.h"
 
 using namespace std;
 
@@ -11,8 +12,7 @@ StatusEffect::StatusEffect(const string& name, int damage, int turn)
 
 void StatusEffect::ApplyEffect(Character& target) {
     if (turn_ > 0) {
-        cout << "[" << name_ << "] È¿°ú ¹ß»ý! " << target.GetName()
-            << "¿¡°Ô " << damage_ << "ÀÇ Áö¼Ó ÇÇÇØ¸¦ ÀÔÈü´Ï´Ù.\n";
+        LogManager::GetInstance().PrintStatusEffectDamage(name_, target.GetName(), damage_);
         target.TakeDamage(damage_);
         turn_--;
     }
@@ -22,17 +22,17 @@ bool StatusEffect::IsExpired() const {
     return turn_ <= 0;
 }
 
-// ÃâÇ÷
+// ì¶œí˜ˆ ìžì‹ í´ëž˜ìŠ¤ ìƒì„±ìž
 BleedEffect::BleedEffect(int damage, int turn)
-    : StatusEffect("ÃâÇ÷", damage, turn) {
+    : StatusEffect("ì¶œí˜ˆ", damage, turn) {
 }
 
-// µ¶
+// ë… ìžì‹ í´ëž˜ìŠ¤ ìƒì„±ìž
 PoisonEffect::PoisonEffect(int damage, int turn)
-    : StatusEffect("µ¶", damage, turn) {
+    : StatusEffect("ë…", damage, turn) {
 }
 
-// È­»ó
+// í™”ìƒ ìžì‹ í´ëž˜ìŠ¤ ìƒì„±ìž
 BurnEffect::BurnEffect(int damage, int turn)
-    : StatusEffect("È­»ó", damage, turn) {
+    : StatusEffect("í™”ìƒ", damage, turn) {
 }

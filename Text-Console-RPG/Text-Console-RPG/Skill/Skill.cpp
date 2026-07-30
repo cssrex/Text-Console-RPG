@@ -1,8 +1,9 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 #include "Skill.h"
 #include "Character.h"
 #include "StatusEffect.h"
+#include "LogManager.h"
 
 using namespace std;
 
@@ -21,56 +22,53 @@ bool Skill::CanUse(int currentMp) const {
     return currentMp >= cost_;
 }
 
-// ÆòÅ¸ (ÄÚ½ºÆ® 0, ±âº» µ¥¹ÌÁö)
+// í‰íƒ€ (ì½”ìŠ¤íŠ¸ 0, ê¸°ë³¸ ë°ë¯¸ì§€)
 BasicAttack::BasicAttack()
-    : Skill("ÆòÅ¸", 0, 100, nullptr) {
+    : Skill("í‰íƒ€", 0, 100, nullptr) {
 }
 
 void BasicAttack::Use(Character& caster, Character& target) {
     int damage = (caster.GetAttack() * percent_) / 100;
-    cout << caster.GetName() << "ÀÇ ÆòÅ¸! " << target.GetName()
-        << "¿¡°Ô " << damage << "ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.\n";
+    LogManager::GetInstance().PrintSkillUseBasic(caster.GetName(), target.GetName(), damage);
     target.TakeDamage(damage);
 }
 
-// ½ºÅ³ 1 (MP 15 ¼Ò¸ğ, 150% µ¥¹ÌÁö + ÃâÇ÷ ºÎ¿©)
+// ìŠ¤í‚¬ 1 (MP 15 ì†Œëª¨, 150% ë°ë¯¸ì§€ + ì¶œí˜ˆ ë¶€ì—¬)
 SkillOne::SkillOne()
-    : Skill("°­°İ", 15, 150, new BleedEffect(10, 3)) {
+    : Skill("ê°•ê²©", 15, 150, new BleedEffect(10, 3)) {
 }
 
 void SkillOne::Use(Character& caster, Character& target) {
     if (!CanUse(caster.GetMp())) {
-        cout << "MP°¡ ºÎÁ·ÇÏ¿© " << name_ << " ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù!\n";
+        LogManager::GetInstance().PrintSkillMpLack(name_);
         return;
     }
 
     caster.UseMp(cost_);
     int damage = (caster.GetAttack() * percent_) / 100;
-    cout << caster.GetName() << "ÀÇ " << name_ << "! " << target.GetName()
-        << "¿¡°Ô " << damage << "ÀÇ °­·ÂÇÑ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.\n";
+    LogManager::GetInstance().PrintSkillOneUse(caster.GetName(), name_, target.GetName(), damage);
     target.TakeDamage(damage);
 
-    // »óÅÂÀÌ»ó µ¿Àû ÇÒ´ç
+    // ìƒíƒœì´ìƒ ë™ì  í• ë‹¹
     target.AddStatusEffect(new BleedEffect(10, 3));
 }
 
-// ½ºÅ³ 2 (MP 25 ¼Ò¸ğ, 120% µ¥¹ÌÁö + È­»ó ºÎ¿©)
+// ìŠ¤í‚¬ 2 (MP 25 ì†Œëª¨, 120% ë°ë¯¸ì§€ + í™”ìƒ ë¶€ì—¬)
 SkillTwo::SkillTwo()
-    : Skill("È­¿° º£±â", 25, 120, new BurnEffect(20, 2)) {
+    : Skill("í™”ì—¼ ë² ê¸°", 25, 120, new BurnEffect(20, 2)) {
 }
 
 void SkillTwo::Use(Character& caster, Character& target) {
     if (!CanUse(caster.GetMp())) {
-        cout << "MP°¡ ºÎÁ·ÇÏ¿© " << name_ << " ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù!\n";
+        LogManager::GetInstance().PrintSkillMpLack(name_);
         return;
     }
 
     caster.UseMp(cost_);
     int damage = (caster.GetAttack() * percent_) / 100;
-    cout << caster.GetName() << "ÀÇ " << name_ << "! " << target.GetName()
-        << "¿¡°Ô " << damage << "ÀÇ ÇÇÇØ¸¦ ÀÔÇû½À´Ï´Ù.\n";
+    LogManager::GetInstance().PrintSkillTwoUse(caster.GetName(), name_, target.GetName(), damage);
     target.TakeDamage(damage);
 
-    // »óÅÂÀÌ»ó µ¿Àû ÇÒ´ç
+    // ìƒíƒœì´ìƒ ë™ì  í• ë‹¹
     target.AddStatusEffect(new BurnEffect(20, 2));
 }

@@ -1,10 +1,23 @@
 #include "Dungeon.h"
+#include "LogManager.h"
+#include "Player.h"
+
+Dungeon::Dungeon()
+{
+
+}
 
 Dungeon::~Dungeon()
 {
 }
 
-void Dungeon::Enter(Player& player)
+Dungeon& Dungeon::GetInstance()
+{
+	static Dungeon instance;
+	return instance;
+}
+
+void Dungeon::Enter(Player& player, int roomIndex)
 {
 }
 
@@ -17,6 +30,8 @@ void Dungeon::Battle(Player& player, Monster& monster)
 {
 }
 
-void Dungeon::GiveReward(Player& player)
+void Dungeon::GiveReward(Player& player, Monster& monster)
 {
+	// player.AddExp();
 }
+

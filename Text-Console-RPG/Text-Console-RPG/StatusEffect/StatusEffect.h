@@ -1,4 +1,4 @@
-#ifndef STATUSEFFECT_H
+﻿#ifndef STATUSEFFECT_H
 #define STATUSEFFECT_H
 
 #include <string>
