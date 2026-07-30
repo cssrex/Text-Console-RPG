@@ -6,6 +6,7 @@
 #include "Skill.h"
 #include "StatusEffect.h"
 #include "LogManager.h"
+#include "Inventory.h"
 
 using namespace std;
 
@@ -17,6 +18,8 @@ Player::Player(string name)
     skills_.push_back(new BasicAttack());
     skills_.push_back(new SkillOne());
     skills_.push_back(new SkillTwo());
+
+    inventory = new Inventory{};
 }
 
 void Player::PrintStatus() const {

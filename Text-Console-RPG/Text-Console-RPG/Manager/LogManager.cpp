@@ -88,7 +88,7 @@ LogManager& LogManager::GetInstance() {
 
 void LogManager::ClearScreen()
 {
-	cout << "\x1B[2J\x1B[H";
+	system("cls");
 }
 
 void LogManager::PrintInpuErrorMessage()
@@ -312,7 +312,12 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 {
 	int currentHp = monster->GetHp();
 	int maxHp = monster->GetMaxHp();
-	int fillCount = currentHp / 10;
+
+	int fillCount = 0;
+	if (maxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(currentHp) / maxHp) * 10.0);
+	}
+	
 	if (fillCount > 10) fillCount = 10;
 	if (fillCount < 0) fillCount = 0;
 
@@ -339,9 +344,8 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 	cout << "           • HP    : " << hpBar << " " << currentHp << " / " << maxHp << "\n";
 	cout << "           • Power : " << monster->GetAttack() << "\n";
 	cout << "==================================================\n";
-	cout << "               [ 행동을 선택하세요! ]            \n";
-	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n";
-	cout << "                    0. 도망가기                   \n";
+	cout << "               [ 행동을 선택하세요! ]            \n\n";
+	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n\n";
 	cout << "==================================================\n";
 	cout << "▶ 행동을 선택하세요: ";
 }

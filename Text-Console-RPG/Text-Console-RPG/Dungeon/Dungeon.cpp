@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "LogManager.h"
 #include "Player.h"
+#include "Inventory.h"
 
 #include "GreenSlime.h"
 #include "HornSlime.h"
@@ -135,42 +136,28 @@ void Dungeon::StartDungeonLoop(Player* player) {
 }
 
 void Dungeon::Enter(Player* player, int roomIndex) {
+	Monster* monster = CreateMonster(1);
+
 	while (true)
 	{
-		LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[0], 1, rooms_[0]->monsters_[0]);
+		LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[0], 1, monster);
 
 		int command;
 		std::cin >> command;
 
 		switch (command)
 		{
-		case 0:
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
 		case 1:
-			Enter(player, 1);
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
+			monster->TakeDamage(player->GetAttack());
+			break;
 		case 2:
-			Enter(player, 2);
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
+
+			break;
 		case 3:
-			Enter(player, 3);
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
+			player->GetInventory()->InventoryMenu(*player);
+			break;
 		case 4:
-			if (topCanEnter >= rooms_.size() - 1)
-			{
-				Enter(player, 4);
-				GameManager::GetInstance().SetNextScene(Scene::MAIN);
-				return;
-			}
-			else
-			{
-				LogManager::GetInstance().PrintInpuErrorMessage();
-				break;
-			}
+			
 		default:
 			LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
@@ -204,7 +191,7 @@ void Dungeon::PrintDungeonList() {
 }
 
 Monster* Dungeon::CreateMonster(int level) {
-	return nullptr;
+	return rooms_[0]->monsters_[0];
 }
 
 void Dungeon::Battle(Player* player, Monster& monster) {
