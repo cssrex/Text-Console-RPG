@@ -4,18 +4,24 @@
 
 class Wyvern : public Monster{
 public:
-	Wyvern(int level = 31) : Monster(
+	Wyvern() : Monster(
 		{
 			"와이번",
-			level,
+			31,
 			1000,
 			0,
 			130,
 			"용혈",
-			randGold(200, 220),
-			100
+			RandGold(200, 220),
+			100,
+			80,
+			200
 		}
 	) {}
 
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+
+private:
+	int turnCount_ = 0;
 };

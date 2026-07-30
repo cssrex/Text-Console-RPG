@@ -4,18 +4,24 @@
 
 class GoblinArcher : public Monster{
 public:
-	GoblinArcher(int level = 15) : Monster(
+	GoblinArcher() : Monster(
 		{
 			"고블린 궁수",
-			level,
+			15,
 			200,
 			0,
 			40,
 			"고블린의 허름한 망토",
-			randGold(50, 60),
-			60
+			RandGold(50, 60),
+			60,
+			80,
+			100
 		}
 	) {}
 
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+
+private:
+	int turnCount_ = 0;
 };

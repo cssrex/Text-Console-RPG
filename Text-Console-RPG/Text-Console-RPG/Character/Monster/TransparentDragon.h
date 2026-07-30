@@ -4,22 +4,27 @@
 
 class TransparentDragon : public Monster{
 public:
-	TransparentDragon(int level = 40) : Monster(
+	TransparentDragon() : Monster(
 		{
 			"Åõ¸í µå·¡°ï",
-			level,
+			40,
 			2000,
 			0,
 			200,
 			"Çö»ý ±ÍÈ¯±Ç",
 			100000000,
+			0,
+			100,
 			0
 		}
 	) {}
 
-	void Attack(Character& target) override;
-	void SpecialAttack(Character& target) override;
-	void TakeTurn(Character& target) override;
+	void Attack() override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+	void SpecialAttackTurn(Player* player) override;
+	void HyperAttack(Player* player) override;
+	void HyperAttackTurn(Player* player) override;
 
 private:
 	int turnCount_ = 0;

@@ -4,17 +4,23 @@
 
 class HornSlime : public Monster{
 public:
-	HornSlime(int level = 4) : Monster(
+	HornSlime() : Monster(
 		"가시 슬라임",
-		level,
+		4,
 		30,
 		0,
 		5,
 		"슬라임 볼",
-		randGold(20, 30),
-		30
+		RandGold(20, 30),
+		30,
+		80,
+		90
 	) {}
 
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+
+private:
+	int turnCount_ = 0;
 
 };

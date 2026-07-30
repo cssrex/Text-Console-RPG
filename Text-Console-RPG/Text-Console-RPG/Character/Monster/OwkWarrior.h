@@ -4,18 +4,24 @@
 
 class OwkWarrior : public Monster{
 public:
-	OwkWarrior(int level = 21) : Monster(
+	OwkWarrior() : Monster(
 		{
 			"오크 전사",
-			level,
+			21,
 			600,
 			0,
 			50,
 			"오크의 어금니",
-			randGold(100, 120),
-			50
+			RandGold(100, 120),
+			50,
+			70,
+			200
 		}
 	) {}
 
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+
+private:
+	int turnCount_ = 0;
 };

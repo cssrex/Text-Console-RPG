@@ -4,16 +4,22 @@
 
 class PoisonSlime : public Monster{
 public:
-	PoisonSlime(int level = 8) : Monster(
+	PoisonSlime() : Monster(
 		"독 슬라임",
-		level,
+		8,
 		40,
 		0,
 		5,
 		"슬라임 볼",
-		randGold(30, 40),
-		35
+		RandGold(30, 40),
+		35,
+		90,
+		90
 	) {}
 
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+
+private:
+	int turnCount_ = 0;
 };

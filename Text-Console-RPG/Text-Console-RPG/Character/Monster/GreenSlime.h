@@ -4,16 +4,22 @@
 
 class GreenSlime : public Monster{
 public:
-	GreenSlime(int level = 1) : Monster(
+	GreenSlime() : Monster(
 		"초록 슬라임",
-		level,
+		1,
 		20,
 		0,
 		5,
 		"슬라임 볼",
-		randGold(10, 20),
-		25
+		RandGold(10, 20),
+		25,
+		70,
+		90
 		) {}
 	
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+
+private:
+	int turnCount_ = 0;
 };

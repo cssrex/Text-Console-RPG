@@ -1,24 +1,17 @@
 #include "GoblinSorcerer.h"
 #include <iostream>
 
-void GoblinSorcerer::Attack(Character& target){
-	target.TakeDamage(attack_);
+// 기본 공격
+void GoblinSorcerer::BasicAttack(Player* player) {
+	player->TakeDamage(attack_);
 }
+
 // 특수 공격
-void GoblinSorcerer::SpecialAttack(Character& target) {
-	target.TakeDamage(attack_);
+void GoblinSorcerer::SpecialAttack(Player* player) {
+	player->TakeDamage(attack_ * 2);
 }
 
-// 특수 공격이 발동될 로직
-void GoblinSorcerer::TakeTurn(Character& target) {
-	turnCount_++;
-
-	if (turnCount_ % 3 == 0)
-	{
-		SpecialAttack(target);
-	}
-	else
-	{
-		Attack(target);
-	}
+// 궁극기 공격
+void GoblinSorcerer::HyperAttack(Player* player) {
+	player->TakeDamage(attack_ * 3);
 }
