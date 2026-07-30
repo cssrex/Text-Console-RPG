@@ -126,24 +126,52 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Drake.cpp" />
     <ClCompile Include="Dungeon\Dungeon.cpp" />
+    <ClCompile Include="GoblinArcher.cpp" />
+    <ClCompile Include="GoblinSorcerer.cpp" />
+    <ClCompile Include="GoblinWarrior.cpp" />
+    <ClCompile Include="GreenSlime.cpp" />
+    <ClCompile Include="HornSlime.cpp" />
+    <ClCompile Include="KingSlime.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Manager\LogManager.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="OwkChief.cpp" />
+    <ClCompile Include="OwkSorcerer.cpp" />
+    <ClCompile Include="OwkWarrior.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PoisonSlime.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="StatusEffect.cpp" />
+    <ClCompile Include="TransparentDragon.cpp" />
+    <ClCompile Include="Wyvern.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Drake.h" />
     <ClInclude Include="Dungeon\Dungeon.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="GoblinArcher.h" />
+    <ClInclude Include="GoblinSorcerer.h" />
+    <ClInclude Include="GoblinWarrior.h" />
+    <ClInclude Include="GreenSlime.h" />
+    <ClInclude Include="HornSlime.h" />
+    <ClInclude Include="KingSlime.h" />
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\LogManager.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="OwkChief.h" />
+    <ClInclude Include="OwkSorcerer.h" />
+    <ClInclude Include="OwkWarrior.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PoisonSlime.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="StatusEffect.h" />
+    <ClInclude Include="TransparentDragon.h" />
+    <ClInclude Include="Wyvern.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
