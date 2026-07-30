@@ -81,12 +81,6 @@
     <ClCompile Include="Manager\SoundManager.cpp">
       <Filter>소스 파일\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>소스 파일\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Store.cpp">
-      <Filter>소스 파일\Workshop</Filter>
-    </ClCompile>
     <ClCompile Include="Character\Monster\Dragon\Drake.cpp">
       <Filter>소스 파일\Character\Monster\Dragon</Filter>
     </ClCompile>
@@ -129,6 +123,12 @@
     <ClCompile Include="Character\Monster\Monster.cpp">
       <Filter>소스 파일\Character\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="Workshop\Store.cpp">
+      <Filter>소스 파일\Workshop</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Inventory.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\GameManager.h">
@@ -158,17 +158,8 @@
     <ClInclude Include="Character\Player\Player.h">
       <Filter>소스 파일\Character\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>소스 파일\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>소스 파일\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Manager\SoundManager.h">
       <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Store.h">
-      <Filter>소스 파일\Workshop</Filter>
     </ClInclude>
     <ClInclude Include="Character\Monster\Dragon\Drake.h">
       <Filter>소스 파일\Character\Monster\Dragon</Filter>
@@ -211,6 +202,15 @@
     </ClInclude>
     <ClInclude Include="Character\Monster\Monster.h">
       <Filter>소스 파일\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Workshop\Store.h">
+      <Filter>소스 파일\Workshop</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Inventory.h">
+      <Filter>소스 파일\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Item.h">
+      <Filter>소스 파일\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
