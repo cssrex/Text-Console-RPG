@@ -1,5 +1,4 @@
-﻿#ifndef CHARACTER_H
-#define CHARACTER_H
+﻿#pragma once
 
 #include <string>
 #include <vector>

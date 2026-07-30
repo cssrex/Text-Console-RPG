@@ -2,8 +2,7 @@
 
 #include <string>
 
-class LogManager
-{
+class LogManager {
 private:
 
 private:
