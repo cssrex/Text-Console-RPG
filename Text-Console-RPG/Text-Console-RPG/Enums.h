@@ -25,6 +25,7 @@ enum class ItemEffectType {
 	HealMP,
 	HealBoth,
 	FullRecovery,
+	Antidote
 
 	// 강화
 	EnhanceStone

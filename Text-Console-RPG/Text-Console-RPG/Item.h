@@ -10,6 +10,6 @@
 	ItemEffectType itemEffectType_ = ItemEffectType::None;
 
 	// 장비
-	int powerValue_ = 0;
+	int attackValue_ = 0;
 	int defenseValue_ = 0;
 };

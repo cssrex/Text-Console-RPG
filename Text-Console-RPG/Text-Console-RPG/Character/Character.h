@@ -37,6 +37,9 @@ public:
     void AddStatusEffect(StatusEffect* effect);
     void UpdateStatusEffects();
 
+    bool HasStatusEffect() const;
+    void ClearStatusEffects();
+
     std::string GetName() const { return name_; }
     int GetLevel() const { return level_; }
     int GetHp() const { return hp_; }
@@ -50,5 +53,3 @@ public:
     void SetMp(int mp) { mp_ = mp; }
     void SetAttack(int attack) { attack_ = attack; }
 };
-
-#endif

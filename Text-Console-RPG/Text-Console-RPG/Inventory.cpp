@@ -204,8 +204,8 @@ int Inventory::SelectLoot() {
 void Inventory::EquipmentMenu(Player& player, int index) {
 	if (index < 0 || index >= static_cast<int>(inventory_.size())) return;
 
-	bool equipped = IsEquipped(item);
 	const Item& item = inventory_[index];
+	bool equipped = IsEquipped(item);
 	cout << endl << "[" << item.name_ << "]" << endl;
 
 	if (equipped) {
@@ -282,7 +282,7 @@ void Inventory::UseConsumable(Player& player, int index) {
 
 		int beforeHp = player.getHp();
 
-		player.setHp(min(player.getHp() + item.effectValue_,player.getMaxHp()));
+		player.setHp(min(player.getHp() + item.effectValue_, player.getMaxHp()));
 
 		cout << item.name_ << " 사용 HP " << player.getHp() - beforeHp << " 회복 (" << beforeHp << " -> " << player.getHp() << ")" << endl << endl;
 
@@ -307,7 +307,7 @@ void Inventory::UseConsumable(Player& player, int index) {
 
 
 	case ItemEffectType::HealBoth: {
-		if (player.getHp() >= player.getMaxHp()	&& player.getMp() >= player.getMaxMp()) {
+		if (player.getHp() >= player.getMaxHp() && player.getMp() >= player.getMaxMp()) {
 			cout << "HP와 MP가 이미 최대치입니다."
 				<< endl << endl;
 			return;
@@ -343,15 +343,28 @@ void Inventory::UseConsumable(Player& player, int index) {
 		break;
 	}
 
+	case ItemEffectType::Antidote: {
+		if (player.HasStatusEffect()) {
+			player.ClearStatusEffects();
+			cout << "상태이상이 해제되었습니다.";
+		}
+		else {
+			cout << "해제할 상태이상이 없습니다.";
+		}
+
+		break;
+	}
+	}
+
 	default:
 		cout << "사용할 수 없는 아이템입니다." << endl << endl;
 		return;
-	}
+}
 
 	// 사용 성공
 	item.count_--;
-	if (item.count_ == 0)
-	{
+
+	if (item.count_ == 0) {
 		inventory_.erase(inventory_.begin() + index);
 	}
 }
@@ -380,7 +393,7 @@ void Inventory::WearEquipment(Player& player, int index) {
 
 	// 능력치 증가
 	if (item.itemType_ == ItemType::Weapon) {
-		player.SetPower(player.GetPower() + item.powerValue_);
+		player.SetAttack(player.GetAttack() + item.attackValue_);
 	}
 	else if (item.itemType_ == ItemType::Armor) {
 		player.SetDefense(player.GetDefense() + item.defenseValue_);
@@ -399,7 +412,7 @@ void Inventory::TakeOffEquipment(Player& player, int index) {
 
 	// 능력치 감소
 	if (item.itemType_ == ItemType::Weapon) {
-		player.SetPower(player.GetPower() - item.powerValue_);
+		player.SetAttack(player.GetAttack() - item.attackValue_);
 	}
 	else if (item.itemType_ == ItemType::Armor){
 		player.SetDefense(player.GetDefense() - item.defenseValue_);
