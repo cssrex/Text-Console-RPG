@@ -8,7 +8,7 @@ enum class Scene
 	HOTEL,
 	STORE,
 	END,
-	NONE
+	NONE,
 };
 
 enum class ItemType {
