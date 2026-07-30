@@ -7,10 +7,11 @@ class Player;
 
 class GameManager {
 private:
-	Player* player_;
-	Scene	curScene_;
-	Scene   nextScene_;
-	int		days_;
+	Player*		player_;
+	Scene		curScene_;
+	Scene		nextScene_;
+	int			dDays_;
+	DayType		dayType_;
 private:
 	GameManager();
 	~GameManager();
@@ -19,6 +20,14 @@ private:
 
 public:
 	void Update();
+
+public:
+	void ChangeDayType();
+	DayType GetDayType();
+	int GetDays();
+	bool EndDay();
+private :
+	void SubDays();
 
 public:
 	void StartMenu();
