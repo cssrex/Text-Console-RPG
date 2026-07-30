@@ -23,49 +23,41 @@
 
 #include <vector>
 #include <iostream>
+#include <random>
 
 Dungeon::Dungeon() {
 	// 슬라임 던전
 	Room* slimeRoom = new Room{ "슬라임 던전", 3 };
 
-	Monster* greenSlime = new GreenSlime;
-	Monster* hornSlime = new HornSlime;
-	Monster* poisonSlime = new PoisonSlime;
-	slimeRoom->monsters_.push_back(greenSlime);
-	slimeRoom->monsters_.push_back(hornSlime);
-	slimeRoom->monsters_.push_back(poisonSlime);
+	slimeRoom->monsterFactories_.push_back([]() { return new GreenSlime(); });
+	slimeRoom->monsterFactories_.push_back([]() { return new HornSlime(); });
+	slimeRoom->monsterFactories_.push_back([]() { return new PoisonSlime(); });
 
-	slimeRoom->boss_ = new KingSlime;
+	slimeRoom->bossFactory_ = []() { return new KingSlime(); };
 
 	// 고블린 던전
 	Room* goblinRoom = new Room{ "고블린 던전", 3 };
 
-	Monster* goblinWarrior = new GoblinWarrior;
-	Monster* goblinArcher = new GoblinArcher;
-	goblinRoom->monsters_.push_back(goblinWarrior);
-	goblinRoom->monsters_.push_back(goblinArcher);
+	goblinRoom->monsterFactories_.push_back([]() { return new GoblinWarrior(); });
+	goblinRoom->monsterFactories_.push_back([]() { return new GoblinArcher(); });
 
-	goblinRoom->boss_ = new GoblinSorcerer;
+	goblinRoom->bossFactory_ = []() { return new GoblinSorcerer(); };
 
 	// 오크 던전
 	Room* orcRoom = new Room{ "오크 던전", 3 };
 
-	Monster* orcWarrior = new OwkWarrior;
-	Monster* orcSorcerer = new OwkSorcerer;
-	orcRoom->monsters_.push_back(orcWarrior);
-	orcRoom->monsters_.push_back(orcSorcerer);
-
-	orcRoom->boss_ = new OwkChief;
+	orcRoom->monsterFactories_.push_back([]() { return new OwkWarrior(); });
+	orcRoom->monsterFactories_.push_back([]() { return new OwkSorcerer(); });
+	
+	orcRoom->bossFactory_ = []() { return new OwkChief(); };
 
 	// 드래곤 던전
 	Room* dragonRoom = new Room{ "드래곤 던전", 3 };
 
-	Monster* wyvern = new Wyvern;
-	Monster* drake = new Drake;
-	dragonRoom->monsters_.push_back(wyvern);
-	dragonRoom->monsters_.push_back(drake);
-
-	dragonRoom->boss_ = new TransparentDragon;
+	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
+	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
+	
+	dragonRoom->bossFactory_ = []() { return new TransparentDragon(); };
 
 	rooms_.push_back(slimeRoom);
 	rooms_.push_back(goblinRoom);
@@ -76,18 +68,8 @@ Dungeon::Dungeon() {
 Dungeon::~Dungeon() {
 	for (Room* room : rooms_)
 	{
-		for (Monster* monster : room->monsters_)
-		{
-			delete monster;
-		}
-		delete room->boss_;
 		delete room;
 	}
-}
-
-Dungeon& Dungeon::GetInstance() {
-	static Dungeon instance;
-	return instance;
 }
 
 void Dungeon::StartDungeonLoop(Player* player) {
@@ -98,35 +80,34 @@ void Dungeon::StartDungeonLoop(Player* player) {
 		int command;
 		std::cin >> command;
 
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(1000, '\n');
+			LogManager::GetInstance().PrintInpuErrorMessage();
+			system("pause");
+			continue;
+		}
+
 		switch (command)
 		{
 		case 0:
 			GameManager::GetInstance().SetNextScene(Scene::MAIN);
 			return;
 		case 1:
-			Enter(player, 1);
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
+			Enter(player, 0);
 			return;
 		case 2:
-			Enter(player, 2);
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
+			if (topCanEnter >= 1) Enter(player, 1);
+			else LogManager::GetInstance().PrintInpuErrorMessage();
+			break;
 		case 3:
-			Enter(player, 3);
-			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
+			if (topCanEnter >= 2) Enter(player, 2);
+			else LogManager::GetInstance().PrintInpuErrorMessage();
+			break;
 		case 4:
-			if (topCanEnter >= rooms_.size() - 1)
-			{
-				Enter(player, 4);
-				GameManager::GetInstance().SetNextScene(Scene::MAIN);
-				return;
-			}
-			else
-			{
-				LogManager::GetInstance().PrintInpuErrorMessage();
-				break;
-			}
+			if (topCanEnter >= 3) Enter(player, 3);
+			else LogManager::GetInstance().PrintInpuErrorMessage();
+			break;
 		default:	
 			LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
@@ -135,15 +116,94 @@ void Dungeon::StartDungeonLoop(Player* player) {
 	}
 }
 
+Monster* Dungeon::CreateMonster(int roomIndex, int level) {
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+
+	auto& factories = rooms_[roomIndex]->monsterFactories_;
+	std::uniform_int_distribution<int> dis(0, factories.size() - 1);
+
+	return factories[dis(gen)]();
+}
+
 void Dungeon::Enter(Player* player, int roomIndex) {
-	Monster* monster = CreateMonster(1);
+	int floor = 1;
+	int command;
+
+	while(true)
+	{
+		bool isWon = Battle(player, roomIndex, floor);
+
+		// 패배한 경우 : 이전 메뉴로
+		if (!isWon) return;
+
+		// 보스층 클리어한 경우
+		if (floor >= rooms_[roomIndex]->floor_) {
+			// 축하 메시지
+
+			if (topCanEnter == roomIndex && topCanEnter < (rooms_.size()) - 1) {
+				topCanEnter++;
+			}
+			system("pause");
+			return;
+		}
+
+		while (true)
+		{
+			LogManager::GetInstance().PrintDungeonProgressOption(rooms_[roomIndex], floor);
+			bool isRightCommand = true;
+			cin >> command;
+
+			if (std::cin.fail()) {
+				std::cin.clear();
+				std::cin.ignore(1000, '\n');
+				LogManager::GetInstance().PrintInpuErrorMessage();
+				system("pause");
+				continue;
+			}
+
+			if (command == 0) return; // 던전 떠나기
+			if (command == 1) break;  // 현재 층 재도전
+			if (command == 2) {       // 다음 층으로
+				floor++;
+				break;
+			}
+			LogManager::GetInstance().PrintInpuErrorMessage();
+		}
+		
+	}
+	
+	return;
+}
+
+bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
+	Room* currentRoom = rooms_[roomIndex];
+	Monster* monster = nullptr;
+
+	if (floor >= currentRoom->floor_) {
+		monster = currentRoom->bossFactory_();
+	}
+	else {
+		monster = CreateMonster(roomIndex, 1);
+	}
+
+	bool playerWon = false;
 
 	while (true)
 	{
-		LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[0], 1, monster);
+		LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, monster);
 
+		// 플레이어가 몬스터 때리기
 		int command;
 		std::cin >> command;
+
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(1000, '\n');
+			LogManager::GetInstance().PrintInpuErrorMessage();
+			system("pause");
+			continue;
+		}
 
 		switch (command)
 		{
@@ -154,22 +214,39 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 			break;
 		case 3:
-			player->GetInventory()->InventoryMenu(*player);
+			// player->GetInventory()->InventoryMenu(*player);
 			break;
 		case 4:
-			
+
 		default:
 			LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
 		}
 
+		if (monster->IsDead())
+		{
+			/*
+				승리 메시지 띄우고 잠깐 기다렸다가 끝내기
+			*/
+			GiveReward(player, monster);
+			playerWon = true;
+			break;
+		}
+
+		// 몬스터가 플레이어 때리기
+		// player->TakeDamage(monster->GetAttack());
+		//
+
+		if (player->IsDead())
+		{
+			GameManager::GetInstance().SetNextScene(Scene::END);
+			playerWon = false;
+			break;
+		}
 	}
-	
 
-
-
-
-	return;
+	delete monster;
+	return playerWon;
 }
 
 void Dungeon::PrintDungeonList() {
@@ -190,14 +267,11 @@ void Dungeon::PrintDungeonList() {
 
 }
 
-Monster* Dungeon::CreateMonster(int level) {
-	return rooms_[0]->monsters_[0];
-}
 
-void Dungeon::Battle(Player* player, Monster& monster) {
-}
 
-void Dungeon::GiveReward(Player* player, Monster& monster) {
+
+
+void Dungeon::GiveReward(Player* player, Monster* monster) {
 	// player.AddExp();
 }
 

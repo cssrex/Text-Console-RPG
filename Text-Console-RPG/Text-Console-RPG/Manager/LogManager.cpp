@@ -331,7 +331,7 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 
 	ClearScreen();
 	cout << "==================================================\n";
-	cout << "	       [ " << room->name_ << "(" << floor << "층) ]\n";
+	cout << "	       [ " << room->name_ << " (" << floor << "층) ]\n";
 	cout << "==================================================\n";
 	cout << "     이름 : " << monster->GetName() << "\t\t   레벨 : Lv. " << monster->GetLevel() << "\n\n\n";
 
@@ -346,6 +346,19 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 	cout << "==================================================\n";
 	cout << "               [ 행동을 선택하세요! ]            \n\n";
 	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n\n";
+	cout << "==================================================\n";
+	cout << "▶ 행동을 선택하세요: ";
+}
+
+void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
+{
+	ClearScreen();
+	cout << room->name_ << " " << floor << "층 클리어!\n";
+	cout << "==================================================\n";
+	cout << "               [ 행동을 선택하세요! ]            \n\n";
+	cout << "  1. 현재 층 재도전\n";
+	cout << "  2. 다음 층으로\n";
+	cout << "  0. 던전 떠나기\n";
 	cout << "==================================================\n";
 	cout << "▶ 행동을 선택하세요: ";
 }
