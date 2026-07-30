@@ -22,7 +22,6 @@ public:
 	void PrintMainMenu();
 	void PrintHotel();
 	void PrintStoreMenu();
-	void PrintWorkshopMenu();
 	void PrintDungeonMenu();
 
 	// 캐릭터 (Character) 관련
