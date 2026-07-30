@@ -1,18 +1,15 @@
-#include "LogManager.h"
+﻿#include "LogManager.h"
 #include "Global.h"
 #include "GameManager.h"
 #include "Player.h"
 
-LogManager::LogManager()
-{
+LogManager::LogManager() {
 }
 
-LogManager::~LogManager()
-{
+LogManager::~LogManager() {
 }
 
-void LogManager::PrintInitializeCharacter()
-{
+void LogManager::PrintInitializeCharacter() {
 }
 
 void LogManager::PrintStartMenu()
@@ -38,52 +35,73 @@ void LogManager::PrintStartMenu()
 |                                                                                                                     |
 +====================================================================================================================+
 )";
-	cout << "�� �̸��� �Է����ּ��� : ";
+	cout << "▶ 이름을 입력해주세요 : ";
 }
 
-void LogManager::PrintMainMenu()
-{
+
+void LogManager::PrintMainMenu() {
+	cout << R"(
++=================================================================================+
+|                                                                                 |
+|                                                                                 |
+|                                                                                 |
+|              _______ ______  __  __ _______     _____  _____   _____            |
+|             |__   __|  ____| \ \/ /|__   __|   |  __ \|  __ \ / ____|           |
+|                | |  | |__     \  /    | |      | |__) | |__) | |  __            |
+|                | |  |  __|    /  \    | |      |  _  /|  ___/| | |_ |           |
+|                | |  | |____  / /\ \   | |      | | \ \| |    | |__| |           |
+|                |_|  |______|/_/  \_\  |_|      |_|  \_\_|     \_____|           |
+|                                                                                 |
+|                                                                                 |
+|                                                                                 |
+|---------------------------------------------------------------------------------|
+|                                                                                 |
+|                                                                                 |
+|                                                                                 |
+|             1. 던전 입장          2. 상점             3. 여관                   |
+|                                                                                 |
+|             4. 플레이어 정보      5. 인벤토리         0. 게임 종료              |
+|                                                                                 |
+|                                                                                 |
+|                                                                                 |
++=================================================================================+
+)";
 }
 
-void LogManager::PrintWorkshopMenu()
-{
+void LogManager::PrintHotel() {
+
 }
 
-void LogManager::PrintDungeonMenu()
-{
+void LogManager::PrintStoreMenu() {
 }
 
-LogManager& LogManager::GetInstance()
-{
+void LogManager::PrintDungeonMenu() {
+}
+
+LogManager& LogManager::GetInstance() {
 	static LogManager instance;
 
 	return instance;
 }
 
-
-// 캐릭터 (Character) 로그
-void LogManager::PrintTakeDamage(const string& name, int damage, int currentHp, int maxHp)
-{
+// 캐릭터 (Character) 관련
+void LogManager::PrintTakeDamage(const string& name, int damage, int currentHp, int maxHp) {
 	cout << name << "이(가) " << damage << "의 피해를 입었습니다. (남은 HP: " << currentHp << " / " << maxHp << ")\n";
 }
 
-void LogManager::PrintHeal(const string& name, int value)
-{
+void LogManager::PrintHeal(const string& name, int value) {
 	cout << name << "의 체력이 " << value << "만큼 회복되었습니다.\n";
 }
 
-void LogManager::PrintAddStatusEffect(const string& name, const string& effectName)
-{
+void LogManager::PrintAddStatusEffect(const string& name, const string& effectName) {
 	cout << name << "에게 [" << effectName << "] 상태이상이 부여되었습니다!\n";
 }
 
-void LogManager::PrintRemoveStatusEffect(const string& name, const string& effectName)
-{
+void LogManager::PrintRemoveStatusEffect(const string& name, const string& effectName) {
 	cout << name << "의 [" << effectName << "] 상태이상이 해제되었습니다.\n";
 }
 
-void LogManager::PrintCharacterStatus(const string& name, int level, int hp, int maxHp, int mp, int maxMp, int attack)
-{
+void LogManager::PrintCharacterStatus(const string& name, int level, int hp, int maxHp, int mp, int maxMp, int attack) {
 	cout << "-----------------------------------------------\n";
 	cout << "이름: " << name << " | Lv." << level << "\n";
 	cout << "HP: " << hp << " / " << maxHp << " | MP: " << mp << " / " << maxMp << "\n";
@@ -91,22 +109,19 @@ void LogManager::PrintCharacterStatus(const string& name, int level, int hp, int
 	cout << "-----------------------------------------------\n";
 }
 
-void LogManager::PrintShowAllSkillHeader(const string& name)
-{
+void LogManager::PrintShowAllSkillHeader(const string& name) {
 	cout << "=== " << name << "의 보유 스킬 목록 ===\n";
 }
 
-void LogManager::PrintShowAllSkillItem(int index, const string& skillName, int cost)
-{
+void LogManager::PrintShowAllSkillItem(int index, const string& skillName, int cost) {
 	cout << "[" << index << "] " << skillName << " (소모 MP: " << cost << ")\n";
 }
 
-void LogManager::PrintShowAllSkillFooter()
-{
+void LogManager::PrintShowAllSkillFooter() {
 	cout << "===============================\n";
 }
 
-// 플레이어 (Player) 로그
+// 플레이어 (Player) 관련
 static string MakeGaugeBar(int current, int max, int totalBlocks = 20) {
 	if (max <= 0) max = 1;
 	int filledBlocks = (current * totalBlocks) / max;
@@ -119,16 +134,14 @@ static string MakeGaugeBar(int current, int max, int totalBlocks = 20) {
 	return bar;
 }
 
-void LogManager::PrintPlayerTakeDamage(const string& name, int actualDamage, int defense, int currentHp, int maxHp)
-{
+void LogManager::PrintPlayerTakeDamage(const string& name, int actualDamage, int defense, int currentHp, int maxHp) {
 	cout << name << "이(가) " << actualDamage << "의 피해를 입었습니다! (방어력 "
 		<< defense << " 감쇄 / 남은 HP: " << currentHp << " / " << maxHp << ")\n";
 }
 
 void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int maxExp,
 	int hp, int maxHp, int mp, int maxMp,
-	int attack, int defense)
-{
+	int attack, int defense) {
 	int expPercent = (maxExp > 0) ? (exp * 100 / maxExp) : 0;
 	string expBar = "";
 	int expBlocks = expPercent / 20;
@@ -157,72 +170,58 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 }
 
 void LogManager::PrintSkillListHeader() { cout << "  [ 보유 스킬 (Skills) ]\n"; }
-void LogManager::PrintSkillItem(int index, const string& skillName, int cost)
-{
+void LogManager::PrintSkillItem(int index, const string& skillName, int cost) {
 	cout << "   [" << index << "] " << skillName << "\n";
 	cout << "       └ (소모 MP: " << cost << ")\n\n";
 }
 
-void LogManager::PrintActiveStatusEffectsHeader()
-{
+void LogManager::PrintActiveStatusEffectsHeader() {
 	cout << "--------------------------------------------------\n";
 	cout << "  [ 적용 중인 상태이상 ]\n";
 }
 
-void LogManager::PrintActiveStatusEffectItem(const string& effectName, int turn)
-{
+void LogManager::PrintActiveStatusEffectItem(const string& effectName, int turn) {
 	cout << "   • " << effectName << " (지속: " << turn << "턴 남음)\n";
 }
 
-void LogManager::PrintPlayerStatusFooter()
-{
+void LogManager::PrintPlayerStatusFooter() {
 	cout << "==================================================\n\n";
 }
 
-void LogManager::PrintAddExp(int exp, int currentExp, int maxExp)
-{
+void LogManager::PrintAddExp(int exp, int currentExp, int maxExp) {
 	cout << exp << " 경험치를 획득했습니다. (현재: " << currentExp << " / " << maxExp << ")\n";
 }
 
-void LogManager::PrintLevelUp(int oldLevel, int newLevel)
-{
+void LogManager::PrintLevelUp(int oldLevel, int newLevel) {
 	cout << "\n★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n\n";
 }
 
-void LogManager::PrintLevelDown(int level)
-{
+void LogManager::PrintLevelDown(int level) {
 	cout << "레벨이 하락하여 Lv. " << level << "이 되었습니다.\n";
 }
 
-void LogManager::PrintAddGold(int gold)
-{
+void LogManager::PrintAddGold(int gold) {
 	cout << gold << " 골드를 획득했습니다.\n";
 }
 
-
-// 스킬 (Skill) 로그
-void LogManager::PrintSkillUseBasic(const string& casterName, const string& targetName, int damage)
-{
+// 스킬 (Skill) 관련
+void LogManager::PrintSkillUseBasic(const string& casterName, const string& targetName, int damage) {
 	cout << casterName << "의 평타! " << targetName << "에게 " << damage << "의 피해를 입혔습니다.\n";
 }
 
-void LogManager::PrintSkillOneUse(const string& casterName, const string& skillName, const string& targetName, int damage)
-{
+void LogManager::PrintSkillOneUse(const string& casterName, const string& skillName, const string& targetName, int damage) {
 	cout << casterName << "의 " << skillName << "! " << targetName << "에게 " << damage << "의 강력한 피해를 입혔습니다.\n";
 }
 
-void LogManager::PrintSkillTwoUse(const string& casterName, const string& skillName, const string& targetName, int damage)
-{
+void LogManager::PrintSkillTwoUse(const string& casterName, const string& skillName, const string& targetName, int damage) {
 	cout << casterName << "의 " << skillName << "! " << targetName << "에게 " << damage << "의 피해를 입혔습니다.\n";
 }
 
-void LogManager::PrintSkillMpLack(const string& skillName)
-{
+void LogManager::PrintSkillMpLack(const string& skillName) {
 	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n";
 }
 
-// 상태이상 (StatusEffect) 로그
-void LogManager::PrintStatusEffectDamage(const string& effectName, const string& targetName, int damage)
-{
+// 상태이상 (StatusEffect) 관련
+void LogManager::PrintStatusEffectDamage(const string& effectName, const string& targetName, int damage) {
 	cout << "[" << effectName << "] 효과 발생! " << targetName << "에게 " << damage << "의 지속 피해를 입깁니다.\n";
 }

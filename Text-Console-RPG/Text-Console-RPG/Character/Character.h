@@ -1,5 +1,4 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+ï»¿#pragma once
 
 #include <string>
 #include <vector>
@@ -24,7 +23,7 @@ public:
     Character(const std::string& name, int level, int maxHp, int maxMp, int attack);
     virtual ~Character();
 
-    // ÇÃ·¹ÀÌ¾î & ¸ó½ºÅÍ °øÅë µ¿ÀÛ ÇÔ¼ö
+    // í”Œë ˆì´ì–´ & ëª¬ìŠ¤í„° ê³µí†µ ë™ì‘ í•¨ìˆ˜
     virtual void PrintStatus() const;
     void ShowAllSkill() const;
 
@@ -34,9 +33,12 @@ public:
     void HealMp(int amount);
     bool IsDead() const;
 
-    // »óÅÂÀÌ»ó ¿¬»ê
+    // ìƒíƒœì´ìƒ ì—°ì‚°
     void AddStatusEffect(StatusEffect* effect);
     void UpdateStatusEffects();
+
+    bool HasStatusEffect() const;
+    void ClearStatusEffects();
 
     std::string GetName() const { return name_; }
     int GetLevel() const { return level_; }
@@ -51,5 +53,3 @@ public:
     void SetMp(int mp) { mp_ = mp; }
     void SetAttack(int attack) { attack_ = attack; }
 };
-
-#endif

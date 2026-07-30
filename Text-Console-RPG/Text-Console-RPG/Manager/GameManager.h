@@ -1,16 +1,16 @@
 #pragma once
+#include <string>
 #include "Enums.h"
 
 class LogManager;
 class Player;
 
-class GameManager
-{
+class GameManager {
 private:
 	Player* player_;
 	Scene	curScene_;
 	Scene   nextScene_;
-
+	int		days_;
 private:
 	GameManager();
 	~GameManager();
@@ -24,6 +24,7 @@ public:
 	void StartMenu();
 	void ShowMainMenu();
 	void EnterDungeon();
+	void EnterHotel();
 	void EnterStore();
 	void SetNextScene(Scene newScene);
 	void ChangeScene();
@@ -32,7 +33,7 @@ public:
 	static GameManager& GetInstance();
 	Player* GetPlayer();
 public:
-	void InitializePlayer(const string& name);
+	void InitializePlayer(std::string name);
 	void GameLoop();
 };
 

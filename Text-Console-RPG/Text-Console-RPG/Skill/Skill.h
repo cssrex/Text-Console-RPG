@@ -1,5 +1,4 @@
-#ifndef SKILL_H
-#define SKILL_H
+ï»¿#pragma once
 
 #include <string>
 
@@ -26,25 +25,23 @@ public:
 };
 
 
-// ÆòÅ¸ (Cost »ç¿ë X)
+// í‰íƒ€ (Cost ì‚¬ìš© X)
 class BasicAttack : public Skill {
 public:
     BasicAttack();
     void Use(Character& caster, Character& target) override;
 };
 
-// ½ºÅ³ 1 (ÃâÇ÷ ºÎ¿©)
+// ìŠ¤í‚¬ 1 (ì¶œí˜ˆ ë¶€ì—¬)
 class SkillOne : public Skill {
 public:
     SkillOne();
     void Use(Character& caster, Character& target) override;
 };
 
-// ½ºÅ³ 2 (È­»ó ºÎ¿©)
+// ìŠ¤í‚¬ 2 (í™”ìƒ ë¶€ì—¬)
 class SkillTwo : public Skill {
 public:
     SkillTwo();
     void Use(Character& caster, Character& target) override;
 };
-
-#endif

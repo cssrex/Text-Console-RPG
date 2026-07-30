@@ -1,9 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
-class LogManager
-{
+class LogManager {
 private:
 
 private:
@@ -11,22 +10,20 @@ private:
 	~LogManager();
 	LogManager(const LogManager&) = delete;
 	LogManager& operator=(const LogManager&) = delete;
-
-public:
-	void PrintInitializeCharacter();
-	void PrintStartMenu();
-	void PrintMainMenu();
-	void PrintWorkshopMenu();
-	void PrintDungeonMenu();
-
+	
 public:
 	static LogManager& GetInstance();
 
-
-
-
 public:
-	// Ä³¸¯ÅÍ (Character) ·Î±×
+	// ê²Œì„ ë§¤ë‹ˆì € ê´€ë ¨
+	void PrintInitializeCharacter();
+	void PrintStartMenu();
+	void PrintMainMenu();
+	void PrintHotel();
+	void PrintStoreMenu();
+	void PrintDungeonMenu();
+
+	// ìºë¦­í„° (Character) ê´€ë ¨
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
 	void PrintHeal(const std::string& name, int value);
 	void PrintAddStatusEffect(const std::string& name, const std::string& effectName);
@@ -37,9 +34,12 @@ public:
 	void PrintShowAllSkillItem(int index, const std::string& skillName, int cost);
 	void PrintShowAllSkillFooter();
 
-	// ÇÃ·¹ÀÌ¾î (Player) ·Î±×
+	
+	// í”Œë ˆì´ì–´ (Player) ê´€ë ¨
 	void PrintPlayerTakeDamage(const std::string& name, int actualDamage, int defense, int currentHp, int maxHp);
-	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp, int hp, int maxHp, int mp, int maxMp, int attack, int defense);
+	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp,
+		int hp, int maxHp, int mp, int maxMp,
+		int attack, int defense);
 	void PrintSkillListHeader();
 	void PrintSkillItem(int index, const std::string& skillName, int cost);
 	void PrintActiveStatusEffectsHeader();
@@ -50,13 +50,12 @@ public:
 	void PrintLevelDown(int level);
 	void PrintAddGold(int gold);
 
-	// ½ºÅ³ (Skill) ·Î±×
+	// ìŠ¤í‚¬ (Skill) ê´€ë ¨
 	void PrintSkillUseBasic(const std::string& casterName, const std::string& targetName, int damage);
 	void PrintSkillOneUse(const std::string& casterName, const std::string& skillName, const std::string& targetName, int damage);
 	void PrintSkillTwoUse(const std::string& casterName, const std::string& skillName, const std::string& targetName, int damage);
 	void PrintSkillMpLack(const std::string& skillName);
 
-	// »óÅÂÀÌ»ó (StatusEffect) ·Î±×
+	// ìƒíƒœì´ìƒ (StatusEffect) ê´€ë ¨
 	void PrintStatusEffectDamage(const std::string& effectName, const std::string& targetName, int damage);
 };
-
