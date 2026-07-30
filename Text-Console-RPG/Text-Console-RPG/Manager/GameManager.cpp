@@ -8,7 +8,8 @@ GameManager::GameManager() {
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
-	days_ = 0;
+	dDays_ = 28;
+	dayType_ = DayType::MORNING;
 }
 
 GameManager::~GameManager() {
@@ -16,6 +17,36 @@ GameManager::~GameManager() {
 
 void GameManager::Update() {
 	ChangeScene();
+}
+
+void GameManager::ChangeDayType() {
+	if (dayType_ == DayType::MORNING) {
+		dayType_ == DayType::NIGHT;
+	}
+	else {
+		SubDays();
+		dayType_ == DayType::MORNING;
+	}
+}
+
+DayType GameManager::GetDayType()
+{
+	return dayType_;
+}
+
+int GameManager::GetDdays()
+{
+	return dDays_;
+}
+
+bool GameManager::EndDay()
+{
+	return dDays_ == 0;
+}
+
+void GameManager::SubDays()
+{
+	dDays_--;
 }
 
 void GameManager::StartMenu() {
@@ -41,6 +72,11 @@ void GameManager::ShowMainMenu() {
 		}
 		if (num >= 0 && num < 6)
 			break;
+	}
+
+	if (dayType_ == DayType::NIGHT && num == 1)
+	{
+		std::cout << "밤에는 던전에 입장 할 수 없습니다.\n";
 	}
 
 	switch (num) {
@@ -72,13 +108,29 @@ void GameManager::ShowMainMenu() {
 }
 
 void GameManager::EnterDungeon() {
-	Dungeon::GetInstance().StartDungeonLoop(player_);
+	ChangeDayType();
+	LogManager::GetInstance().PrintDungeonMenu();
 }
 
 void GameManager::EnterHotel() {
+	if (dayType_ == DayType::NIGHT)
+	{
+		ChangeDayType();
+	}
+
+	if (EndDay())
+	{
+		SetNextScene(Scene::END);
+		return;
+	}
+
+	LogManager::GetInstance().PrintHotel();
+
+	player_->SetHp(player_->GetHp());
 }
 
 void GameManager::EnterStore() {
+	LogManager::GetInstance().PrintStoreMenu();
 }
 
 void GameManager::SetNextScene(Scene newScene) {

@@ -24,7 +24,7 @@ public:
 public:
 	void ChangeDayType();
 	DayType GetDayType();
-	int GetDays();
+	int GetDdays();
 	bool EndDay();
 private :
 	void SubDays();

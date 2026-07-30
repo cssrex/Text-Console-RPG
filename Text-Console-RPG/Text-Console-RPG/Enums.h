@@ -30,3 +30,9 @@ enum class ItemEffectType {
 	// 강화
 	EnhanceStone
 };
+
+enum class DayType
+{
+	MORNING,
+	NIGHT
+};
