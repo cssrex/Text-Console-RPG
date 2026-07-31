@@ -30,7 +30,7 @@ public:
 private:
 	Monster* CreateMonster(int roomIndex, int level);
 	void Enter(Player* player, int roomIndex);
-	bool Battle(Player* player, int roomIndex, int floor);
+	bool Battle(Player* player, Monster* monster, int roomIndex, int floor);
 	void GiveReward(Player* player, Monster* monster);
 
 	void PrintDungeonList();

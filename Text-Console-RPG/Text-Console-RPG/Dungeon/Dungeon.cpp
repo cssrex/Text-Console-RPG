@@ -100,15 +100,27 @@ void Dungeon::StartDungeonLoop(Player* player) {
 			Enter(player, 0);
 			return;
 		case 2:
-			if (topCanEnter >= 1) Enter(player, 1);
+			if (topCanEnter >= 1)
+			{
+				Enter(player, 1);
+				return;
+			}
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
 		case 3:
-			if (topCanEnter >= 2) Enter(player, 2);
+			if (topCanEnter >= 2)
+			{
+				Enter(player, 2);
+				return;
+			}
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
 		case 4:
-			if (topCanEnter >= 3) Enter(player, 3);
+			if (topCanEnter >= 3)
+			{
+				Enter(player, 3);
+				return;
+			}
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
 		default:
@@ -138,7 +150,23 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 	while (true)
 	{
-		bool isWon = Battle(player, roomIndex, floor);
+		Room* currentRoom = rooms_[roomIndex];
+		Monster* monster = nullptr;
+
+		if (floor >= currentRoom->floor_) {
+			monster = currentRoom->bossFactory_();
+		}
+		else {
+			monster = CreateMonster(roomIndex, 1);
+		}
+
+		string rewardItem = monster->GetDropItem();
+		int rewardGold = monster->GetDropGold();
+		int rewardExp = monster->GetRewardExp();
+
+		bool isWon = Battle(player, monster, roomIndex, floor);
+
+		delete monster;
 
 		// 패배한 경우 : 이전 메뉴로
 		if (!isWon) return;
@@ -156,7 +184,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 		while (true)
 		{
-			LogManager::GetInstance().PrintDungeonProgressOption(rooms_[roomIndex], floor);
+			LogManager::GetInstance().PrintDungeonProgressOption(rooms_[roomIndex], floor, rewardItem, rewardGold, rewardExp);
 			bool isRightCommand = true;
 			cin >> command;
 
@@ -164,7 +192,6 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 				std::cin.clear();
 				std::cin.ignore(1000, '\n');
 				LogManager::GetInstance().PrintInpuErrorMessage();
-				system("pause");
 				continue;
 			}
 
@@ -184,16 +211,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 	return;
 }
 
-bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
-	Room* currentRoom = rooms_[roomIndex];
-	Monster* monster = nullptr;
-
-	if (floor >= currentRoom->floor_) {
-		monster = currentRoom->bossFactory_();
-	}
-	else {
-		monster = CreateMonster(roomIndex, 1);
-	}
+bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor) {
 
 	bool playerWon = false;
 
@@ -210,6 +228,7 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 
 		// 행동 완료 여부 플래그 (MP 부족/취소 시 루프 재실행용)
 		bool validTurn = false;
+		
 
 		while (!validTurn)
 		{
@@ -223,7 +242,7 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 				std::cin.clear();
 				std::cin.ignore(1000, '\n');
 				LogManager::GetInstance().PrintInpuErrorMessage();
-				system("pause");
+				system("pause > nul");
 				continue;
 			}
 
@@ -236,9 +255,11 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 			case 2:
 				// SkillManager를 통한 플레이어 스킬 사용
 				validTurn = SkillManager::GetInstance().ProcessSkillSelection(*player, *monster);
+				system("pause > nul");
 				break;
 			case 3:
 				player->GetInventory()->InventoryMenu(*player);
+				system("pause > nul");
 				break;
 			case 4:
 				break;
@@ -248,11 +269,15 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 			}
 		}
 
+		system("pause > nul");
+
 		if (monster->IsDead())
 		{
-			/*
-				// TODO : 승리 메시지 띄우고 잠깐 기다렸다가 끝내기
-			*/
+			// TODO : 승리 메시지 띄우고 잠깐 기다렸다가 끝내기
+			cout << monster->GetName() << "을(를) 무찔렀다!\n";
+			system("pause > nul");
+			//
+			
 			GiveReward(player, monster);
 			playerWon = true;
 			break;
@@ -263,6 +288,8 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 
 		// 몬스터가 플레이어 때리기
 		monster->Attack(player);
+		
+		system("pause > nul");
 
 		if (player->IsDead())
 		{
@@ -272,7 +299,6 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 		}
 	}
 
-	delete monster;
 	return playerWon;
 }
 
