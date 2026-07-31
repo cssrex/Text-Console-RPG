@@ -4,18 +4,24 @@
 
 class Drake : public Monster{
 public:
-	Drake(int level = 35) : Monster(
-		
-			"드레이크",
-			level,
-			1100,
-			0,
-			150,
-			"용혈",
-			randGold(250, 270),
-			100
+	Drake() : Monster(
+
+		"드레이크",
+		35,
+		1100,
+		0,
+		150,
+		"용혈",
+		RandGold(250, 270),
+		100,
+		80,
+		200
 		
 	) {}
 
-	void Attack(Character& target) override;
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+	void PrintAsciiArt(short startX, short startY) override;
+	void MonsterAppearanceScript() override;
+	void MonsterDeadScript() override;
 };

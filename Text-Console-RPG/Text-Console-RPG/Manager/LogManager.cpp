@@ -42,7 +42,7 @@ void LogManager::PrintStartMenu()
 
 
 void LogManager::PrintMainMenu() {
-	
+
 	cout << R"(
 +======================================================================================+
 |                                                                                      |
@@ -54,8 +54,20 @@ void LogManager::PrintMainMenu() {
 )";
 }
 
+void LogManager::PrintWorkshopMenu()
+{
+}
+
 void LogManager::PrintHotel() {
 
+}
+
+void LogManager::PrintStore()
+{
+}
+
+void LogManager::PrintRemoveAllStatusEffect(std::string name)
+{
 }
 
 void LogManager::PrintStoreMenu() {
@@ -88,7 +100,7 @@ LogManager& LogManager::GetInstance() {
 
 void LogManager::ClearScreen()
 {
-	cout << "\x1B[2J\x1B[H";
+	system("cls");
 }
 
 void LogManager::PrintInpuErrorMessage()
@@ -120,17 +132,22 @@ void LogManager::PrintCharacterStatus(const string& name, int level, int hp, int
 	cout << "공격력: " << attack << "\n";
 	cout << "-----------------------------------------------\n";
 }
-
-void LogManager::PrintShowAllSkillHeader(const string& name) {
-	cout << "=== " << name << "의 보유 스킬 목록 ===\n";
-}
-
 void LogManager::PrintShowAllSkillItem(int index, const string& skillName, int cost) {
 	cout << "[" << index << "] " << skillName << " (소모 MP: " << cost << ")\n";
 }
 
 void LogManager::PrintShowAllSkillFooter() {
 	cout << "===============================\n";
+}
+
+// 스킬매니저 (SKillManager) 관련
+void LogManager::PrintShowAllSkillHeader(const string& name) {
+	cout << "\n=== " << name << "의 보유 스킬 목록 ===\n"; // [추가]
+}
+
+
+void LogManager::PrintSkillMpLack(const string& skillName) {
+	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n"; // [추가]
 }
 
 // 플레이어 (Player) 관련
@@ -229,10 +246,6 @@ void LogManager::PrintSkillTwoUse(const string& casterName, const string& skillN
 	cout << casterName << "의 " << skillName << "! " << targetName << "에게 " << damage << "의 피해를 입혔습니다.\n";
 }
 
-void LogManager::PrintSkillMpLack(const string& skillName) {
-	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n";
-}
-
 // 상태이상 (StatusEffect) 관련
 void LogManager::PrintStatusEffectDamage(const string& effectName, const string& targetName, int damage) {
 	cout << "[" << effectName << "] 효과 발생! " << targetName << "에게 " << damage << "의 지속 피해를 입깁니다.\n";
@@ -312,7 +325,12 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 {
 	int currentHp = monster->GetHp();
 	int maxHp = monster->GetMaxHp();
-	int fillCount = currentHp / 10;
+
+	int fillCount = 0;
+	if (maxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(currentHp) / maxHp) * 10.0);
+	}
+	
 	if (fillCount > 10) fillCount = 10;
 	if (fillCount < 0) fillCount = 0;
 
@@ -326,7 +344,7 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 
 	ClearScreen();
 	cout << "==================================================\n";
-	cout << "	       [ " << room->name_ << "(" << floor << "층) ]\n";
+	cout << "	       [ " << room->name_ << " (" << floor << "층) ]\n";
 	cout << "==================================================\n";
 	cout << "     이름 : " << monster->GetName() << "\t\t   레벨 : Lv. " << monster->GetLevel() << "\n\n\n";
 
@@ -339,10 +357,27 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 	cout << "           • HP    : " << hpBar << " " << currentHp << " / " << maxHp << "\n";
 	cout << "           • Power : " << monster->GetAttack() << "\n";
 	cout << "==================================================\n";
-	cout << "               [ 행동을 선택하세요! ]            \n";
-	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n";
-	cout << "                    0. 도망가기                   \n";
+	cout << "               [ 행동을 선택하세요! ]            \n\n";
+	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n\n";
 	cout << "==================================================\n";
 	cout << "▶ 행동을 선택하세요: ";
+}
+
+void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
+{
+	ClearScreen();
+	cout << room->name_ << " " << floor << "층 클리어!\n";
+	cout << "==================================================\n";
+	cout << "               [ 행동을 선택하세요! ]            \n\n";
+	cout << "  1. 다음 층으로\n";
+	cout << "  0. 던전 떠나기\n";
+	cout << "==================================================\n";
+	cout << "▶ 행동을 선택하세요: ";
+}
+
+void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
+{
+	// 보상 뭔지 출력
+
 }
 

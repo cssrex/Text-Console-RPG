@@ -4,20 +4,26 @@
 
 class KingSlime : public Monster{
 public:
-	KingSlime(int level = 10) : Monster(
+	KingSlime() : Monster(
 		"킹 슬라임",
-		level,
+		10,
 		300,
 		0,
 		25,
 		"슬라임 추출액",
-		randGold(100, 150),
-		50
+		RandGold(100, 150),
+		50,
+		100,
+		150
 	) {}
 
-	void Attack(Character& target) override;
-	void SpecialAttack(Character& target) override;
-	void TakeTurn(Character& target) override;
+	
+	void BasicAttack(Player* player) override;
+	void SpecialAttack(Player* player) override;
+	void HyperAttack(Player* player) override;
+	void PrintAsciiArt(short startX, short startY) override;
+	void MonsterAppearanceScript() override;
+	void MonsterDeadScript() override;
 
 private:
 	int turnCount_ = 0;

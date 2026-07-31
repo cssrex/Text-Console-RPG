@@ -67,8 +67,13 @@ void Character::AddStatusEffect(StatusEffect* effect) {
 // Turn 기반 상태이상 갱신(턴 종료 시 호출)
 void Character::UpdateStatusEffects() {
     for (auto it = statusEffects_.begin(); it != statusEffects_.end();) {
+        // 매턴마다 걸려있는 상태효과의 데미지를 적용
         (*it)->ApplyEffect(*this);
 
+        // 효과 적용 후 턴을 1 차감
+        (*it)->DecreaseTurn();
+
+        // 남은 턴이 0 이하로 만료되었으면 메모리 해제 및 삭제
         if ((*it)->IsExpired()) {
             LogManager::GetInstance().PrintRemoveStatusEffect(name_, (*it)->GetName());
             delete* it;
@@ -92,7 +97,7 @@ void Character::ClearStatusEffects() {
     LogManager::GetInstance().PrintRemoveAllStatusEffect(name_);
 }
 
-// 상태이상 여부 검사
-bool HasStatusEffect() const {
+// 상태이상 여부 검사 
+bool Character::HasStatusEffect() const {
     return !statusEffects_.empty();
 }

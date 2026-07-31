@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <functional>
 
 class Player;
 class Monster;
@@ -9,8 +10,8 @@ class Monster;
 struct Room {
 	std::string name_;
 	int floor_;
-	std::vector<Monster*> monsters_;
-	Monster* boss_;
+	std::vector<std::function<Monster*()>> monsterFactories_;
+	std::function<Monster* ()> bossFactory_;
 };
 
 class Dungeon {
@@ -19,20 +20,18 @@ private:
 	std::vector<Room*> rooms_;
 	int topCanEnter = 0;
 	
-private:
+public:
 	Dungeon();
-	Dungeon(const Dungeon&) = delete;
-	Dungeon& operator=(const Dungeon&) = delete;
 	~Dungeon();
 
 public:
-	static Dungeon& GetInstance();
 	void StartDungeonLoop(Player* player);
-	void Enter(Player* player, int roomIndex);
-	void PrintDungeonList();
 
 private:
-	Monster* CreateMonster(int level);
-	void Battle(Player* player, Monster& monster);
-	void GiveReward(Player* player, Monster& monster);
+	Monster* CreateMonster(int roomIndex, int level);
+	void Enter(Player* player, int roomIndex);
+	bool Battle(Player* player, int roomIndex, int floor);
+	void GiveReward(Player* player, Monster* monster);
+
+	void PrintDungeonList();
 };
