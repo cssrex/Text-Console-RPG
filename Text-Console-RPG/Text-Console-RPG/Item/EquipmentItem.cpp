@@ -11,6 +11,7 @@ void EquipmentItem::Equip(Player& player) {
 
     case EquipmentType::Armor:
         player.SetDefense(player.GetDefense() + defenseValue_);
+        player.SetMaxHp(player.GetMaxHp() + healthValue_);
 
         break;
 
@@ -28,6 +29,10 @@ void EquipmentItem::TakeOff(Player& player) {
 
     case EquipmentType::Armor:
         player.SetDefense(player.GetDefense() - defenseValue_);
+        player.SetMaxHp(player.GetMaxHp() - healthValue_);
+        if (player.GetHp() > player.GetMaxHp()) {
+            player.SetHp(player.GetMaxHp());
+        }
 
         break;
 
@@ -35,4 +40,14 @@ void EquipmentItem::TakeOff(Player& player) {
         cout << "잘못된 장비 타입입니다." << endl;
         break;
     }
+}
+
+void EquipmentItem::Enhance() {
+    enhanceLevel_++;
+
+    double rate = 1.0 + (0.1 * enhanceLevel_);
+
+    attackValue_ = static_cast<int>(baseAttackValue_ * rate);
+    defenseValue_ = static_cast<int>(baseDefenseValue_ * rate);
+    healthValue_ = static_cast<int>(baseHealthValue_ * rate);
 }

@@ -25,13 +25,13 @@ PotionStore::PotionStore() {
     items_.push_back(make_unique<ConsumableItem>("만병통치약", 10, 30, 0, ItemEffectType::Antidote));
 }
 
+// 상점 메뉴
 void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
     while (true) {
-        cout << endl;
-        cout << "===== 포션 상점 =====" << endl;
-        cout << "1. 구매" << endl;
-        cout << "2. 판매" << endl;
-        cout << "0. 돌아가기" << endl;
+        cout << "\n===== 포션 상점 =====\n";
+        cout << "1. 구매\n";
+        cout << "2. 판매\n";
+        cout << "0. 돌아가기\n";
         cout << "선택 : ";
 
         int menu;
@@ -70,7 +70,7 @@ void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
         }
 
         default:
-            cout << "잘못된 입력입니다." << endl;
+            cout << "잘못된 입력입니다.\n";
             break;
         }
     }

@@ -75,22 +75,34 @@ public:
 // 장비
 class EquipmentItem : public Item {
 private:
+    // 기본 능력치
+    int baseAttackValue_;
+    int baseDefenseValue_;
+    int baseHealthValue_;
+
+    // 현재 능력치
     int attackValue_;
     int defenseValue_;
+    int healthValue_;
+
+    // 강화 레벨
+    int enhanceLevel_;
 
     EquipmentType equipmentType_;
     EquipmentSlot equipmentSlot_;
 
 public:
-    EquipmentItem(const string& name, int price, int count, int attack, int defense, EquipmentType type, EquipmentSlot slot): Item(name, price, count, ItemType::Equipment), attackValue_(attack), defenseValue_(defense), equipmentType_(type), equipmentSlot_(slot) {}
-
-    unique_ptr<Item> Clone() const override { return make_unique<EquipmentItem>(name_, price_, 1, attackValue_, defenseValue_, equipmentType_, equipmentSlot_); }
+    EquipmentItem(const string& name, int price, int count, int attack, int defense, int hp, int level, EquipmentType type, EquipmentSlot slot): Item(name, price, count, ItemType::Equipment), baseAttackValue_(attack), baseDefenseValue_(defense), baseHealthValue_(hp), attackValue_(attack), defenseValue_(defense), healthValue_(hp), enhanceLevel_(level), equipmentType_(type), equipmentSlot_(slot) {}
+    unique_ptr<Item> Clone() const override { return make_unique<EquipmentItem>(name_, price_, 1, baseAttackValue_, baseDefenseValue_, baseHealthValue_, enhanceLevel_, equipmentType_, equipmentSlot_); }
 
     void Equip(Player& player);
     void TakeOff(Player& player);
+    void Enhance();
 
     int GetAttackValue() const { return attackValue_; }
     int GetDefenseValue() const { return defenseValue_; }
+    int GetHealthValue() const { return healthValue_; }
+    int GetEnhanceLevel() const { return enhanceLevel_; }
 
     EquipmentType GetEquipmentType() const { return equipmentType_; }
     EquipmentSlot GetEquipmentSlot() const { return equipmentSlot_; }
@@ -102,4 +114,16 @@ public:
     LootItem(const string& name, int price, int count): Item(name, price, count, ItemType::Loot) {}
 
     unique_ptr<Item> Clone() const override { return make_unique<LootItem>(name_, price_, 1); }
+};
+
+// 재료 아이템
+class MaterialItem : public Item {
+private:
+    MaterialType materialType_;
+
+public:
+    MaterialItem(const string& name, int price, int count, MaterialType type): Item(name, price, count, ItemType::Material), materialType_(type){}
+    unique_ptr<Item> Clone() const override { return make_unique<MaterialItem>(name_, price_, 1, materialType_); }
+
+    MaterialType GetMaterialType() const { return materialType_; }
 };

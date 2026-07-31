@@ -361,3 +361,65 @@ bool Inventory::RemoveItem(int index, int count){
 
 	return true;
 }
+
+// 아이템 목록 출력 (강화 때 사용)
+int Inventory::SelectEquipment(EquipmentSlot slot) {
+	vector<int> indexes;
+	int count = 1;
+
+	for (int i = 0; i < inventory_.size(); i++) {
+		EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(inventory_[i].get());
+
+		if (!equipment)
+			continue;
+
+
+		if (equipment->GetEquipmentSlot() == slot) {
+			cout << count << ". " << equipment->GetName() << " (+" << equipment->GetEnhanceLevel() << ")\n";
+			indexes.push_back(i);
+			count++;
+		}
+	}
+
+
+	if (indexes.empty()) {
+		cout << "강화 가능한 장비가 없습니다.\n";
+		return -1;
+	}
+
+	int select;
+	cin >> select;
+	if (select < 1 || select > indexes.size()) {
+		cout << "잘못된 선택입니다.\n";
+		return -1;
+	}
+
+	return indexes[select - 1];
+}
+
+// 재료 아이템 검색 (MaterialType)
+int Inventory::FindMaterial(MaterialType type) {
+	for (int i = 0; i < static_cast<int>(inventory_.size()); i++) {
+		MaterialItem* material = dynamic_cast<MaterialItem*>(inventory_[i].get());
+
+		if (material == nullptr) continue;
+
+		if (material->GetMaterialType() == type) return i;
+	}
+
+	return -1;
+}
+
+
+// 재료 아이템 검색 (이름)
+int Inventory::FindMaterial(const string& name) {
+	for (int i = 0; i < static_cast<int>(inventory_.size()); i++) {
+		MaterialItem* material = dynamic_cast<MaterialItem*>(inventory_[i].get());
+
+		if (material == nullptr) continue;
+
+		if (material->GetName() == name) return i;
+	}
+
+	return -1;
+}
