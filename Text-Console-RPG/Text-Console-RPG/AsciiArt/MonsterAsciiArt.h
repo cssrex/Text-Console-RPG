@@ -378,6 +378,49 @@ i%I.           ....               .``,,,-;'``'.'^.
     .`''';~~;^,^'`...``'^^^^^``.``^^.l$I  ..,+..```....
 )";
 
+static const char* PlayerInfo_Ascii =
+R"(
+                                   :++====..                                    
+                                :=+==+++*#*+==+**=:.                            
+                              -========++=+++==******-                          
+                            .+=====-========+*=**#***#*                         
+                           -+================++**+****#*                        
+                         .*+-+====+=====+====+*+**+***##-                       
+                         =**++++==++====+====+*++*+**####-                      
+                         **#++*+*++**+++++++++*+****#####:                      
+                         +*#*****++++***+++**+*****#####%.                      
+                         -###******************#########:                       
+                         .*######*#*#*+*#*#*#*#########+                        
+                           =%#+::-**=...-#*-----:*#+=:#*.             :::==-:.  
+                             :*=%##%*....*####*+*+=+=.**=+--::-+*****+:=:::-**: 
+                              :-+:-+=......:::=:.:.:=#*:+=-*%%%#%%###**+:+=     
+                            ...-*::............:+*##%#==+-%%@@%%@#              
+         .:-===-----::.:::....:--+*#=-:...:-=#%*=#=+++*+===%%%@@%.              
+     .-==--........::-====+++*++*++%%#%%#**+=%#=***=--+*#+*####%-               
+  :=++=--==+==+++++++++++++--****:==**++++#+==++#*+-::-#*=#%##%+                
+.-##*#*********+=+=..       +=*+*+=-#++**+#*+++-#%%%#***#**#*##.                
+                           :%#*%%%%========-+####%%%%%#***#%%+.                 
+                          *%#**#%%%+=*+==+**#=*#%%%%%%%%%%@%%%*.                
+                        +%#+*###%%%######***#+#%%%%%%%%%%%%%%%%%-               
+                      =%%%***+*%%%%%%%####**%***#%%%%%%%%%%%%%%%%+              
+                    :#%%%%##**%%%#*++*###*#++=:+#%%%%%%%%%%%%%%##%#             
+                  .*##%%%%#%%%%%%#***==++=-=*+:-*%%%%%%%%%%%%%%###%%:           
+                 -###%%%%%%%%%%*%#*+*#*-=--**#*#%%##%%##%%%%%%%%#####.          
+                =##*%%%%%%%%@#*%%%%%%%%%#+##*%%%%%@%##%%##%%%%%%######.         
+               +=+#%%%%%%%%%%%%%+*%%%%%%%%%%%+.*#%%@%%#%%%##%%%%######+         
+              +*=*#%%%##%%%%%%%%*+++**%%%%#-:.:+**#%%@@%#%***#%%###*+**=        
+             =*+###%%%##%%%%%%*+=+***###=+#*---=**%#%%*:#=    .**+*#=*+*.       
+             #*#%##%%%###%#-     .#*+##*.   +++=##+ .*  .     +#*==#%%+#:       
+            :%##%##. ...          +*#%%=     **+***          =#%#*+#%%*#:       
+             +#%*###              +*#%@+     +*++*#.        -#%*%**+###.        
+              +#####+           .=+#%%%#.    +=++**:       -#%@@####*:          
+               .*#####.        :**%#%%%%.    +####%#      -##**##*-             
+                  :+###=     =-*+-#%%%#+     *%%#-*#+    -###*=.                
+                       ..   +%%%%%%#:        +%##--#%*  :-:                     
+                             ::-:.           =%%%%+%%#.                         
+                                              -#****+.     
+)";
+
 // 노말 슬라임 호출 함수
 inline void PrintNormalSlimeAsciiArt(short startX = 40, short startY = 0) {
     // ASCII아트 가로 크기를 55로 맞추주는 기능
@@ -678,6 +721,48 @@ inline void PrintBossDragonAsciiArt(short startX = 40, short startY = 0) {
     constexpr size_t kTargetWidth = 40;
     // 원본 문자열을 한 줄씩 읽는 스트림
     istringstream input(BossDragon_ASCII);
+    vector<string> sourceLines;
+    string line;
+    // 원본 가장 긴 줄의 길이
+    size_t sourceWidth = 0;
+    // 원본 문자열 줄단위로 나눠서 저장
+    while (getline(input, line)) {
+        sourceWidth = max(sourceWidth, line.size());
+        sourceLines.push_back(line);
+    }
+
+    if (sourceLines.empty() || sourceWidth == 0) {
+        return;
+    }
+
+    const size_t targetHeight =
+        (sourceLines.size() * kTargetWidth + sourceWidth - 1) / sourceWidth;
+
+    const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    for (size_t row = 0; row < targetHeight; ++row) {
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        const size_t sourceRow = row * sourceLines.size() / targetHeight;
+        for (size_t column = 0; column < kTargetWidth; ++column) {
+            const size_t sourceColumn = column * sourceWidth / kTargetWidth;
+            if (sourceColumn < sourceLines[sourceRow].size()) {
+                cout << sourceLines[sourceRow][sourceColumn];
+            }
+            else {
+                cout << ' ';
+            }
+        }
+    }
+}
+
+// 캐릭터 인포 호출 함수
+inline void PrintPlayerInfoAsciiArt(short startX = 60, short startY = 0) {
+    // ASCII아트 가로 크기를 55로 맞추주는 기능
+    constexpr size_t kTargetWidth = 54;
+    // 원본 문자열을 한 줄씩 읽는 스트림
+    istringstream input(PlayerInfo_Ascii);
     vector<string> sourceLines;
     string line;
     // 원본 가장 긴 줄의 길이
