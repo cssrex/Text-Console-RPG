@@ -1,5 +1,5 @@
 #include <iostream>
-#include "PotionStore.h"
+#include "Store.h"
 #include "Player.h"
 #include "Inventory.h"
 
