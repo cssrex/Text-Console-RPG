@@ -35,5 +35,3 @@ void Monster::Attack(Player* player) {
 		BasicAttack(player);
 	}
 }
-void Monster::Reward(Player* player) {
-}
