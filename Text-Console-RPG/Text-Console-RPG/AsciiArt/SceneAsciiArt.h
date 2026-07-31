@@ -7,8 +7,6 @@
 
 using namespace std;
 
-//메인메뉴 씬리스트 PrintTownScene(false) 낮, (true) 밤 으로 함수 호출
-
 static const char* TownAscii = R"Town(
 .======================================================================================================================.
 |                .-~~~~-.                                  .-~~~~-.                                                    |
@@ -218,25 +216,6 @@ static const char* TimeoutEndingAscii = R"TimeoutEnding(
 |                                       "시간 안에 던전을 클리어하지 못했다..."                                        |
 )TimeoutEnding";
 
-inline void PrintTimeoutEndingAsciiArt(short startX = 0, short startY = 0) {
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    istringstream input(TimeoutEndingAscii);
-    string line;
-    short row = 0;
-
-    while (getline(input, line)) {
-        if (line.empty() && row == 0) {
-            continue;
-        }
-
-        SetConsoleCursorPosition(
-            console, { startX, static_cast<short>(startY + row) });
-
-        cout << line;
-        ++row;
-    }
-}
-
 static const char* GameClearEndingAscii = R"GameClearEnding(
 .======================================================================================================================.
 |                             *     *     *     *     *     |     *     *     *     *     *                            |
@@ -256,44 +235,6 @@ static const char* GameClearEndingAscii = R"GameClearEnding(
 |                 '                           `.`.`.`.`.`.`.`.`.`.`.`.`.`.`                           '                |
 |                                                    "게임 클리어!"                                                    |
 )GameClearEnding";
-
-inline void PrintGameClearEndingAsciiArt(short startX = 0, short startY = 0) {
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    istringstream input(GameClearEndingAscii);
-    string line;
-    short row = 0;
-
-    while (getline(input, line)) {
-        if (line.empty() && row == 0) {
-            continue;
-        }
-
-        SetConsoleCursorPosition(
-            console, { startX, static_cast<short>(startY + row) });
-
-        cout << line;
-        ++row;
-    }
-}
-
-inline void PrintInnAsciiArt(short startX = 0, short startY = 0) {
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    istringstream input(HouseAscii);
-    string line;
-    short row = 0;
-
-    while (getline(input, line)) {
-        if (line.empty() && row == 0) {
-            continue;
-        }
-
-        SetConsoleCursorPosition(
-            console, { startX, static_cast<short>(startY + row) });
-
-        cout << line;
-        ++row;
-    }
-}
 
 inline void PrintTownAsciiArt(short startX = 0, short startY = 0) {
     const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -338,7 +279,7 @@ inline void SetTownTheme(bool isNight) {
 
 inline void PrintTownSky(bool isNight) {
     const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    // 낮/밤 하늘 오브젝트 위치
+    // 해랑 달 위치
     const short startX = 100;
     const short startY = 1;
 
@@ -357,7 +298,7 @@ inline void PrintTownSky(bool isNight) {
     }
 }
 
-//메인메뉴 마을 PrintTownScene(false) 낮, (true) 밤 으로 함수 호출
+//메인메뉴 - 배경아트 PrintTownScene(false) 낮, (true) 밤 으로 호출
 inline void PrintTownScene(bool isNight = false) {
     SetConsoleOutputCP(CP_UTF8);
     SetTownTheme(isNight);
@@ -387,7 +328,7 @@ inline void PrintShopMainAsciiArt(short startX = 0, short startY = 0) {
     }
 }
 
-//메인메뉴 - 상점 - 포션상점
+//메인메뉴 - 상점 -  포션상점
 inline void PrintPotionShopAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(PotionShopAscii);
@@ -404,7 +345,7 @@ inline void PrintPotionShopAsciiArt(short startX = 0, short startY = 0) {
     }
 }
 
-//메인메뉴 - 상점 - 장비점
+//메인메뉴 - 상점 - 장비상점
 inline void PrintEquipmentShopAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(EquipmentShopAscii);
@@ -421,7 +362,7 @@ inline void PrintEquipmentShopAsciiArt(short startX = 0, short startY = 0) {
     }
 }
 
-//메인메뉴 - 상점 - 장비점 - 강화
+//메인메뉴 - 상점 - 장비상점 - 강화
 inline void PrintEnhanceAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(EnhanceAscii);
@@ -458,7 +399,7 @@ inline void PrintDungeonEntranceAsciiArt(short startX = 0, short startY = 0) {
     }
 }
 
-//메인메뉴 - 던전 - 사냥터로 이동(클리어)
+//메인메뉴 - 던전 - 스테이지 이동(클리어)
 inline void PrintDungeonCaveAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(DungeonCaveAscii);
@@ -478,7 +419,7 @@ inline void PrintDungeonCaveAsciiArt(short startX = 0, short startY = 0) {
     }
 }
 
-//메인메뉴 - 던전 클리어
+//메인메뉴 - 던전 - 클리어
 inline void PrintDungeonClearAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(DungeonClearAscii);
@@ -502,6 +443,66 @@ inline void PrintDungeonClearAsciiArt(short startX = 0, short startY = 0) {
 inline void PrintPlayerDeathAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(PlayerDeathAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//메인메뉴 - 여관(플레이어 부활 위치)
+inline void PrintHouseAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(HouseAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//게임엔딩 - 시간초과
+inline void PrintTimeoutEndingAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(TimeoutEndingAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//게임클리어
+inline void PrintGameClearEndingAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(GameClearEndingAscii);
     string line;
     short row = 0;
 
