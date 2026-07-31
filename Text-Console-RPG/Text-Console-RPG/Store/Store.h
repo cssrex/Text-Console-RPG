@@ -42,7 +42,7 @@ public:
 
 class Blacksmith : public Store {
 public:
-    BlackSmith();
+    Blacksmith();
 
     void StoreMenu(Player& player, Inventory& inventory) override;
     void Enhance(Player& player, Inventory& inventory);

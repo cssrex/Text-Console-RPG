@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\Dungeon;.\Item;.\Manager;.\Character\Monster;.;.\Workshop;.\Character;.\Character\Player;.\Skill;.\StatusEffect;.\Character\Monster\Dragon;.\Character\Monster\Goblin;.\Character\Monster\Owk;.\Character\Monster\Slime;.\Inventory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Dungeon;.\Item;.\Manager;.\Character\Monster;.;.\Store;.\Character;.\Character\Player;.\Skill;.\StatusEffect;.\Character\Monster\Dragon;.\Character\Monster\Goblin;.\Character\Monster\Owk;.\Character\Monster\Slime;.\Inventory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\Dungeon;.\Item;.\Manager;.\Character\Monster;.;.\Workshop;.\Character;.\Character\Player;.\Skill;.\StatusEffect;.\Character\Monster\Dragon;.\Character\Monster\Goblin;.\Character\Monster\Owk;.\Character\Monster\Slime;.\Inventory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Dungeon;.\Item;.\Manager;.\Character\Monster;.;.\Store;.\Character;.\Character\Player;.\Skill;.\StatusEffect;.\Character\Monster\Dragon;.\Character\Monster\Goblin;.\Character\Monster\Owk;.\Character\Monster\Slime;.\Inventory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -155,13 +155,13 @@
     <ClCompile Include="Manager\SoundManager.cpp" />
     <ClCompile Include="Skill\Skill.cpp" />
     <ClCompile Include="StatusEffect\StatusEffect.cpp" />
-    <ClCompile Include="Workshop\Store.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Store\Blacksmith.cpp" />
+    <ClCompile Include="Store\PotionStore.cpp" />
+    <ClCompile Include="Store\Store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsciiArt\MonsterAsciiArt.h" />
-    <ClInclude Include="AsciiArt\TownAsciiArt.h" />
+    <ClInclude Include="AsciiArt\SceneAsciiArt.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Monster\Dragon\Drake.h" />
     <ClInclude Include="Character\Monster\Dragon\TransparentDragon.h" />
@@ -190,9 +190,7 @@
     <ClInclude Include="Manager\SoundManager.h" />
     <ClInclude Include="Skill\Skill.h" />
     <ClInclude Include="StatusEffect\StatusEffect.h" />
-    <ClInclude Include="Workshop\Store.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Store\Store.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
