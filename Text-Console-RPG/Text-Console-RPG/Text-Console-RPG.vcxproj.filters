@@ -215,7 +215,7 @@
     <ClInclude Include="Item\Item.h">
       <Filter>소스 파일\Item</Filter>
     </ClInclude>
-    <ClInclude Include="AsciiArt\TownAsciiArt.h">
+    <ClInclude Include="AsciiArt\SceneAsciiArt.h">
       <Filter>소스 파일\AsciiArt</Filter>
     </ClInclude>
     <ClInclude Include="AsciiArt\MonsterAsciiArt.h">
