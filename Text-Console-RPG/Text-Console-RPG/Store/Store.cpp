@@ -26,7 +26,7 @@ void Store::BuyItem(Player& player, Inventory& inventory, int index) {
         return;
     }
     string name = item->GetName();
-    player.SetGold(player.GetGold() - item->GetPrice());
+    player.AddGold(-item->GetPrice());
     inventory.AddItem(item->Clone());
     item->RemoveCount(1);
 
@@ -42,7 +42,7 @@ bool Store::SellItem(Player& player, Inventory& inventory, int index) {
 
     if (index < 0 || index >= static_cast<int>(items.size())) {
         cout << "잘못된 아이템입니다." << endl;
-        return;
+        return false;
     }
 
     Item* item = items[index].get();
@@ -53,7 +53,7 @@ bool Store::SellItem(Player& player, Inventory& inventory, int index) {
         return false;
     }
 
-    player.SetGold(player.GetGold() + price);
+    player.AddGold(price);
     cout << name << "을(를) 판매했습니다. (+" << price << " 골드)" << endl;
 
     return true;
