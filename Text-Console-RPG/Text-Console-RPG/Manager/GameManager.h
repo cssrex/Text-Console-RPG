@@ -4,9 +4,11 @@
 
 class LogManager;
 class Player;
+class Dungeon;
 
 class GameManager {
 private:
+	Dungeon*	dungeon_;
 	Player*		player_;
 	Scene		curScene_;
 	Scene		nextScene_;
