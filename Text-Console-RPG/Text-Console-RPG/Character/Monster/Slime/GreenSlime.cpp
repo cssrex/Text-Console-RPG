@@ -1,6 +1,10 @@
 ﻿#include "GreenSlime.h"
 #include <iostream>
 
-void GreenSlime::Attack(Character& target){
-	target.TakeDamage(attack_);
+void GreenSlime::BasicAttack(Player* player) {
+	player->TakeDamage(GetAttack());
+}
+
+void GreenSlime::SpecialAttack(Player* player) {
+	player->TakeDamage(GetAttack() * 2);
 }

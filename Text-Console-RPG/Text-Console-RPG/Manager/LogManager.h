@@ -68,5 +68,5 @@ public:
 	void PrintDungeonList(const std::vector<std::string>& roomList);
 	void PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster);
 	void PrintDungeonProgressOption(Room*& room, int floor);
-
+	void PrintDungeonReward(const std::string& item, int gold, int exp);
 };

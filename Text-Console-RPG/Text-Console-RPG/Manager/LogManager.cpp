@@ -363,3 +363,9 @@ void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
 	cout << "▶ 행동을 선택하세요: ";
 }
 
+void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
+{
+	// 보상 뭔지 출력
+
+}
+

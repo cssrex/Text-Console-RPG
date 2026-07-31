@@ -55,6 +55,9 @@
     <Filter Include="소스 파일\AsciiArt">
       <UniqueIdentifier>{1a3ae964-6075-4a07-b0bb-c8ec6c6e5a0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Character\Inventory">
+      <UniqueIdentifier>{ac1d771f-2a93-4cca-82af-e7add1d73d22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -130,6 +133,12 @@
       <Filter>소스 파일\Workshop</Filter>
     </ClCompile>
     <ClCompile Include="Item\Inventory.cpp">
+      <Filter>소스 파일\Character\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\ConsumableItem.cpp">
+      <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\EquipmentItem.cpp">
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
   </ItemGroup>
@@ -209,17 +218,17 @@
     <ClInclude Include="Workshop\Store.h">
       <Filter>소스 파일\Workshop</Filter>
     </ClInclude>
-    <ClInclude Include="Item\Inventory.h">
-      <Filter>소스 파일\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Item\Item.h">
       <Filter>소스 파일\Item</Filter>
     </ClInclude>
-    <ClInclude Include="AsciiArt\TownAsciiArt.h">
+    <ClInclude Include="AsciiArt\SceneAsciiArt.h">
       <Filter>소스 파일\AsciiArt</Filter>
     </ClInclude>
     <ClInclude Include="AsciiArt\MonsterAsciiArt.h">
       <Filter>소스 파일\AsciiArt</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Inventory.h">
+      <Filter>소스 파일\Character\Inventory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

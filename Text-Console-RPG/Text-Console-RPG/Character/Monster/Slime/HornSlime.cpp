@@ -1,6 +1,10 @@
 ﻿#include "HornSlime.h"
 #include <iostream>
 
-void HornSlime::Attack(Character& target){
-	target.TakeDamage(attack_);
+void HornSlime::BasicAttack(Player* player) {
+	player->TakeDamage(GetAttack());
+}
+
+void HornSlime::SpecialAttack(Player* player) {
+	player->TakeDamage(GetAttack() * 2);
 }

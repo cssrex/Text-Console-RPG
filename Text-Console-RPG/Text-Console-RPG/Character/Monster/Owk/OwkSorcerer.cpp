@@ -1,6 +1,10 @@
 ﻿#include "OwkSorcerer.h"
 #include <iostream>
 
-void OwkSorcerer::Attack(Character& target){
-	target.TakeDamage(attack_);
+void OwkSorcerer::BasicAttack(Player* player) {
+	player->TakeDamage(GetAttack());
+}
+
+void OwkSorcerer::SpecialAttack(Player* player) {
+	player->TakeDamage(GetAttack() * 2);
 }

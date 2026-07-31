@@ -13,8 +13,7 @@ enum class Scene {
 enum class ItemType {
 	Loot,
 	Consumable,
-	Weapon,
-	Armor
+	Equipment
 };
 
 enum class ItemEffectType {
@@ -23,12 +22,25 @@ enum class ItemEffectType {
 	// 회복
 	HealHP,
 	HealMP,
-	HealBoth,
+	HealHPMP,
 	FullRecovery,
 	Antidote,
 
 	// 강화
 	EnhanceStone
+};
+
+enum class EquipmentType {
+	Weapon,
+	Armor
+};
+
+enum class EquipmentSlot {
+	Weapon,
+	Helmet,
+	Armor,
+	Gloves,
+	Boots
 };
 
 enum class DayType

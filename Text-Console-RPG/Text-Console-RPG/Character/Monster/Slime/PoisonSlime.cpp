@@ -1,6 +1,10 @@
 ﻿#include "PoisonSlime.h"
 #include <iostream>
 
-void PoisonSlime::Attack(Character& target){
-	target.TakeDamage(attack_);
+void PoisonSlime::BasicAttack(Player* player) {
+	player->TakeDamage(GetAttack());
+}
+
+void PoisonSlime::SpecialAttack(Player* player) {
+	player->TakeDamage(GetAttack() * 2);
 }

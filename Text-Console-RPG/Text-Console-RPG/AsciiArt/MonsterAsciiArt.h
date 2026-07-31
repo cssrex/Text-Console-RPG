@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -13,7 +13,7 @@
 using namespace std;
 
 
-// ³ë¸» ½½¶óÀÓ
+// ë…¸ë§ ìŠ¬ë¼ì„
 static const char* NormalSlime_ASCII =
 R"(                                                                 .:---========--:.
                                                              :=+**####%%%%%%%####**=-:
@@ -64,7 +64,7 @@ R"(                                                                 .:---=======
                                    ..::--===+++**+++++====-::..
 )";
 
-// º¸½º ½½¶óÀÓ
+// ë³´ìŠ¤ ìŠ¬ë¼ì„
 static const char* BossSlime_ASCII =
 R"(
                        .                          ..
@@ -104,7 +104,7 @@ R"(
                                       ....
 )";
 
-//³ë¸» °íºí¸°
+//ë…¸ë§ ê³ ë¸”ë¦°
 static const char* NormalGOBLIN_ASCII =
 R"(
                                                             :-=++-
@@ -378,17 +378,17 @@ i%I.           ....               .``,,,-;'``'.'^.
     .`''';~~;^,^'`...``'^^^^^``.``^^.l$I  ..,+..```....
 )";
 
-// ³ë¸» ½½¶óÀÓ È£Ãâ ÇÔ¼ö
+// ë…¸ë§ ìŠ¬ë¼ì„ í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintNormalSlimeAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(NormalSlime_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -420,17 +420,17 @@ inline void PrintNormalSlimeAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// º¸½º ½½¶óÀÓ È£Ãâ ÇÔ¼ö
+// ë³´ìŠ¤ ìŠ¬ë¼ì„ í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintBossSlimeAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(BossSlime_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -462,17 +462,17 @@ inline void PrintBossSlimeAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// ³ë¸» °íºí¸° È£Ãâ ÇÔ¼ö
+// ë…¸ë§ ê³ ë¸”ë¦° í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintNormalGoblinAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(NormalGOBLIN_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -504,17 +504,17 @@ inline void PrintNormalGoblinAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// º¸½º °íºí¸° È£Ãâ ÇÔ¼ö
+// ë³´ìŠ¤ ê³ ë¸”ë¦° í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintBossGoblinAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(BossGOBLIN_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -546,17 +546,17 @@ inline void PrintBossGoblinAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// ³ë¸» ¿ÀÅ© È£Ãâ ÇÔ¼ö
+// ë…¸ë§ ì˜¤í¬ í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintNormalOrcAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(NormalOrc_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -588,17 +588,17 @@ inline void PrintNormalOrcAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// º¸½º ¿ÀÅ© È£Ãâ ÇÔ¼ö
+// ë³´ìŠ¤ ì˜¤í¬ í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintBossOrcAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(BossOrc_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -630,17 +630,17 @@ inline void PrintBossOrcAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// ³ë¸» µå·¡°ï È£Ãâ ÇÔ¼ö
+// ë…¸ë§ ë“œë˜ê³¤ í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintNormalDragonAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(NormalDragon_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
@@ -672,17 +672,17 @@ inline void PrintNormalDragonAsciiArt(short startX = 40, short startY = 0) {
     }
 }
 
-// º¸½º µå·¡°ï È£Ãâ ÇÔ¼ö
+// ë³´ìŠ¤ ë“œë˜ê³¤ í˜¸ì¶œ í•¨ìˆ˜
 inline void PrintBossDragonAsciiArt(short startX = 40, short startY = 0) {
-    // ASCII¾ÆÆ® °¡·Î Å©±â¸¦ 55·Î ¸ÂÃßÁÖ´Â ±â´É
+    // ASCIIì•„íŠ¸ ê°€ë¡œ í¬ê¸°ë¥¼ 55ë¡œ ë§ì¶”ì£¼ëŠ” ê¸°ëŠ¥
     constexpr size_t kTargetWidth = 40;
-    // ¿øº» ¹®ÀÚ¿­À» ÇÑ ÁÙ¾¿ ÀĞ´Â ½ºÆ®¸²
+    // ì›ë³¸ ë¬¸ìì—´ì„ í•œ ì¤„ì”© ì½ëŠ” ìŠ¤íŠ¸ë¦¼
     istringstream input(BossDragon_ASCII);
     vector<string> sourceLines;
     string line;
-    // ¿øº» °¡Àå ±ä ÁÙÀÇ ±æÀÌ
+    // ì›ë³¸ ê°€ì¥ ê¸´ ì¤„ì˜ ê¸¸ì´
     size_t sourceWidth = 0;
-    // ¿øº» ¹®ÀÚ¿­ ÁÙ´ÜÀ§·Î ³ª´²¼­ ÀúÀå
+    // ì›ë³¸ ë¬¸ìì—´ ì¤„ë‹¨ìœ„ë¡œ ë‚˜ëˆ ì„œ ì €ì¥
     while (getline(input, line)) {
         sourceWidth = max(sourceWidth, line.size());
         sourceLines.push_back(line);
