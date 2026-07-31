@@ -22,9 +22,6 @@
     <Filter Include="소스 파일\Manager">
       <UniqueIdentifier>{bc6f5084-2d11-4b9e-a122-0ac82ad468fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Workshop">
-      <UniqueIdentifier>{b7c7a603-6edf-4508-b033-b1eccfe2d4a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Skill">
       <UniqueIdentifier>{c8c94814-54e0-49fc-b923-b6d30e9b8b85}</UniqueIdentifier>
     </Filter>
@@ -55,8 +52,11 @@
     <Filter Include="소스 파일\AsciiArt">
       <UniqueIdentifier>{1a3ae964-6075-4a07-b0bb-c8ec6c6e5a0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Character\Inventory">
+    <Filter Include="소스 파일\Inventory">
       <UniqueIdentifier>{ac1d771f-2a93-4cca-82af-e7add1d73d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Store">
+      <UniqueIdentifier>{b7c7a603-6edf-4508-b033-b1eccfe2d4a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,7 @@
       <Filter>소스 파일\Character\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Workshop\Store.cpp">
-      <Filter>소스 파일\Workshop</Filter>
+      <Filter>소스 파일\Store</Filter>
     </ClCompile>
     <ClCompile Include="Item\ConsumableItem.cpp">
       <Filter>소스 파일\Item</Filter>
@@ -139,7 +139,7 @@
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
     <ClCompile Include="Inventory\Inventory.cpp">
-      <Filter>소스 파일\Character\Inventory</Filter>
+      <Filter>소스 파일\Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +216,7 @@
       <Filter>소스 파일\Character\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Workshop\Store.h">
-      <Filter>소스 파일\Workshop</Filter>
+      <Filter>소스 파일\Store</Filter>
     </ClInclude>
     <ClInclude Include="Item\Item.h">
       <Filter>소스 파일\Item</Filter>
@@ -228,7 +228,7 @@
       <Filter>소스 파일\AsciiArt</Filter>
     </ClInclude>
     <ClInclude Include="Inventory\Inventory.h">
-      <Filter>소스 파일\Character\Inventory</Filter>
+      <Filter>소스 파일\Inventory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
