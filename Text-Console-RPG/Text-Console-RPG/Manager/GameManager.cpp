@@ -1,5 +1,6 @@
-#include "GameManager.h"
+ï»¿#include "GameManager.h"
 #include "LogManager.h"
+#include "Dungeon.h"
 #include "Global.h"
 #include "Player.h"
 
@@ -7,7 +8,8 @@ GameManager::GameManager() {
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
-	days_ = 0;
+	dDays_ = 28;
+	dayType_ = DayType::MORNING;
 }
 
 GameManager::~GameManager() {
@@ -15,6 +17,36 @@ GameManager::~GameManager() {
 
 void GameManager::Update() {
 	ChangeScene();
+}
+
+void GameManager::ChangeDayType() {
+	if (dayType_ == DayType::MORNING) {
+		dayType_ == DayType::NIGHT;
+	}
+	else {
+		SubDays();
+		dayType_ == DayType::MORNING;
+	}
+}
+
+DayType GameManager::GetDayType()
+{
+	return dayType_;
+}
+
+int GameManager::GetDdays()
+{
+	return dDays_;
+}
+
+bool GameManager::EndDay()
+{
+	return dDays_ == 0;
+}
+
+void GameManager::SubDays()
+{
+	dDays_--;
 }
 
 void GameManager::StartMenu() {
@@ -29,17 +61,22 @@ void GameManager::ShowMainMenu() {
 	LogManager::GetInstance().PrintMainMenu();
 	int num;
 	while (true) {
-		cout << "¢º ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+		cout << "â–¶ ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš” : ";
 		cin >> num;
 		if (cin.fail())
 		{
 			cin.clear();
 			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-			cout << "¼ýÀÚ¸¸ ÀÔ·Â ÇØÁÖ¼¼¿ä !\n";
+			cout << "ìˆ«ìžë§Œ ìž…ë ¥ í•´ì£¼ì„¸ìš” !\n";
 			continue;
 		}
 		if (num >= 0 && num < 6)
 			break;
+	}
+
+	if (dayType_ == DayType::NIGHT && num == 1)
+	{
+		std::cout << "ë°¤ì—ëŠ” ë˜ì „ì— ìž…ìž¥ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n";
 	}
 
 	switch (num) {
@@ -64,19 +101,36 @@ void GameManager::ShowMainMenu() {
 		break;
 	}
 	case 5: {
-		// ÀÎº¥Åä¸®
+		// ì¸ë²¤í† ë¦¬
 		break;
 	}
 	}
 }
 
 void GameManager::EnterDungeon() {
+	ChangeDayType();
+	LogManager::GetInstance().PrintDungeonMenu();
 }
 
 void GameManager::EnterHotel() {
+	if (dayType_ == DayType::NIGHT)
+	{
+		ChangeDayType();
+	}
+
+	if (EndDay())
+	{
+		SetNextScene(Scene::END);
+		return;
+	}
+
+	LogManager::GetInstance().PrintHotel();
+
+	player_->SetHp(player_->GetHp());
 }
 
 void GameManager::EnterStore() {
+	LogManager::GetInstance().PrintStoreMenu();
 }
 
 void GameManager::SetNextScene(Scene newScene) {

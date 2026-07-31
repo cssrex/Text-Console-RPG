@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 #include <map>
 #include <vector>
 #include <string>
+#include <functional>
 
 class Player;
 class Monster;
@@ -9,26 +10,28 @@ class Monster;
 struct Room {
 	std::string name_;
 	int floor_;
-	std::vector<Monster*> monsters_;
+	std::vector<std::function<Monster*()>> monsterFactories_;
+	std::function<Monster* ()> bossFactory_;
 };
 
 class Dungeon {
 private:
-	// std::map<Monster, int> killedMonsterList_;
+	std::map<Monster*, int> killedMonsterList_;
 	std::vector<Room*> rooms_;
-
+	int topCanEnter = 0;
+	
 private:
 	Dungeon();
-	Dungeon(const Dungeon&) = delete;
-	Dungeon& operator=(const Dungeon&) = delete;
 	~Dungeon();
 
 public:
-	static Dungeon& GetInstance();
-	void Enter(Player& player, int roomIndex);
+	void StartDungeonLoop(Player* player);
 
 private:
-	Monster* CreateMonster(int level);
-	void Battle(Player& player, Monster& monster);
-	void GiveReward(Player& player, Monster& monster);
+	Monster* CreateMonster(int roomIndex, int level);
+	void Enter(Player* player, int roomIndex);
+	bool Battle(Player* player, int roomIndex, int floor);
+	void GiveReward(Player* player, Monster* monster);
+
+	void PrintDungeonList();
 };

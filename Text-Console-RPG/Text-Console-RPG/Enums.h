@@ -42,3 +42,9 @@ enum class EquipmentSlot {
 	Gloves,
 	Boots
 };
+
+enum class DayType
+{
+	MORNING,
+	NIGHT
+};

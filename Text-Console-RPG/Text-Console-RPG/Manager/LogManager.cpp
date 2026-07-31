@@ -2,6 +2,8 @@
 #include "Global.h"
 #include "GameManager.h"
 #include "Player.h"
+#include "Dungeon.h"
+#include "Monster.h"
 
 LogManager::LogManager() {
 }
@@ -33,38 +35,22 @@ void LogManager::PrintStartMenu()
 |                                                                                                                     |
 |                                                                                                                     |
 |                                                                                                                     |
-+====================================================================================================================+
++=====================================================================================================================+
 )";
 	cout << "▶ 이름을 입력해주세요 : ";
 }
 
 
 void LogManager::PrintMainMenu() {
+	
 	cout << R"(
-+=================================================================================+
-|                                                                                 |
-|                                                                                 |
-|                                                                                 |
-|              _______ ______  __  __ _______     _____  _____   _____            |
-|             |__   __|  ____| \ \/ /|__   __|   |  __ \|  __ \ / ____|           |
-|                | |  | |__     \  /    | |      | |__) | |__) | |  __            |
-|                | |  |  __|    /  \    | |      |  _  /|  ___/| | |_ |           |
-|                | |  | |____  / /\ \   | |      | | \ \| |    | |__| |           |
-|                |_|  |______|/_/  \_\  |_|      |_|  \_\_|     \_____|           |
-|                                                                                 |
-|                                                                                 |
-|                                                                                 |
-|---------------------------------------------------------------------------------|
-|                                                                                 |
-|                                                                                 |
-|                                                                                 |
-|             1. 던전 입장          2. 상점             3. 여관                   |
-|                                                                                 |
-|             4. 플레이어 정보      5. 인벤토리         0. 게임 종료              |
-|                                                                                 |
-|                                                                                 |
-|                                                                                 |
-+=================================================================================+
++======================================================================================+
+|                                                                                      |
+|                1. 던전 입장          2. 상점             3. 여관                     |
+|                                                                                      |
+|                4. 플레이어 정보      5. 인벤토리         0. 게임 종료                |
+|                                                                                      |
++======================================================================================+
 )";
 }
 
@@ -73,15 +59,41 @@ void LogManager::PrintHotel() {
 }
 
 void LogManager::PrintStoreMenu() {
+	cout << R"(
++======================================================================================+
+|                                                                                      |
+|               1. 포션 상점          2. 대장간          0. 나가기                     |
+|                                                                                      |
++======================================================================================+
+)";
 }
 
 void LogManager::PrintDungeonMenu() {
+	cout << R"(
++======================================================================================+
+|                                                                                      |
+|              1. 슬라임 던전        2. 고블린 던전        3. 오크 던전                |
+|                                                                                      |
+|              4. 드래곤 던전        0. 나가기                                         |
+|                                                                                      |
++======================================================================================+
+)";
 }
 
 LogManager& LogManager::GetInstance() {
 	static LogManager instance;
 
 	return instance;
+}
+
+void LogManager::ClearScreen()
+{
+	system("cls");
+}
+
+void LogManager::PrintInpuErrorMessage()
+{
+	cout << "잘못된 입력입니다\n";
 }
 
 // 캐릭터 (Character) 관련
@@ -225,3 +237,129 @@ void LogManager::PrintSkillMpLack(const string& skillName) {
 void LogManager::PrintStatusEffectDamage(const string& effectName, const string& targetName, int damage) {
 	cout << "[" << effectName << "] 효과 발생! " << targetName << "에게 " << damage << "의 지속 피해를 입깁니다.\n";
 }
+
+int GetVisualWidth(const std::string& str) {
+	int width = 0;
+	for (size_t i = 0; i < str.length(); ) {
+		unsigned char c = static_cast<unsigned char>(str[i]);
+		if (c < 0x80) {
+			// ASCII 문자 (1칸)
+			width += 1;
+			i += 1;
+		}
+		else {
+			// UTF-8 멀티바이트 문자 (한글, 특수문자 등 - 콘솔 2칸)
+			width += 2;
+			if ((c & 0xE0) == 0xC0) i += 2;
+			else if ((c & 0xF0) == 0xE0) i += 3;
+			else if ((c & 0xF8) == 0xF0) i += 4;
+			else i += 1;
+		}
+	}
+	return width;
+}
+
+void LogManager::PrintDungeonList(const vector<string>& roomList)
+{
+	ClearScreen();
+	cout << "+=================================================================================+\n";
+	cout << "|                                                                                 |\n";
+	cout << "|                         /\\                                                      |\n";
+	cout << "|                        /  \\                                                     |\n";
+	cout << "|                       / /\\ \\                                                    |\n";
+	cout << "|                      / /  \\ \\                                                   |\n";
+	cout << "|                     / /____\\ \\                                                  |\n";
+	cout << "|                    /  _______ \\                                                 |\n";
+	cout << "|                   /  /       \\  \\                                               |\n";
+	cout << "|                  /  /  [   ]  \\  \\                                              |\n";
+	cout << "|                 /__/   |   |   \\__\\                                             |\n";
+	cout << "|                        |   |                                                    |\n";
+	cout << "|                                                                                 |\n";
+	cout << "|---------------------------------------------------------------------------------|\n";
+	cout << "|                                                                                 |\n";
+
+	const int totalWidth = 81;
+
+	for (size_t i = 0; i < roomList.size(); ++i) {
+		std::string itemText = std::to_string(i + 1) + ". " + roomList[i];
+		int itemWidth = GetVisualWidth(itemText);
+
+		int rightPadding = totalWidth - 33 - itemWidth;
+		if (rightPadding < 0) rightPadding = 0;
+
+		cout << "|                                 "
+			<< itemText
+			<< std::string(rightPadding, ' ')
+			<< "|\n";
+		cout << "|                                                                                 |\n";
+	}
+
+	std::string backText = "0. 뒤로가기";
+	int backWidth = GetVisualWidth(backText);
+	int backRightPadding = totalWidth - 33 - backWidth;
+	if (backRightPadding < 0) backRightPadding = 0;
+
+	cout << "|                                 "
+		<< backText
+		<< std::string(backRightPadding, ' ')
+		<< "|\n";
+	cout << "|                                                                                 |\n";
+	cout << "+=================================================================================+\n";
+	cout << "▶ 행동을 선택해주세요: ";
+}
+
+void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster)
+{
+	int currentHp = monster->GetHp();
+	int maxHp = monster->GetMaxHp();
+
+	int fillCount = 0;
+	if (maxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(currentHp) / maxHp) * 10.0);
+	}
+	
+	if (fillCount > 10) fillCount = 10;
+	if (fillCount < 0) fillCount = 0;
+
+	string hpBar = "";
+	for (int i = 0; i < fillCount; ++i) {
+		hpBar += "█";
+	}
+	for (int i = fillCount; i < 10; ++i) {
+		hpBar += " ";
+	}
+
+	ClearScreen();
+	cout << "==================================================\n";
+	cout << "	       [ " << room->name_ << " (" << floor << "층) ]\n";
+	cout << "==================================================\n";
+	cout << "     이름 : " << monster->GetName() << "\t\t   레벨 : Lv. " << monster->GetLevel() << "\n\n\n";
+
+		// 몬스터 이미지 출력
+
+		//
+
+	cout << "--------------------------------------------------\n";
+	cout << "              [ 몬스터 능력치 (Stats) ]           \n";
+	cout << "           • HP    : " << hpBar << " " << currentHp << " / " << maxHp << "\n";
+	cout << "           • Power : " << monster->GetAttack() << "\n";
+	cout << "==================================================\n";
+	cout << "               [ 행동을 선택하세요! ]            \n\n";
+	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n\n";
+	cout << "==================================================\n";
+	cout << "▶ 행동을 선택하세요: ";
+}
+
+void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
+{
+	ClearScreen();
+	cout << room->name_ << " " << floor << "층 클리어!\n";
+	cout << "==================================================\n";
+	cout << "               [ 행동을 선택하세요! ]            \n\n";
+	cout << "  1. 현재 층 재도전\n";
+	cout << "  2. 다음 층으로\n";
+	cout << "  0. 던전 떠나기\n";
+	cout << "==================================================\n";
+	cout << "▶ 행동을 선택하세요: ";
+}
+
