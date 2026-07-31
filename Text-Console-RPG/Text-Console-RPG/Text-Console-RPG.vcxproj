@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AsciiArt\Utils.cpp" />
     <ClCompile Include="Character\Character.cpp" />
     <ClCompile Include="Character\Monster\Dragon\Drake.cpp" />
     <ClCompile Include="Character\Monster\Dragon\TransparentDragon.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="AsciiArt\MonsterAsciiArt.h" />
     <ClInclude Include="AsciiArt\SceneAsciiArt.h" />
+    <ClInclude Include="AsciiArt\Utils.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Monster\Dragon\Drake.h" />
     <ClInclude Include="Character\Monster\Dragon\TransparentDragon.h" />
