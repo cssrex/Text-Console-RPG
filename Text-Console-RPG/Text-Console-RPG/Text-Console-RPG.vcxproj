@@ -153,9 +153,9 @@
     <ClCompile Include="Manager\SoundManager.cpp" />
     <ClCompile Include="Skill\Skill.cpp" />
     <ClCompile Include="StatusEffect\StatusEffect.cpp" />
-    <ClCompile Include="Workshop\Store.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Store\Blacksmith.cpp" />
+    <ClCompile Include="Store\PotionStore.cpp" />
+    <ClCompile Include="Store\Store.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsciiArt\MonsterAsciiArt.h" />
@@ -188,9 +188,7 @@
     <ClInclude Include="Manager\SoundManager.h" />
     <ClInclude Include="Skill\Skill.h" />
     <ClInclude Include="StatusEffect\StatusEffect.h" />
-    <ClInclude Include="Workshop\Store.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Store\Store.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -129,9 +129,6 @@
     <ClCompile Include="Character\Monster\Monster.cpp">
       <Filter>소스 파일\Character\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="Workshop\Store.cpp">
-      <Filter>소스 파일\Store</Filter>
-    </ClCompile>
     <ClCompile Include="Item\ConsumableItem.cpp">
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
@@ -140,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="Inventory\Inventory.cpp">
       <Filter>소스 파일\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Store\Blacksmith.cpp">
+      <Filter>소스 파일\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="Store\PotionStore.cpp">
+      <Filter>소스 파일\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="Store\Store.cpp">
+      <Filter>소스 파일\Store</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,9 +221,6 @@
     <ClInclude Include="Character\Monster\Monster.h">
       <Filter>소스 파일\Character\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="Workshop\Store.h">
-      <Filter>소스 파일\Store</Filter>
-    </ClInclude>
     <ClInclude Include="Item\Item.h">
       <Filter>소스 파일\Item</Filter>
     </ClInclude>
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="Inventory\Inventory.h">
       <Filter>소스 파일\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Store\Store.h">
+      <Filter>소스 파일\Store</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
