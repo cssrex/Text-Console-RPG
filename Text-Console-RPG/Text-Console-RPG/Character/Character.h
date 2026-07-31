@@ -32,11 +32,14 @@ public:
     virtual void Heal(int value);
     void UseMp(int amount);
     void HealMp(int amount);
-    bool IsDead() const;
+    bool IsDead() const { return hp_ <= 0; };
 
     // 상태이상 연산
     void AddStatusEffect(StatusEffect* effect);
     void UpdateStatusEffects();
+
+    bool HasStatusEffect() const;
+    void ClearStatusEffects();
 
     std::string GetName() const { return name_; }
     int GetLevel() const { return level_; }
@@ -51,5 +54,3 @@ public:
     void SetMp(int mp) { mp_ = mp; }
     void SetAttack(int attack) { attack_ = attack; }
 };
-
-#endif

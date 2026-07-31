@@ -1,8 +1,8 @@
-﻿#ifndef PLAYER_H
-#define PLAYER_H
+﻿#pragma once
 
 #include "Character.h"
 
+class Inventory;
 class Player : public Character {
 private:
     int exp_;
@@ -14,6 +14,8 @@ private:
     int hpBonusPerLevel_ = 20;      
     int attackBonusPerLevel_ = 5;   
     int defenseBonusPerLevel_ = 2;
+
+    Inventory* inventory;
 
 public:
     Player(std::string name);
@@ -36,6 +38,6 @@ public:
     int GetGold() const { return gold_; }
     int GetDefense() const { return defense_; }
     void SetDefense(int defense) { defense_ = defense; }
+    Inventory* GetInventory() { return inventory; }
 };
 
-#endif

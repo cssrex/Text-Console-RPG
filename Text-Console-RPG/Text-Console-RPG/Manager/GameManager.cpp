@@ -1,26 +1,55 @@
-#include "GameManager.h"
+ï»¿#include "GameManager.h"
 #include "LogManager.h"
+#include "Dungeon.h"
 #include "Global.h"
 #include "Player.h"
 
-GameManager::GameManager()
-{
+GameManager::GameManager() {
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
+	dDays_ = 28;
+	dayType_ = DayType::MORNING;
 }
 
-GameManager::~GameManager()
-{
+GameManager::~GameManager() {
 }
 
-void GameManager::Update()
-{
+void GameManager::Update() {
 	ChangeScene();
 }
 
-void GameManager::StartMenu()
+void GameManager::ChangeDayType() {
+	if (dayType_ == DayType::MORNING) {
+		dayType_ == DayType::NIGHT;
+	}
+	else {
+		SubDays();
+		dayType_ == DayType::MORNING;
+	}
+}
+
+DayType GameManager::GetDayType()
 {
+	return dayType_;
+}
+
+int GameManager::GetDdays()
+{
+	return dDays_;
+}
+
+bool GameManager::EndDay()
+{
+	return dDays_ == 0;
+}
+
+void GameManager::SubDays()
+{
+	dDays_--;
+}
+
+void GameManager::StartMenu() {
 	LogManager::GetInstance().PrintStartMenu();
 	string name;
 	cin >> name;
@@ -28,79 +57,87 @@ void GameManager::StartMenu()
 	SetNextScene(Scene::MAIN);
 }
 
-void GameManager::ShowMainMenu()
-{
+void GameManager::ShowMainMenu() {
 	LogManager::GetInstance().PrintMainMenu();
 	int num;
-	while (true)
-	{
-		cout << "¢º ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+	while (true) {
+		cout << "â–¶ ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš” : ";
 		cin >> num;
 		if (cin.fail())
 		{
 			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			cout << "¼ýÀÚ¸¸ ÀÔ·Â ÇØÁÖ¼¼¿ä !\n";
+			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+			cout << "ìˆ«ìžë§Œ ìž…ë ¥ í•´ì£¼ì„¸ìš” !\n";
 			continue;
 		}
 		if (num >= 0 && num < 6)
 			break;
 	}
 
-	switch (num)
+	if (dayType_ == DayType::NIGHT && num == 1)
 	{
-	case 0:
-	{
+		std::cout << "ë°¤ì—ëŠ” ë˜ì „ì— ìž…ìž¥ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n";
+	}
+
+	switch (num) {
+	case 0: {
 		SetNextScene(Scene::END);
 		break;
 	}
-	case 1:
-	{
+	case 1: {
 		SetNextScene(Scene::DUNGEON);
 		break;
 	}
-	case 2:
-	{
+	case 2: {
 		SetNextScene(Scene::STORE);
 		break;
 	}
-	case 3:
-	{
+	case 3: {
 		SetNextScene(Scene::HOTEL);
 		break;
 	}
-	case 4:
-	{
+	case 4: {
 		player_->PrintStatus();
 		break;
 	}
-	case 5:
-	{
-		// ÀÎº¥Åä¸®
+	case 5: {
+		// ì¸ë²¤í† ë¦¬
 		break;
 	}
 	}
 }
 
-void GameManager::EnterDungeon()
-{
+void GameManager::EnterDungeon() {
+	ChangeDayType();
+	LogManager::GetInstance().PrintDungeonMenu();
 }
 
-void GameManager::EnterHotel()
-{
+void GameManager::EnterHotel() {
+	if (dayType_ == DayType::NIGHT)
+	{
+		ChangeDayType();
+	}
+
+	if (EndDay())
+	{
+		SetNextScene(Scene::END);
+		return;
+	}
+
+	LogManager::GetInstance().PrintHotel();
+
+	player_->SetHp(player_->GetHp());
 }
 
-void GameManager::EnterStore()
-{
+void GameManager::EnterStore() {
+	LogManager::GetInstance().PrintStoreMenu();
 }
 
-void GameManager::SetNextScene(Scene newScene)
-{
+void GameManager::SetNextScene(Scene newScene) {
 	nextScene_ = newScene;
 }
 
-void GameManager::ChangeScene()
-{
+void GameManager::ChangeScene() {
 	if (curScene_ == nextScene_)
 		return;
 
@@ -128,25 +165,21 @@ void GameManager::ChangeScene()
 	system("cls");
 }
 
-GameManager& GameManager::GetInstance()
-{
+GameManager& GameManager::GetInstance() {
 	static GameManager instance;
 
 	return instance;
 }
 
-Player* GameManager::GetPlayer()
-{
+Player* GameManager::GetPlayer() {
 	return player_;
 }
 
-void GameManager::InitializePlayer(string name)
-{
+void GameManager::InitializePlayer(string name) {
 	player_ = new Player(name);
 }
 
-void GameManager::GameLoop()
-{
+void GameManager::GameLoop() {
 	while (curScene_ != Scene::END)
 	{
 		Update();

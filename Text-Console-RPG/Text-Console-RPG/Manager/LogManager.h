@@ -1,9 +1,11 @@
 ﻿#pragma once
 
 #include <string>
+#include <vector>
 
-class LogManager
-{
+struct Room;
+class Monster;
+class LogManager {
 private:
 
 private:
@@ -12,16 +14,20 @@ private:
 	LogManager(const LogManager&) = delete;
 	LogManager& operator=(const LogManager&) = delete;
 	
+public:
+	static LogManager& GetInstance();
+
+public:
+	void ClearScreen();
+	void PrintInpuErrorMessage();
+
+	// 게임 매니저 관련
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();
 	void PrintWorkshopMenu();
 	void PrintDungeonMenu();
 
-public:
-	static LogManager& GetInstance();
-
-public:
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
 	void PrintHeal(const std::string& name, int value);
@@ -57,4 +63,10 @@ public:
 
 	// 상태이상 (StatusEffect) 관련
 	void PrintStatusEffectDamage(const std::string& effectName, const std::string& targetName, int damage);
+
+	// 던전 (Dungeon) 관련
+	void PrintDungeonList(const std::vector<std::string>& roomList);
+	void PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster);
+	void PrintDungeonProgressOption(Room*& room, int floor);
+
 };
