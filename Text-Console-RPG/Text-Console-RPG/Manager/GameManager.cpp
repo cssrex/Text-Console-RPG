@@ -3,8 +3,11 @@
 #include "Dungeon.h"
 #include "Global.h"
 #include "Player.h"
+#include "Store.h"
 
 GameManager::GameManager() {
+	stores_.push_back(new PotionStore());
+	stores_.push_back(new Blacksmith());
 	dungeon_ = new Dungeon();
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
@@ -14,6 +17,10 @@ GameManager::GameManager() {
 }
 
 GameManager::~GameManager() {
+	for (int i = 0; i < stores_.size(); ++i) {
+		delete stores_[i];
+	}
+	delete dungeon_;
 }
 
 void GameManager::Update() {
@@ -78,6 +85,8 @@ void GameManager::ShowMainMenu() {
 	if (dayType_ == DayType::NIGHT && num == 1)
 	{
 		std::cout << "밤에는 던전에 입장 할 수 없습니다.\n";
+		system("pause");
+		return;
 	}
 
 	switch (num) {
@@ -99,6 +108,7 @@ void GameManager::ShowMainMenu() {
 	}
 	case 4: {
 		player_->PrintStatus();
+		system("pause");
 		break;
 	}
 	case 5: {
@@ -133,6 +143,22 @@ void GameManager::EnterHotel() {
 
 void GameManager::EnterStore() {
 	LogManager::GetInstance().PrintStoreMenu();
+	int index;
+	while (true) {
+		cout << "▶ 번호를 입력해주세요 : ";
+		cin >> index;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+			cout << "숫자만 입력 해주세요 !\n";
+			continue;
+		}
+		if (index >= 0 && index < 6)
+			break;
+	}
+
+	stores_[index - 1]->StoreMenu(*player_, *player_->GetInventory());
 }
 
 void GameManager::SetNextScene(Scene newScene) {
