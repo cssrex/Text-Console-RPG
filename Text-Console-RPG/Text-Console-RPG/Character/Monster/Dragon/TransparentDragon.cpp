@@ -1,6 +1,9 @@
 ﻿#include "TransparentDragon.h"
 #include <iostream>
 
+void TransparentDragon::PrintAsciiArt(short startX, short startY) {
+	PrintBossDragonAsciiArt(startX, startY);
+}
 void TransparentDragon::BasicAttack(Player* player) {
 	player->TakeDamage(GetAttack());
 }

@@ -1,6 +1,9 @@
 ﻿#include "Wyvern.h"
 #include <iostream>
 
+void Wyvern::PrintAsciiArt(short startX, short startY) {
+	PrintNormalDragonAsciiArt(startX, startY);
+}
 void Wyvern::BasicAttack(Player* player) {
 	player->TakeDamage(GetAttack());
 }

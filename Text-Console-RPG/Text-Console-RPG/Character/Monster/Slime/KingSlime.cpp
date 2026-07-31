@@ -1,6 +1,9 @@
 ﻿#include "KingSlime.h"
 #include <iostream>
 
+void KingSlime::PrintAsciiArt(short startX, short startY) {
+	PrintBossSlimeAsciiArt(startX, startY);
+}
 void KingSlime::BasicAttack(Player* player) {
 	player->TakeDamage(GetAttack());
 }

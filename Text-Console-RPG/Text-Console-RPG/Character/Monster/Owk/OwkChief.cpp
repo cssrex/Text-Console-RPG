@@ -1,6 +1,9 @@
 ﻿#include "OwkChief.h"
 #include <iostream>
 
+void OwkChief::PrintAsciiArt(short startX, short startY) {
+	PrintBossOrcAsciiArt(startX, startY);
+}
 void OwkChief::BasicAttack(Player* player) {
 	player->TakeDamage(GetAttack());
 }
