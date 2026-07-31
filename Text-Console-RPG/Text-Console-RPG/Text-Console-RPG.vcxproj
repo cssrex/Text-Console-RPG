@@ -144,11 +144,9 @@
     <ClCompile Include="Character\Monster\Slime\PoisonSlime.cpp" />
     <ClCompile Include="Character\Player\Player.cpp" />
     <ClCompile Include="Dungeon\Dungeon.cpp" />
+    <ClCompile Include="Inventory\Inventory.cpp" />
     <ClCompile Include="Item\ConsumableItem.cpp" />
     <ClCompile Include="Item\EquipmentItem.cpp" />
-    <ClCompile Include="Item\Inventory.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Manager\LogManager.cpp" />
@@ -181,9 +179,7 @@
     <ClInclude Include="Dungeon\Dungeon.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="Item\Inventory.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Inventory\Inventory.h" />
     <ClInclude Include="Item\Item.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
