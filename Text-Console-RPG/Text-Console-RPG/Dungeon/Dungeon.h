@@ -20,7 +20,7 @@ private:
 	std::vector<Room*> rooms_;
 	int topCanEnter = 0;
 	
-private:
+public:
 	Dungeon();
 	~Dungeon();
 

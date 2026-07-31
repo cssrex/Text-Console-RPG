@@ -21,6 +21,13 @@ public:
 	void ClearScreen();
 	void PrintInpuErrorMessage();
 
+
+	// 에러 수정용
+	void PrintStoreMenu();
+	void PrintHotel();
+	void PrintStore();
+	void PrintRemoveAllStatusEffect(std::string name);
+
 	// 게임 매니저 관련
 	void PrintInitializeCharacter();
 	void PrintStartMenu();

@@ -18,7 +18,7 @@ protected:
     ItemType itemType_;
 
 public:
-    Item(ItemType type, const string& name, int price, int count): itemType_(type), name_(name), price_(price), count_(count){}
+    Item(const string& name, int price, int count, ItemType type): name_(name), price_(price), count_(count), itemType_(type) {}
     virtual ~Item() = default;
 
     virtual unique_ptr<Item> Clone() const = 0;
@@ -57,11 +57,11 @@ private:
 
     int HealHP(Player& player, int value);
     int HealMP(Player& player, int value);
-    pair<int, int> HealHPMP(Player& player, int value);
+    pair<int, int> HealHPMP(Player& player, int hpValue, int mpValue);
     pair<int, int> FullRecovery(Player& player);
 
 public:
-    ConsumableItem(const string& name, int price, int count, int value, ItemEffectType type): Item(ItemType::Consumable, name, price, count), effectValue_(value), effectType_(type) {}
+    ConsumableItem(const string& name, int price, int count, int value, ItemEffectType type): Item(name, price, count, ItemType::Consumable), effectValue_(value), effectType_(type) {}
 
     unique_ptr<Item> Clone() const override { return make_unique<ConsumableItem>(name_, price_, 1, effectValue_, effectType_); }
 
@@ -82,7 +82,7 @@ private:
     EquipmentSlot equipmentSlot_;
 
 public:
-    EquipmentItem(const string& name, int price, int count, int attack, int defense, EquipmentType type, EquipmentSlot slot): Item(ItemType::Equipment, name, price, count), attackValue_(attack), defenseValue_(defense), equipmentType_(type), equipmentSlot_(slot) {}
+    EquipmentItem(const string& name, int price, int count, int attack, int defense, EquipmentType type, EquipmentSlot slot): Item(name, price, count, ItemType::Equipment), attackValue_(attack), defenseValue_(defense), equipmentType_(type), equipmentSlot_(slot) {}
 
     unique_ptr<Item> Clone() const override { return make_unique<EquipmentItem>(name_, price_, 1, attackValue_, defenseValue_, equipmentType_, equipmentSlot_); }
 
@@ -99,7 +99,7 @@ public:
 // 전리품
 class LootItem : public Item {
 public:
-    LootItem(const string& name, int price, int count): Item(ItemType::Loot, name, price, count) {}
+    LootItem(const string& name, int price, int count): Item(name, price, count, ItemType::Loot) {}
 
     unique_ptr<Item> Clone() const override { return make_unique<LootItem>(name_, price_, 1); }
 };

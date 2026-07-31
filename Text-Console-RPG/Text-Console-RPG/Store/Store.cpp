@@ -11,22 +11,26 @@ void Store::ShowItems() const{
     cout << "===== 구매 =====" << endl;
 
     for (int i = 0; i < static_cast<int>(items_.size()); i++) {
-        cout << i + 1 << ". " << items_[i]->GetName() << " : " << items_[i]->GetPrice() << "골드" << endl;
+        cout << i + 1 << ". " << items_[i]->GetName() << ": " << items_[i]->GetPrice() << "골드  x " << items_[i]->GetCount() << " 개" << endl;
     }
 }
 
 // 아이템 구매
 void Store::BuyItem(Player& player, Inventory& inventory, int index) {
-    if (index < 0 || index >= static_cast<int>(items_.size())) return;
+    if (index < 0 || index >= static_cast<int>(items_.size())) {
+        cout << "잘못된 아이템입니다." << endl;
+        return;
+    }
 
     Item* item = items_[index].get();
+    string name = item->GetName();
+    int price = item->GetPrice();
 
-    if (player.GetGold() < item->GetPrice()) {
+    if (player.GetGold() < price) {
         cout << "골드가 부족합니다." << endl;
         return;
     }
-    string name = item->GetName();
-    player.AddGold(-item->GetPrice());
+    player.AddGold(-price);
     inventory.AddItem(item->Clone());
     item->RemoveCount(1);
 
@@ -66,6 +70,7 @@ void Store::SellMenu(Player& player, Inventory& inventory) {
     cout << "2. 방어구" << endl;
     cout << "3. 소모품" << endl;
     cout << "4. 전리품" << endl;
+    cout << "0. 돌아가기" << endl;
 
     int menu;
     cin >> menu;
@@ -78,6 +83,9 @@ void Store::SellMenu(Player& player, Inventory& inventory) {
     int index = -1;
 
     switch (menu) {
+    case 0:
+        return;
+
     case 1:
         index = inventory.SelectEquipment(EquipmentType::Weapon);
         break;
@@ -93,6 +101,11 @@ void Store::SellMenu(Player& player, Inventory& inventory) {
     case 4:
         index = inventory.SelectLoot();
         break;
+
+    default:
+        cout << "잘못된 입력입니다." << endl;
+        return;
+
     }
 
     if (index != -1) {

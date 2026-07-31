@@ -39,7 +39,7 @@ bool ConsumableItem::Use(Player& player) {
             return false;
         }
 
-        pair<int, int> result = HealHPMP(player, player.GetMaxHp() / 2);
+        pair<int, int> result = HealHPMP(player, player.GetMaxHp() / 2, player.GetMaxMp() / 2);
 
         cout << name_ << " HP " << result.first << ", MP " << result.second << " 회복" << endl;
 
@@ -103,12 +103,12 @@ int ConsumableItem::HealMP(Player& player, int value) {
     return player.GetMp() - before;
 }
 
-pair<int, int> ConsumableItem::HealHPMP(Player& player, int value) {
+pair<int, int> ConsumableItem::HealHPMP(Player& player, int hpValue, int mpValue) {
     int beforeHp = player.GetHp();
     int beforeMp = player.GetMp();
 
-    player.SetHp(min(player.GetHp() + value, player.GetMaxHp()));
-    player.SetMp(min(player.GetMp() + value, player.GetMaxMp()));
+    player.SetHp(min(player.GetHp() + hpValue, player.GetMaxHp()));
+    player.SetMp(min(player.GetMp() + mpValue, player.GetMaxMp()));
 
     return { player.GetHp() - beforeHp, player.GetMp() - beforeMp };
 }

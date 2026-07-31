@@ -1,17 +1,22 @@
 ﻿#pragma once
 #include <string>
+#include <vector>
 #include "Enums.h"
 
 class LogManager;
 class Player;
+class Dungeon;
+class Store;
 
 class GameManager {
 private:
-	Player*		player_;
-	Scene		curScene_;
-	Scene		nextScene_;
-	int			dDays_;
-	DayType		dayType_;
+	std::vector<Store*> stores_;
+	Dungeon*			dungeon_;
+	Player*				player_;
+	Scene				curScene_;
+	Scene				nextScene_;
+	int					dDays_;
+	DayType				dayType_;
 private:
 	GameManager();
 	~GameManager();
