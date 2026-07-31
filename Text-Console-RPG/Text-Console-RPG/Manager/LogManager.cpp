@@ -181,8 +181,8 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 	cout << "==================================================\n";
 	cout << "                 [ 캐릭터 정보 ]                  \n";
 	cout << "==================================================\n";
-	cout << "  이름 : " << left << setw(24) << name << "직업 : 모험가\n";
-	cout << "  레벨 : Lv. " << left << setw(22) << level << "경험치 : [" << expBar << "] " << expPercent << "%\n";
+	cout << "  이름 : " << left << setw(23) << name << "직업 : 모험가\n";
+	cout << "  레벨 : Lv. " << left << setw(17) << level << "경험치 : [" << expBar << "] " << expPercent << "%\n";
 	cout << "--------------------------------------------------\n";
 	cout << "  [ 기본 능력치 (Stats) ]\n";
 	cout << "   • HP      : " << hpBar << " " << right << setw(3) << hp << " / " << setw(3) << maxHp << "\n";
