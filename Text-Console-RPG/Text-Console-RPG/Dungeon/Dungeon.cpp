@@ -5,6 +5,8 @@
 #include "Inventory.h"
 #include "Item.h"
 
+#include "SkillManager.h"
+
 #include "GreenSlime.h"
 #include "HornSlime.h"
 #include "PoisonSlime.h"
@@ -195,36 +197,53 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 
 	while (true)
 	{
-		LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, monster);
+		// 플레이어 턴 시작 시 상태이상 업데이트
+		player->UpdateStatusEffects();
 
-		// 플레이어가 몬스터 때리기
-		int command;
-		std::cin >> command;
-
-		if (std::cin.fail()) {
-			std::cin.clear();
-			std::cin.ignore(1000, '\n');
-			LogManager::GetInstance().PrintInpuErrorMessage();
-			system("pause");
-			continue;
+		if (player->IsDead()) {
+			GameManager::GetInstance().SetNextScene(Scene::END);
+			playerWon = false;
+			break;
 		}
 
-		switch (command)
+		// 행동 완료 여부 플래그 (MP 부족/취소 시 루프 재실행용)
+		bool validTurn = false;
+
+		while (!validTurn)
 		{
-		case 1:
-			monster->TakeDamage(player->GetAttack());
-			break;
-		case 2:
+			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, monster);
 
-			break;
-		case 3:
-			// player->GetInventory()->InventoryMenu(*player);
-			break;
-		case 4:
+			// 플레이어가 몬스터 때리기
+			int command;
+			std::cin >> command;
 
-		default:
-			LogManager::GetInstance().PrintInpuErrorMessage();
-			break;
+			if (std::cin.fail()) {
+				std::cin.clear();
+				std::cin.ignore(1000, '\n');
+				LogManager::GetInstance().PrintInpuErrorMessage();
+				system("pause");
+				continue;
+			}
+
+			switch (command)
+			{
+			case 1:
+				monster->TakeDamage(player->GetAttack());
+				validTurn = true; // 일반 공격 성공 시 턴 소모
+				break;
+			case 2:
+				// SkillManager를 통한 플레이어 스킬 사용
+				validTurn = SkillManager::GetInstance().ProcessSkillSelection(*player, *monster);
+				break;
+			case 3:
+				// player->GetInventory()->InventoryMenu(*player);
+				break;
+			case 4:
+				break;
+			default:
+				LogManager::GetInstance().PrintInpuErrorMessage();
+				break;
+			}
 		}
 
 		if (monster->IsDead())
@@ -236,6 +255,9 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 			playerWon = true;
 			break;
 		}
+
+		// 몬스터 턴 시작 시 상태이상 업데이트
+		monster->UpdateStatusEffects();
 
 		// 몬스터가 플레이어 때리기
 		monster->Attack(player);

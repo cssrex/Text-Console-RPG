@@ -132,14 +132,17 @@
     <ClCompile Include="Workshop\Store.cpp">
       <Filter>소스 파일\Workshop</Filter>
     </ClCompile>
-    <ClCompile Include="Item\Inventory.cpp">
-      <Filter>소스 파일\Character\Inventory</Filter>
-    </ClCompile>
     <ClCompile Include="Item\ConsumableItem.cpp">
       <Filter>소스 파일\Item</Filter>
     </ClCompile>
     <ClCompile Include="Item\EquipmentItem.cpp">
       <Filter>소스 파일\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory\Inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,8 +230,11 @@
     <ClInclude Include="AsciiArt\MonsterAsciiArt.h">
       <Filter>소스 파일\AsciiArt</Filter>
     </ClInclude>
-    <ClInclude Include="Item\Inventory.h">
-      <Filter>소스 파일\Character\Inventory</Filter>
+    <ClInclude Include="Inventory\Inventory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
