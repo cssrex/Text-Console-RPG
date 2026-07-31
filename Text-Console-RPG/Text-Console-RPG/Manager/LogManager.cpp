@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Dungeon.h"
 #include "Monster.h"
+#include "SceneAsciiArt.h"
 
 LogManager::LogManager() {
 }
@@ -42,7 +43,7 @@ void LogManager::PrintStartMenu()
 
 
 void LogManager::PrintMainMenu() {
-
+	PrintTownScene();
 	cout << R"(
 +======================================================================================+
 |                                                                                      |
@@ -54,16 +55,8 @@ void LogManager::PrintMainMenu() {
 )";
 }
 
-void LogManager::PrintWorkshopMenu()
-{
-}
-
-void LogManager::PrintHotel() {
-
-}
-
-void LogManager::PrintStore()
-{
+void LogManager::PrintHotelMenu() {
+	PrintHouseAsciiArt();
 }
 
 void LogManager::PrintRemoveAllStatusEffect(std::string name)
@@ -71,6 +64,7 @@ void LogManager::PrintRemoveAllStatusEffect(std::string name)
 }
 
 void LogManager::PrintStoreMenu() {
+	PrintShopMainAsciiArt();
 	cout << R"(
 +======================================================================================+
 |                                                                                      |
@@ -81,6 +75,7 @@ void LogManager::PrintStoreMenu() {
 }
 
 void LogManager::PrintDungeonMenu() {
+	PrintDungeonEntranceAsciiArt();
 	cout << R"(
 +======================================================================================+
 |                                                                                      |
