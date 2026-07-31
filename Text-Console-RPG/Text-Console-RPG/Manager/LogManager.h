@@ -5,6 +5,7 @@
 
 struct Room;
 class Monster;
+class Player;
 class LogManager {
 private:
 
@@ -23,16 +24,14 @@ public:
 
 
 	// 에러 수정용
+	void PrintHotelMenu();
 	void PrintStoreMenu();
-	void PrintHotel();
-	void PrintStore();
 	void PrintRemoveAllStatusEffect(std::string name);
 
 	// 게임 매니저 관련
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();
-	void PrintWorkshopMenu();
 	void PrintDungeonMenu();
 
 	// 캐릭터 (Character) 관련
@@ -71,7 +70,7 @@ public:
 
 	// 던전 (Dungeon) 관련
 	void PrintDungeonList(const std::vector<std::string>& roomList);
-	void PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster);
+	void PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster);
 	void PrintDungeonProgressOption(Room*& room, int floor);
 	void PrintDungeonReward(const std::string& item, int gold, int exp);
 };

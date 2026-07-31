@@ -1,9 +1,11 @@
-﻿#include "LogManager.h"
+#include "LogManager.h"
 #include "Global.h"
 #include "GameManager.h"
 #include "Player.h"
 #include "Dungeon.h"
 #include "Monster.h"
+#include "SceneAsciiArt.h"
+#include "Utils.h"
 
 LogManager::LogManager() {
 }
@@ -42,28 +44,21 @@ void LogManager::PrintStartMenu()
 
 
 void LogManager::PrintMainMenu() {
-	
+	if (GameManager::GetInstance().GetDayType() == DayType::MORNING) PrintTownScene();
+	else PrintTownScene(true);
 	cout << R"(
-+======================================================================================+
-|                                                                                      |
-|                1. 던전 입장          2. 상점             3. 여관                     |
-|                                                                                      |
-|                4. 플레이어 정보      5. 인벤토리         0. 게임 종료                |
-|                                                                                      |
-+======================================================================================+
++======================================================================================================================+
+|                                                                                                                      |
+|                               1. 던전 입장          2. 상점             3. 여관                                      |
+|                                                                                                                      |
+|                               4. 플레이어 정보      5. 인벤토리         0. 게임 종료                                 |
+|                                                                                                                      |
++======================================================================================================================+
 )";
 }
 
-void LogManager::PrintWorkshopMenu()
-{
-}
-
-void LogManager::PrintHotel() {
-
-}
-
-void LogManager::PrintStore()
-{
+void LogManager::PrintHotelMenu() {
+	PrintHouseAsciiArt();
 }
 
 void LogManager::PrintRemoveAllStatusEffect(std::string name)
@@ -71,24 +66,26 @@ void LogManager::PrintRemoveAllStatusEffect(std::string name)
 }
 
 void LogManager::PrintStoreMenu() {
+	PrintShopMainAsciiArt();
 	cout << R"(
-+======================================================================================+
-|                                                                                      |
-|               1. 포션 상점          2. 대장간          0. 나가기                     |
-|                                                                                      |
-+======================================================================================+
++======================================================================================================================+
+|                                                                                                                      |
+|                                1. 포션 상점          2. 대장간          0. 나가기                                    |
+|                                                                                                                      |
++======================================================================================================================+
 )";
 }
 
 void LogManager::PrintDungeonMenu() {
+	PrintDungeonEntranceAsciiArt();
 	cout << R"(
-+======================================================================================+
-|                                                                                      |
-|              1. 슬라임 던전        2. 고블린 던전        3. 오크 던전                |
-|                                                                                      |
-|              4. 드래곤 던전        0. 나가기                                         |
-|                                                                                      |
-+======================================================================================+
++======================================================================================================================+
+|                                                                                                                      |
+|                                1. 슬라임 던전        2. 고블린 던전        3. 오크 던전                              |
+|                                                                                                                      |
+|                                4. 드래곤 던전        0. 나가기                                                       |
+|                                                                                                                      |
++======================================================================================================================+
 )";
 }
 
@@ -256,12 +253,10 @@ int GetVisualWidth(const std::string& str) {
 	for (size_t i = 0; i < str.length(); ) {
 		unsigned char c = static_cast<unsigned char>(str[i]);
 		if (c < 0x80) {
-			// ASCII 문자 (1칸)
 			width += 1;
 			i += 1;
 		}
 		else {
-			// UTF-8 멀티바이트 문자 (한글, 특수문자 등 - 콘솔 2칸)
 			width += 2;
 			if ((c & 0xE0) == 0xC0) i += 2;
 			else if ((c & 0xF0) == 0xE0) i += 3;
@@ -275,104 +270,167 @@ int GetVisualWidth(const std::string& str) {
 void LogManager::PrintDungeonList(const vector<string>& roomList)
 {
 	ClearScreen();
-	cout << "+=================================================================================+\n";
-	cout << "|                                                                                 |\n";
-	cout << "|                         /\\                                                      |\n";
-	cout << "|                        /  \\                                                     |\n";
-	cout << "|                       / /\\ \\                                                    |\n";
-	cout << "|                      / /  \\ \\                                                   |\n";
-	cout << "|                     / /____\\ \\                                                  |\n";
-	cout << "|                    /  _______ \\                                                 |\n";
-	cout << "|                   /  /       \\  \\                                               |\n";
-	cout << "|                  /  /  [   ]  \\  \\                                              |\n";
-	cout << "|                 /__/   |   |   \\__\\                                             |\n";
-	cout << "|                        |   |                                                    |\n";
-	cout << "|                                                                                 |\n";
-	cout << "|---------------------------------------------------------------------------------|\n";
-	cout << "|                                                                                 |\n";
+	PrintDungeonEntranceAsciiArt();
 
-	const int totalWidth = 81;
-
-	for (size_t i = 0; i < roomList.size(); ++i) {
-		std::string itemText = std::to_string(i + 1) + ". " + roomList[i];
-		int itemWidth = GetVisualWidth(itemText);
-
-		int rightPadding = totalWidth - 33 - itemWidth;
-		if (rightPadding < 0) rightPadding = 0;
-
-		cout << "|                                 "
-			<< itemText
-			<< std::string(rightPadding, ' ')
-			<< "|\n";
-		cout << "|                                                                                 |\n";
+	cout << "\n";
+	cout << ".======================================================================================================================.\n\n";
+	std::string s;
+	for (int i = 0; i < roomList.size(); ++i) {
+		s += std::to_string(i + 1) + ". " + roomList[i];
+		if(i!=roomList.size()-1) s+="    ";
 	}
+	int visualWidth = GetVisualWidth(s);
+	int padding = (120 - visualWidth) / 2;
+	for (int i = 0; i < padding; i++) cout << " ";
+	cout << s << "\n\n";
+	cout << "                                                0. 나가기\n\n";
+	cout << ".======================================================================================================================.\n";
+	for (int i = 16; i < 22; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 22);
+	cout << "▶ 행동을 선택하세요: ";
 
-	std::string backText = "0. 뒤로가기";
-	int backWidth = GetVisualWidth(backText);
-	int backRightPadding = totalWidth - 33 - backWidth;
-	if (backRightPadding < 0) backRightPadding = 0;
-
-	cout << "|                                 "
-		<< backText
-		<< std::string(backRightPadding, ' ')
-		<< "|\n";
-	cout << "|                                                                                 |\n";
-	cout << "+=================================================================================+\n";
-	cout << "▶ 행동을 선택해주세요: ";
 }
 
-void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster)
+void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster)
 {
-	int currentHp = monster->GetHp();
-	int maxHp = monster->GetMaxHp();
+	int monsterCurrentHp = monster->GetHp();
+	int monsterMaxHp = monster->GetMaxHp();
 
 	int fillCount = 0;
-	if (maxHp > 0) {
-		fillCount = static_cast<int>((static_cast<double>(currentHp) / maxHp) * 10.0);
+	if (monsterMaxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(monsterCurrentHp) / monsterMaxHp) * 10.0);
 	}
-	
+
 	if (fillCount > 10) fillCount = 10;
 	if (fillCount < 0) fillCount = 0;
 
-	string hpBar = "";
+	string monsterHpBar = "";
 	for (int i = 0; i < fillCount; ++i) {
-		hpBar += "█";
+		monsterHpBar += "█";
 	}
 	for (int i = fillCount; i < 10; ++i) {
-		hpBar += " ";
+		monsterHpBar += " ";
+	}
+
+	int playerCurrentHp = player->GetHp();
+	int playerMaxHp = player->GetMaxHp();
+
+	fillCount = 0;
+	if (playerMaxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(playerCurrentHp) / playerMaxHp) * 10.0);
+	}
+
+	if (fillCount > 10) fillCount = 10;
+	if (fillCount < 0) fillCount = 0;
+
+	string playerHpBar = "";
+	for (int i = 0; i < fillCount; ++i) {
+		playerHpBar += "█";
+	}
+	for (int i = fillCount; i < 10; ++i) {
+		playerHpBar += " ";
+	}
+
+	int playerCurrentMp = player->GetMp();
+	int playerMaxMp = player->GetMaxMp();
+
+	fillCount = 0;
+	if (playerMaxMp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(playerCurrentHp) / playerMaxMp) * 10.0);
+	}
+
+	if (fillCount > 10) fillCount = 10;
+	if (fillCount < 0) fillCount = 0;
+
+	string playerMpBar = "";
+	for (int i = 0; i < fillCount; ++i) {
+		playerMpBar += "█";
+	}
+	for (int i = fillCount; i < 10; ++i) {
+		playerMpBar += " ";
 	}
 
 	ClearScreen();
-	cout << "==================================================\n";
-	cout << "	       [ " << room->name_ << " (" << floor << "층) ]\n";
-	cout << "==================================================\n";
-	cout << "     이름 : " << monster->GetName() << "\t\t   레벨 : Lv. " << monster->GetLevel() << "\n\n\n";
 
-		// 몬스터 이미지 출력
+	cout << ".======================================================================================================================.\n";
+	cout << "|                                                                                                                      |\n";
+	cout << ".======================================================================================================================.\n";
 
-		//
+	Utils::MoveCursorTo(50, 1);
+	cout << "[ " << room->name_ << " (" << floor << "층) ]";
+	Utils::MoveCursorTo(0, 3);
 
-	cout << "--------------------------------------------------\n";
-	cout << "              [ 몬스터 능력치 (Stats) ]           \n";
-	cout << "           • HP    : " << hpBar << " " << currentHp << " / " << maxHp << "\n";
-	cout << "           • Power : " << monster->GetAttack() << "\n";
-	cout << "==================================================\n";
-	cout << "               [ 행동을 선택하세요! ]            \n\n";
-	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n\n";
-	cout << "==================================================\n";
+	monster->PrintAsciiArt(40, 4);
+	Utils::MoveCursorTo(87, 6);
+	cout << "[몬스터 정보]";
+	Utils::MoveCursorTo(87, 6);
+	cout << "이름 : " << monster->GetName() << " (Lv." << monster->GetLevel() << ")";
+	Utils::MoveCursorTo(87, 7);
+	cout << "HP   : " << monsterHpBar << " " << monsterCurrentHp << " / " << monsterMaxHp;
+
+	Utils::MoveCursorTo(5, 20);
+	cout << "[플레이어 정보]";
+	Utils::MoveCursorTo(5, 20);
+	cout << "이름 : " << player->GetName() << " (Lv." << player->GetLevel() << ")";
+	Utils::MoveCursorTo(5, 21);
+	cout << "HP   : " << playerHpBar << " " << playerCurrentHp << " / " << playerMaxHp;
+	Utils::MoveCursorTo(5, 22);
+	cout << "MP   : " << playerMpBar << " " << playerCurrentMp << " / " << playerMaxMp;
+
+
+
+	for (int i = 3; i < 25; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 25);
+
+	cout << ".======================================================================================================================.\n";
+	cout << "\t\t\t\t\t\t[ 행동을 선택하세요! ]\n";
+	cout << "\t\t\t\t  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병\n";
+	cout << ".======================================================================================================================.\n";
+	for (int i = 26; i < 28; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 29);
 	cout << "▶ 행동을 선택하세요: ";
 }
 
 void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
 {
 	ClearScreen();
+	cout << ".======================================================================================================================.\n";
+	cout << "|                                                                                                                      |\n";
+	Utils::MoveCursorTo(47, 1);
 	cout << room->name_ << " " << floor << "층 클리어!\n";
-	cout << "==================================================\n";
-	cout << "               [ 행동을 선택하세요! ]            \n\n";
-	cout << "  1. 현재 층 재도전\n";
-	cout << "  2. 다음 층으로\n";
-	cout << "  0. 던전 떠나기\n";
-	cout << "==================================================\n";
+	Utils::MoveCursorTo(0, 2);
+	PrintDungeonCaveAsciiArt(0, 2);
+	cout << ".======================================================================================================================.\n\n";
+	cout << " \t\t\t\t\t\t[ 행동을 선택하세요! ]\n\n";
+	cout << " \t\t\t\t\t\t   1. 다음 층으로\n";
+	cout << " \t\t\t\t\t\t   0. 던전 떠나기\n\n";
+	cout << ".======================================================================================================================.\n";
+	for (int i = 18; i < 25; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 25);
 	cout << "▶ 행동을 선택하세요: ";
 }
 

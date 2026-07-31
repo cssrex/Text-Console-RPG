@@ -19,5 +19,7 @@ public:
 
 	void BasicAttack(Player* player) override;
 	void SpecialAttack(Player* player) override;
-	void PrintAsciiArt(short startX = 40, short startY = 0) override;
+	void PrintAsciiArt(short startX, short startY) override;
+	void MonsterAppearanceScript() override;
+	void MonsterDeadScript() override;
 };

@@ -3,8 +3,12 @@
 #include "Dungeon.h"
 #include "Global.h"
 #include "Player.h"
+#include "Store.h"
+#include "Inventory.h"
 
 GameManager::GameManager() {
+	stores_.push_back(new PotionStore());
+	stores_.push_back(new Blacksmith());
 	dungeon_ = new Dungeon();
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
@@ -14,6 +18,11 @@ GameManager::GameManager() {
 }
 
 GameManager::~GameManager() {
+	for (int i = 0; i < stores_.size(); ++i) {
+		delete stores_[i];
+	}
+	delete dungeon_;
+	delete player_;
 }
 
 void GameManager::Update() {
@@ -59,9 +68,10 @@ void GameManager::StartMenu() {
 }
 
 void GameManager::ShowMainMenu() {
-	LogManager::GetInstance().PrintMainMenu();
 	int num;
 	while (true) {
+		system("cls");
+		LogManager::GetInstance().PrintMainMenu();
 		cout << "▶ 번호를 입력해주세요 : ";
 		cin >> num;
 		if (cin.fail())
@@ -71,46 +81,50 @@ void GameManager::ShowMainMenu() {
 			cout << "숫자만 입력 해주세요 !\n";
 			continue;
 		}
-		if (num >= 0 && num < 6)
+		if (num < 0 && num > 5)
+			continue;
+
+		if (dayType_ == DayType::NIGHT && num == 1)
+		{
+			std::cout << "밤에는 던전에 입장 할 수 없습니다.\n";
+			system("pause");
+			continue;
+		}
+
+		switch (num) {
+		case 0: {
+			SetNextScene(Scene::END);
+			return;
+		}
+		case 1: {
+			SetNextScene(Scene::DUNGEON);
+			return;
+		}
+		case 2: {
+			SetNextScene(Scene::STORE);
+			return;
+		}
+		case 3: {
+			SetNextScene(Scene::HOTEL);
+			return;
+		}
+		case 4: {
+			player_->PrintStatus();
+			system("pause");
 			break;
+		}
+		case 5: {
+			player_->GetInventory()->InventoryMenu(*player_);
+			break;
+		}
+		}
 	}
 
-	if (dayType_ == DayType::NIGHT && num == 1)
-	{
-		std::cout << "밤에는 던전에 입장 할 수 없습니다.\n";
-	}
-
-	switch (num) {
-	case 0: {
-		SetNextScene(Scene::END);
-		break;
-	}
-	case 1: {
-		SetNextScene(Scene::DUNGEON);
-		break;
-	}
-	case 2: {
-		SetNextScene(Scene::STORE);
-		break;
-	}
-	case 3: {
-		SetNextScene(Scene::HOTEL);
-		break;
-	}
-	case 4: {
-		player_->PrintStatus();
-		break;
-	}
-	case 5: {
-		// 인벤토리
-		break;
-	}
-	}
+	
 }
 
 void GameManager::EnterDungeon() {
 	ChangeDayType();
-	LogManager::GetInstance().PrintDungeonMenu();
 	dungeon_->StartDungeonLoop(player_);
 }
 
@@ -126,13 +140,38 @@ void GameManager::EnterHotel() {
 		return;
 	}
 
-	LogManager::GetInstance().PrintHotel();
-
+	LogManager::GetInstance().PrintHotelMenu();
 	player_->SetHp(player_->GetHp());
+	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxHp());
+	SetNextScene(Scene::MAIN);
+	system("pause");
 }
 
 void GameManager::EnterStore() {
-	LogManager::GetInstance().PrintStoreMenu();
+	int index;
+	while (true) {
+		system("cls");
+		LogManager::GetInstance().PrintStoreMenu();
+		cout << "▶ 번호를 입력해주세요 : ";
+		cin >> index;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+			cout << "숫자만 입력 해주세요 !\n";
+			continue;
+		}
+		if (index < 0 && index > 2)
+			continue;
+
+		if (index == 0) {
+			SetNextScene(Scene::MAIN);
+			return;
+		}
+
+		stores_[index - 1]->StoreMenu(*player_, *player_->GetInventory());
+	}
+
 }
 
 void GameManager::SetNextScene(Scene newScene) {

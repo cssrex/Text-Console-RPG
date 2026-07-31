@@ -172,8 +172,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 				GameManager::GetInstance().SetNextScene(Scene::MAIN);
 				return; // 던전 떠나기
 			}
-			if (command == 1) break;  // 현재 층 재도전
-			if (command == 2) {       // 다음 층으로
+			if (command == 1) {       // 다음 층으로
 				floor++;
 				break;
 			}
@@ -214,7 +213,7 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 
 		while (!validTurn)
 		{
-			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, monster);
+			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, player, monster);
 
 			// 플레이어가 몬스터 때리기
 			int command;
