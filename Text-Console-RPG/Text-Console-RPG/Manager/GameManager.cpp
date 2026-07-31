@@ -165,6 +165,7 @@ void GameManager::EnterStore() {
 
 		if (index == 0) {
 			SetNextScene(Scene::MAIN);
+			return;
 		}
 
 		stores_[index - 1]->StoreMenu(*player_, *player_->GetInventory());
