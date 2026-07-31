@@ -5,8 +5,7 @@
 class LogManager;
 class Player;
 
-class GameManager
-{
+class GameManager {
 private:
 	Player* player_;
 	Scene	curScene_;

@@ -1,5 +1,4 @@
-﻿#ifndef SKILL_H
-#define SKILL_H
+﻿#pragma once
 
 #include <string>
 
@@ -46,5 +45,3 @@ public:
     SkillTwo();
     void Use(Character& caster, Character& target) override;
 };
-
-#endif
