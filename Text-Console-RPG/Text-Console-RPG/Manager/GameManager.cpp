@@ -21,11 +21,11 @@ void GameManager::Update() {
 
 void GameManager::ChangeDayType() {
 	if (dayType_ == DayType::MORNING) {
-		dayType_ == DayType::NIGHT;
+		dayType_ = DayType::NIGHT;
 	}
 	else {
 		SubDays();
-		dayType_ == DayType::MORNING;
+		dayType_ = DayType::MORNING;
 	}
 }
 
