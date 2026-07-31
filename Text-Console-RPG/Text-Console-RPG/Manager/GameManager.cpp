@@ -125,7 +125,6 @@ void GameManager::ShowMainMenu() {
 
 void GameManager::EnterDungeon() {
 	ChangeDayType();
-	LogManager::GetInstance().PrintDungeonMenu();
 	dungeon_->StartDungeonLoop(player_);
 }
 
@@ -142,8 +141,9 @@ void GameManager::EnterHotel() {
 	}
 
 	LogManager::GetInstance().PrintHotelMenu();
-
 	player_->SetHp(player_->GetHp());
+	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxHp());
+	SetNextScene(Scene::MAIN);
 	system("pause");
 }
 
