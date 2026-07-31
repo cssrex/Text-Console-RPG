@@ -133,6 +133,23 @@ void LogManager::PrintShowAllSkillFooter() {
 	cout << "===============================\n";
 }
 
+// 스킬매니저 (SKillManager) 관련
+void LogManager::PrintShowAllSkillHeader(const string& name) {
+	cout << "\n=== " << name << "의 보유 스킬 목록 ===\n"; // [추가]
+}
+
+void LogManager::PrintShowAllSkillItem(int index, const string& skillName, int cost) {
+	cout << "[" << index << "] " << skillName << " (소모 MP: " << cost << ")\n"; // [추가]
+}
+
+void LogManager::PrintShowAllSkillFooter() {
+	cout << "===============================\n"; // [추가]
+}
+
+void LogManager::PrintSkillMpLack(const string& skillName) {
+	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n"; // [추가]
+}
+
 // 플레이어 (Player) 관련
 static string MakeGaugeBar(int current, int max, int totalBlocks = 20) {
 	if (max <= 0) max = 1;

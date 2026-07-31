@@ -153,6 +153,7 @@
     <ClCompile Include="Manager\GameManager.cpp" />
     <ClCompile Include="Manager\LogManager.cpp" />
     <ClCompile Include="Manager\SoundManager.cpp" />
+    <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="Skill\Skill.cpp" />
     <ClCompile Include="StatusEffect\StatusEffect.cpp" />
     <ClCompile Include="Store\Blacksmith.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\LogManager.h" />
     <ClInclude Include="Manager\SoundManager.h" />
+    <ClInclude Include="SkillManager.h" />
     <ClInclude Include="Skill\Skill.h" />
     <ClInclude Include="StatusEffect\StatusEffect.h" />
     <ClInclude Include="Store\Store.h" />

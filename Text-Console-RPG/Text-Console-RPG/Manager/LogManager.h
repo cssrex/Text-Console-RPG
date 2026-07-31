@@ -25,8 +25,7 @@ public:
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();
-	void PrintHotel();
-	void PrintStoreMenu();
+	void PrintWorkshopMenu();
 	void PrintDungeonMenu();
 
 	// 캐릭터 (Character) 관련
@@ -34,18 +33,16 @@ public:
 	void PrintHeal(const std::string& name, int value);
 	void PrintAddStatusEffect(const std::string& name, const std::string& effectName);
 	void PrintRemoveStatusEffect(const std::string& name, const std::string& effectName);
-
 	void PrintCharacterStatus(const std::string& name, int level, int hp, int maxHp, int mp, int maxMp, int attack);
-	void PrintShowAllSkillHeader(const std::string& name);
+	
+	void PrintShowAllSkillHeader(const std::string& name); 
 	void PrintShowAllSkillItem(int index, const std::string& skillName, int cost);
 	void PrintShowAllSkillFooter();
 
 	
 	// 플레이어 (Player) 관련
 	void PrintPlayerTakeDamage(const std::string& name, int actualDamage, int defense, int currentHp, int maxHp);
-	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp,
-		int hp, int maxHp, int mp, int maxMp,
-		int attack, int defense);
+	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp, int hp, int maxHp, int mp, int maxMp, int attack, int defense);
 	void PrintSkillListHeader();
 	void PrintSkillItem(int index, const std::string& skillName, int cost);
 	void PrintActiveStatusEffectsHeader();

@@ -15,6 +15,7 @@ public:
     virtual ~StatusEffect() = default;
 
     virtual void ApplyEffect(Character& target);
+    void DecreaseTurn();
     bool IsExpired() const;
 
     std::string GetName() const { return name_; }
