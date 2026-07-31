@@ -21,6 +21,7 @@ GameManager::~GameManager() {
 		delete stores_[i];
 	}
 	delete dungeon_;
+	delete player_;
 }
 
 void GameManager::Update() {
