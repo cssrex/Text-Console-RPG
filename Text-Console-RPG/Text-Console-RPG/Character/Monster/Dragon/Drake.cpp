@@ -1,6 +1,9 @@
 ﻿#include "Drake.h"
 #include <iostream>
 
+void Drake::PrintAsciiArt(short startX, short startY) {
+	PrintNormalDragonAsciiArt(startX, startY);
+}
 void Drake::BasicAttack(Player* player) {
 	player->TakeDamage(GetAttack());
 }

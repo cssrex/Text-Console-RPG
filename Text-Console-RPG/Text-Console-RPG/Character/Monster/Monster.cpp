@@ -19,6 +19,7 @@ bool Monster::SpecialAttackTurn() const{
 bool Monster::HyperAttackTurn() const{
 	return (GetHp() <= GetMaxHp() * 0.3f);
 }
+
 void Monster::Attack(Player* player) {
 	turnCount_++;
 	if (HyperAttackTurn())

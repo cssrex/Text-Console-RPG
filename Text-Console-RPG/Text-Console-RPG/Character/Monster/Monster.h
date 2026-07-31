@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "Player.h"
+#include "..\..\..\AsciiArt\MonsterAsciiArt.h"
 #include <random>
 
 
@@ -50,6 +51,6 @@ public:
 
 	virtual bool SpecialAttackTurn() const;
 	virtual bool HyperAttackTurn() const;
-
+	virtual void PrintAsciiArt(short startX = 40, short startY = 0) = 0;
 	void Reward(Player* player);
 };

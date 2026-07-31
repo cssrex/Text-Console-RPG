@@ -1,6 +1,9 @@
 ﻿#include "GoblinSorcerer.h"
 #include <iostream>
 
+void GoblinSorcerer::PrintAsciiArt(short startX, short startY) {
+	PrintBossGoblinAsciiArt(startX, startY);
+}
 void GoblinSorcerer::BasicAttack(Player* player) {
 	player->TakeDamage(GetAttack());
 }

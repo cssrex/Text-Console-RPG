@@ -21,4 +21,5 @@ public:
 
 	void BasicAttack(Player* player) override;
 	void SpecialAttack(Player* player) override;
+	void PrintAsciiArt(short startX = 40, short startY) override;
 };
