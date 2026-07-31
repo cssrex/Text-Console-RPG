@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Store.h"
 #include "Inventory.h"
+#include "MonsterAsciiArt.h"
 
 GameManager::GameManager() {
 	stores_.push_back(new PotionStore());
@@ -110,7 +111,17 @@ void GameManager::ShowMainMenu() {
 		}
 		case 4: {
 			player_->PrintStatus();
-			system("pause");
+			if (player_ != nullptr) {
+				player_->PrintStatus();
+			}
+			else {
+				cout << "플레이어 정보를 찾을 수 없습니다.\n";
+			}
+			cout << "\n▶ 메뉴로 돌아가려면 Enter 키를 누르세요";
+			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+			PrintPlayerInfoAsciiArt(60, 0);
+			string dummy;
+			getline(cin, dummy);
 			break;
 		}
 		case 5: {
