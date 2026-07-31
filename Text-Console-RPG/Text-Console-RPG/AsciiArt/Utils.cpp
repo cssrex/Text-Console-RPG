@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <vector>
 #include <Windows.h>
 
 void Utils::HideCursor(bool flag)

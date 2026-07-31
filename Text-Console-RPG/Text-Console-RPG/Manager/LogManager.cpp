@@ -103,6 +103,7 @@ void LogManager::ClearScreen()
 void LogManager::PrintInpuErrorMessage()
 {
 	cout << "잘못된 입력입니다\n";
+	system("pause");
 }
 
 // 캐릭터 (Character) 관련
@@ -299,63 +300,6 @@ void LogManager::PrintDungeonList(const vector<string>& roomList)
 
 void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster)
 {
-	int monsterCurrentHp = monster->GetHp();
-	int monsterMaxHp = monster->GetMaxHp();
-
-	int fillCount = 0;
-	if (monsterMaxHp > 0) {
-		fillCount = static_cast<int>((static_cast<double>(monsterCurrentHp) / monsterMaxHp) * 10.0);
-	}
-
-	if (fillCount > 10) fillCount = 10;
-	if (fillCount < 0) fillCount = 0;
-
-	string monsterHpBar = "";
-	for (int i = 0; i < fillCount; ++i) {
-		monsterHpBar += "█";
-	}
-	for (int i = fillCount; i < 10; ++i) {
-		monsterHpBar += " ";
-	}
-
-	int playerCurrentHp = player->GetHp();
-	int playerMaxHp = player->GetMaxHp();
-
-	fillCount = 0;
-	if (playerMaxHp > 0) {
-		fillCount = static_cast<int>((static_cast<double>(playerCurrentHp) / playerMaxHp) * 10.0);
-	}
-
-	if (fillCount > 10) fillCount = 10;
-	if (fillCount < 0) fillCount = 0;
-
-	string playerHpBar = "";
-	for (int i = 0; i < fillCount; ++i) {
-		playerHpBar += "█";
-	}
-	for (int i = fillCount; i < 10; ++i) {
-		playerHpBar += " ";
-	}
-
-	int playerCurrentMp = player->GetMp();
-	int playerMaxMp = player->GetMaxMp();
-
-	fillCount = 0;
-	if (playerMaxMp > 0) {
-		fillCount = static_cast<int>((static_cast<double>(playerCurrentHp) / playerMaxMp) * 10.0);
-	}
-
-	if (fillCount > 10) fillCount = 10;
-	if (fillCount < 0) fillCount = 0;
-
-	string playerMpBar = "";
-	for (int i = 0; i < fillCount; ++i) {
-		playerMpBar += "█";
-	}
-	for (int i = fillCount; i < 10; ++i) {
-		playerMpBar += " ";
-	}
-
 	ClearScreen();
 
 	cout << ".======================================================================================================================.\n";
@@ -367,23 +311,8 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& pla
 	Utils::MoveCursorTo(0, 3);
 
 	monster->PrintAsciiArt(40, 4);
-	Utils::MoveCursorTo(87, 6);
-	cout << "[몬스터 정보]";
-	Utils::MoveCursorTo(87, 6);
-	cout << "이름 : " << monster->GetName() << " (Lv." << monster->GetLevel() << ")";
-	Utils::MoveCursorTo(87, 7);
-	cout << "HP   : " << monsterHpBar << " " << monsterCurrentHp << " / " << monsterMaxHp;
-
-	Utils::MoveCursorTo(5, 20);
-	cout << "[플레이어 정보]";
-	Utils::MoveCursorTo(5, 20);
-	cout << "이름 : " << player->GetName() << " (Lv." << player->GetLevel() << ")";
-	Utils::MoveCursorTo(5, 21);
-	cout << "HP   : " << playerHpBar << " " << playerCurrentHp << " / " << playerMaxHp;
-	Utils::MoveCursorTo(5, 22);
-	cout << "MP   : " << playerMpBar << " " << playerCurrentMp << " / " << playerMaxMp;
-
-
+	PrintDungeonPlayerStatus(player);
+	PrintDungeonMonsterStatus(monster);
 
 	for (int i = 3; i < 25; i++)
 	{
@@ -409,7 +338,101 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& pla
 	cout << "▶ 행동을 선택하세요: ";
 }
 
-void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
+void LogManager::PrintDungeonPlayerStatus(Player*& player)
+{
+	int playerCurrentHp = player->GetHp();
+	int playerMaxHp = player->GetMaxHp();
+
+	int fillCount = 0;
+	if (playerMaxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(playerCurrentHp) / playerMaxHp) * 10.0);
+	}
+
+	if (playerCurrentHp > 0 && fillCount == 0) {
+		fillCount = 1;
+	}
+
+	if (fillCount > 10) fillCount = 10;
+	if (fillCount < 0) fillCount = 0;
+
+	string playerHpBar = "";
+	for (int i = 0; i < fillCount; ++i) {
+		playerHpBar += "█";
+	}
+	for (int i = fillCount; i < 10; ++i) {
+		playerHpBar += " ";
+	}
+
+	int playerCurrentMp = player->GetMp();
+	int playerMaxMp = player->GetMaxMp();
+
+	fillCount = 0;
+	if (playerMaxMp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(playerCurrentMp) / playerMaxMp) * 10.0);
+	}
+
+	if (playerMaxMp > 0 && fillCount == 0) {
+		fillCount = 1;
+	}
+
+	if (fillCount > 10) fillCount = 10;
+	if (fillCount < 0) fillCount = 0;
+
+	string playerMpBar = "";
+	for (int i = 0; i < fillCount; ++i) {
+		playerMpBar += "█";
+	}
+	for (int i = fillCount; i < 10; ++i) {
+		playerMpBar += " ";
+	}
+
+	Utils::MoveCursorTo(5, 19);
+	cout << "[플레이어 정보]";
+	Utils::MoveCursorTo(5, 20);
+	cout << "이름 : " << player->GetName() << " (Lv." << player->GetLevel() << ")";
+	Utils::MoveCursorTo(5, 21);
+	cout << "HP   : " << playerHpBar << " " << playerCurrentHp << " / " << playerMaxHp;
+	Utils::MoveCursorTo(5, 22);
+	cout << "MP   : " << playerMpBar << " " << playerCurrentMp << " / " << playerMaxMp;
+
+
+}
+
+void LogManager::PrintDungeonMonsterStatus(Monster*& monster)
+{
+	int monsterCurrentHp = monster->GetHp();
+	int monsterMaxHp = monster->GetMaxHp();
+
+	int fillCount = 0;
+	if (monsterMaxHp > 0) {
+		fillCount = static_cast<int>((static_cast<double>(monsterCurrentHp) / monsterMaxHp) * 10.0);
+	}
+
+	if (monsterMaxHp > 0 && fillCount == 0) {
+		fillCount = 1;
+	}
+
+	if (fillCount > 10) fillCount = 10;
+	if (fillCount < 0) fillCount = 0;
+
+	string monsterHpBar = "";
+	for (int i = 0; i < fillCount; ++i) {
+		monsterHpBar += "█";
+	}
+	for (int i = fillCount; i < 10; ++i) {
+		monsterHpBar += " ";
+	}
+
+	Utils::MoveCursorTo(87, 5);
+	cout << "[몬스터 정보]";
+	Utils::MoveCursorTo(87, 6);
+	cout << "이름 : " << monster->GetName() << " (Lv." << monster->GetLevel() << ")";
+	Utils::MoveCursorTo(87, 7);
+	cout << "HP   : " << monsterHpBar << " " << monsterCurrentHp << " / " << monsterMaxHp;
+
+}
+
+void LogManager::PrintDungeonProgressOption(Room*& room, int floor, const string& rewardItem, int rewardGold, int rewardExp)
 {
 	ClearScreen();
 	cout << ".======================================================================================================================.\n";
@@ -418,7 +441,13 @@ void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
 	cout << room->name_ << " " << floor << "층 클리어!\n";
 	Utils::MoveCursorTo(0, 2);
 	PrintDungeonCaveAsciiArt(0, 2);
-	cout << ".======================================================================================================================.\n\n";
+	cout << "\n";
+	cout << ".======================================================================================================================.\n";
+	std::string s = rewardItem + " 획득!  " + std::to_string(rewardGold) + "G 획득!  " + std::to_string(rewardExp) + "exp 획득!";
+	int visualWidth = GetVisualWidth(s);
+	int padding = (120 - visualWidth) / 2;
+	for (int i = 0; i < padding; i++) cout << " ";
+	cout << s << "\n\n";
 	cout << " \t\t\t\t\t\t[ 행동을 선택하세요! ]\n\n";
 	cout << " \t\t\t\t\t\t   1. 다음 층으로\n";
 	cout << " \t\t\t\t\t\t   0. 던전 떠나기\n\n";
@@ -430,7 +459,7 @@ void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
 		Utils::MoveCursorTo(119, i);
 		cout << "|";
 	}
-	Utils::MoveCursorTo(0, 25);
+	Utils::MoveCursorTo(0, 26);
 	cout << "▶ 행동을 선택하세요: ";
 }
 
