@@ -114,6 +114,9 @@ void Dungeon::StartDungeonLoop(Player* player) {
 			break;
 		}
 
+		if (player->IsDead()) {
+			return;
+		}
 	}
 }
 
@@ -167,10 +170,6 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 			if (command == 1) break;  // 현재 층 재도전
 			if (command == 2) {       // 다음 층으로
 				floor++;
-				if (floor == (rooms_.size()) - 1)
-				{
-					// TODO : 보스방 개방 메시지
-				}
 				break;
 			}
 			LogManager::GetInstance().PrintInpuErrorMessage();
