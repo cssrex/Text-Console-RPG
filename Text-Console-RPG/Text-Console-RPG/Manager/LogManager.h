@@ -5,6 +5,7 @@
 
 struct Room;
 class Monster;
+class Player;
 class LogManager {
 private:
 
@@ -69,7 +70,7 @@ public:
 
 	// 던전 (Dungeon) 관련
 	void PrintDungeonList(const std::vector<std::string>& roomList);
-	void PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster);
+	void PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster);
 	void PrintDungeonProgressOption(Room*& room, int floor);
 	void PrintDungeonReward(const std::string& item, int gold, int exp);
 };

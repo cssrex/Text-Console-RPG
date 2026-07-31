@@ -213,7 +213,7 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 
 		while (!validTurn)
 		{
-			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, monster);
+			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, player, monster);
 
 			// 플레이어가 몬스터 때리기
 			int command;
