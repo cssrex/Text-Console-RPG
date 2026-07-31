@@ -42,7 +42,7 @@ void LogManager::PrintStartMenu()
 
 
 void LogManager::PrintMainMenu() {
-	
+
 	cout << R"(
 +======================================================================================+
 |                                                                                      |
