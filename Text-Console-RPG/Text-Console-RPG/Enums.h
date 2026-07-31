@@ -16,6 +16,7 @@ enum class ItemType {
 	Consumable,
 	Weapon,
 	Armor
+	Equipment
 };
 
 enum class ItemEffectType {
@@ -25,9 +26,24 @@ enum class ItemEffectType {
 	HealHP,
 	HealMP,
 	HealBoth,
+	HealHPMP,
 	FullRecovery,
 	Antidote
+	Antidote,
 
 	// 강화
 	EnhanceStone
+};
+
+enum class EquipmentType {
+	Weapon,
+	Armor
+};
+
+enum class EquipmentSlot {
+	Weapon,
+	Helmet,
+	Armor,
+	Gloves,
+	Boots
 };
