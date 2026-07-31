@@ -4,6 +4,7 @@
 #include "Global.h"
 #include "Player.h"
 #include "Store.h"
+#include "Inventory.h"
 
 GameManager::GameManager() {
 	stores_.push_back(new PotionStore());
@@ -67,9 +68,10 @@ void GameManager::StartMenu() {
 }
 
 void GameManager::ShowMainMenu() {
-	LogManager::GetInstance().PrintMainMenu();
 	int num;
 	while (true) {
+		system("cls");
+		LogManager::GetInstance().PrintMainMenu();
 		cout << "▶ 번호를 입력해주세요 : ";
 		cin >> num;
 		if (cin.fail())
@@ -79,44 +81,46 @@ void GameManager::ShowMainMenu() {
 			cout << "숫자만 입력 해주세요 !\n";
 			continue;
 		}
-		if (num >= 0 && num < 6)
+		if (num < 0 && num > 5)
+			continue;
+
+		if (dayType_ == DayType::NIGHT && num == 1)
+		{
+			std::cout << "밤에는 던전에 입장 할 수 없습니다.\n";
+			system("pause");
+			continue;
+		}
+
+		switch (num) {
+		case 0: {
+			SetNextScene(Scene::END);
+			return;
+		}
+		case 1: {
+			SetNextScene(Scene::DUNGEON);
+			return;
+		}
+		case 2: {
+			SetNextScene(Scene::STORE);
+			return;
+		}
+		case 3: {
+			SetNextScene(Scene::HOTEL);
+			return;
+		}
+		case 4: {
+			player_->PrintStatus();
+			system("pause");
 			break;
+		}
+		case 5: {
+			player_->GetInventory()->InventoryMenu(*player_);
+			break;
+		}
+		}
 	}
 
-	if (dayType_ == DayType::NIGHT && num == 1)
-	{
-		std::cout << "밤에는 던전에 입장 할 수 없습니다.\n";
-		system("pause");
-		return;
-	}
-
-	switch (num) {
-	case 0: {
-		SetNextScene(Scene::END);
-		break;
-	}
-	case 1: {
-		SetNextScene(Scene::DUNGEON);
-		break;
-	}
-	case 2: {
-		SetNextScene(Scene::STORE);
-		break;
-	}
-	case 3: {
-		SetNextScene(Scene::HOTEL);
-		break;
-	}
-	case 4: {
-		player_->PrintStatus();
-		system("pause");
-		break;
-	}
-	case 5: {
-		// 인벤토리
-		break;
-	}
-	}
+	
 }
 
 void GameManager::EnterDungeon() {
@@ -143,9 +147,10 @@ void GameManager::EnterHotel() {
 }
 
 void GameManager::EnterStore() {
-	LogManager::GetInstance().PrintStoreMenu();
 	int index;
 	while (true) {
+		system("cls");
+		LogManager::GetInstance().PrintStoreMenu();
 		cout << "▶ 번호를 입력해주세요 : ";
 		cin >> index;
 		if (cin.fail())
@@ -155,11 +160,16 @@ void GameManager::EnterStore() {
 			cout << "숫자만 입력 해주세요 !\n";
 			continue;
 		}
-		if (index >= 0 && index < 6)
-			break;
+		if (index < 0 && index > 2)
+			continue;
+
+		if (index == 0) {
+			SetNextScene(Scene::MAIN);
+		}
+
+		stores_[index - 1]->StoreMenu(*player_, *player_->GetInventory());
 	}
 
-	stores_[index - 1]->StoreMenu(*player_, *player_->GetInventory());
 }
 
 void GameManager::SetNextScene(Scene newScene) {
