@@ -369,8 +369,7 @@ void LogManager::PrintDungeonProgressOption(Room*& room, int floor)
 	cout << room->name_ << " " << floor << "층 클리어!\n";
 	cout << "==================================================\n";
 	cout << "               [ 행동을 선택하세요! ]            \n\n";
-	cout << "  1. 현재 층 재도전\n";
-	cout << "  2. 다음 층으로\n";
+	cout << "  1. 다음 층으로\n";
 	cout << "  0. 던전 떠나기\n";
 	cout << "==================================================\n";
 	cout << "▶ 행동을 선택하세요: ";
