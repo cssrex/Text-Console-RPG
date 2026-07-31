@@ -26,17 +26,19 @@ public:
 
     // 아이템 선택
     int SelectEquipment(EquipmentType type);
+    int SelectEquipment(EquipmentSlot slot);
     int SelectConsumable();
     int SelectLoot();
+    
+    // 재료 검색
+    int FindMaterial(MaterialType type);
+    int FindMaterial(const string& name);
 
     // 장비 상세 메뉴
     void EquipmentMenu(Player& player, int index);
 
     // 소모품 사용
     void UseConsumable(Player& player, int index);
-
-    // 강화석 사용
-    void UseEnhanceStone(Player& player);
 
     // 장비 착용
     void WearEquipment(Player& player, int index);

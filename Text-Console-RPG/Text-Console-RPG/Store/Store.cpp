@@ -8,17 +8,21 @@ using namespace std;
 constexpr double SELL_RATE = 0.6; // 판매 가격: 원가의 60%
 
 void Store::ShowItems() const{
-    cout << "===== 구매 =====" << endl;
+    cout << "===== 구매 =====\n";
 
     for (int i = 0; i < static_cast<int>(items_.size()); i++) {
-        cout << i + 1 << ". " << items_[i]->GetName() << ": " << items_[i]->GetPrice() << "골드  x " << items_[i]->GetCount() << " 개" << endl;
+        cout << i + 1 << ". " << items_[i]->GetName() << ": " << items_[i]->GetPrice() << " 골드";
+        if (items_[i]->GetType() != ItemType::Equipment) {
+            cout << " x " << items_[i]->GetCount();
+        }
+        cout << "\n";
     }
 }
 
 // 아이템 구매
 void Store::BuyItem(Player& player, Inventory& inventory, int index) {
     if (index < 0 || index >= static_cast<int>(items_.size())) {
-        cout << "잘못된 아이템입니다." << endl;
+        cout << "잘못된 아이템입니다.\n";
         return;
     }
 
@@ -27,7 +31,7 @@ void Store::BuyItem(Player& player, Inventory& inventory, int index) {
     int price = item->GetPrice();
 
     if (player.GetGold() < price) {
-        cout << "골드가 부족합니다." << endl;
+        cout << "골드가 부족합니다.\n";
         return;
     }
     player.AddGold(-price);
@@ -37,7 +41,7 @@ void Store::BuyItem(Player& player, Inventory& inventory, int index) {
     if (item->GetCount() == 0) {
         items_.erase(items_.begin() + index);
     }
-    cout << name << " 구매 완료" << endl;
+    cout << name << " 구매 완료\n";
 }
 
 // 아이템 판매
@@ -45,7 +49,7 @@ bool Store::SellItem(Player& player, Inventory& inventory, int index) {
     const auto& items = inventory.GetInventory();
 
     if (index < 0 || index >= static_cast<int>(items.size())) {
-        cout << "잘못된 아이템입니다." << endl;
+        cout << "잘못된 아이템입니다.\n";
         return false;
     }
 
@@ -58,19 +62,19 @@ bool Store::SellItem(Player& player, Inventory& inventory, int index) {
     }
 
     player.AddGold(price);
-    cout << name << "을(를) 판매했습니다. (+" << price << " 골드)" << endl;
+    cout << name << "을(를) 판매했습니다. (+" << price << " 골드)\n";
 
     return true;
 }
 
 // 판매 메뉴
 void Store::SellMenu(Player& player, Inventory& inventory) {
-    cout << "판매할 아이템" << endl;
-    cout << "1. 무기" << endl;
-    cout << "2. 방어구" << endl;
-    cout << "3. 소모품" << endl;
-    cout << "4. 전리품" << endl;
-    cout << "0. 돌아가기" << endl;
+    cout << "판매할 아이템\n";
+    cout << "1. 무기\n";
+    cout << "2. 방어구\n";
+    cout << "3. 소모품\n";
+    cout << "4. 전리품\n";
+    cout << "0. 돌아가기\n";
 
     int menu;
     cin >> menu;
@@ -103,7 +107,7 @@ void Store::SellMenu(Player& player, Inventory& inventory) {
         break;
 
     default:
-        cout << "잘못된 입력입니다." << endl;
+        cout << "잘못된 입력입니다.\n";
         return;
 
     }
