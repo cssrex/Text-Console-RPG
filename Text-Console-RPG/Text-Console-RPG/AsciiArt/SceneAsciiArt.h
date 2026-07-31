@@ -41,6 +41,8 @@ static const char* ShopMainAscii = R"SHOP(
    |     || || ||  /___________________________________________________________________\\  || || ||  /||               |
    |   ____________/_____________________________________________________________________\\____________/____________   |
    |      ~~~~~~~        ~~~~~~~        ~~~~~~~        ~~~~~~~     ~~~~~~      ~~~~~~~        ~~~~~~~      ~~~~~~~     |
+   |                                                                                                                   |
+   |                                                                                                                   |
 )SHOP";
 
 static const char* PotionShopAscii = R"POTION(
@@ -54,6 +56,10 @@ static const char* PotionShopAscii = R"POTION(
    |      .----|___|----.         /  .---.  \           '--------'          /  .---.  \       .----|___|----.          |
    |      |  *  *  *   |         |  |    |  |       .-.-.     .-.-.        |  |     |  |      |   +  +  +   |          |
    |   ___|_____________|________|__|____|__|______|     |___|    |_______|__|_____|__|______|_____________|_________  |
+   |                                                                                                                   |
+   |                                                                                                                   |
+   |                                                                                                                   |
+   |                                                                                                                   |
    |                                                                                                                   |
 )POTION";
 
@@ -71,6 +77,8 @@ static const char* EquipmentShopAscii = R"EquipmentShop(
    |                 /      .-----.              /////_____//////             .-----.      \                           |
    |   _____________/______/_______\_____________///////////////______________/_______\______\___                 _    |
    |   _____________________________________________________________________________________________________________   |
+   |                                                                                                                   |
+   |                                                                                                                   |
 )EquipmentShop";
 
 static const char* EnhanceAscii = R"Enhance(
@@ -104,6 +112,9 @@ static const char* DungeonEnteranceAscii = R"Dungeon(
    |    |  \_||_/  |         \      |      /         |  \_||_/  |         /     |     \         |  \_||_/  |           |
    |    |____||____|__________\_____|_____/__________|____||____|________/______|______\________|____||____|_______    |
    |                    \_______________________  고대의 봉인된 던전  ___________________/                             |
+   |                                                                                                                   |
+   |                                                                                                                   |
+   |                                                                                                                   |
 )Dungeon";
 
 static const char* DungeonCaveAscii = R"Cave(
@@ -120,6 +131,8 @@ static const char* DungeonCaveAscii = R"Cave(
    |    .-'                |           .                 -  - - -                    .           |                     |
    |   '.__            __. .            '--------------------------------------------'           . -.__            __  |
    |   '---.._______..-'    '--------------------------------------------------------------------'    '-.._______..--  |
+   |                                                                                                                   |
+   |                                                                                                                   |
 )Cave";
 
 static const char* DungeonClearAscii = R"Clear(
@@ -136,6 +149,8 @@ static const char* DungeonClearAscii = R"Clear(
    |    .-'                |           .            '------------------'             .           |                     |
    |   '.__            __. .            '--------------------------------------------'           . -.__            __  |
    |   '---.._______..-'    '--------------------------------------------------------------------'    '-.._______..--  |
+   |                                                                                                                   |
+   |                                                                                                                   |
 )Clear";
 
 static const char* PlayerDeathAscii = R"Death(
@@ -152,7 +167,77 @@ static const char* PlayerDeathAscii = R"Death(
    |   ~~~~~~~~~~~~~~~'----'~~~~~~~~~|    |~~~~~~~~~~~~~~~~'---------'~~~~~~~~~~~~~~~'----'~~~~~~~~|    |~~~~~~~~~~~~  |
    |   ..............................'----'........................................................'----'............  |
    |                                           "죽어버리다니... 한심하구나.."                                          |
+   |                                                                                                                   |
+   |                                                                                                                   |
 )Death";
+
+static const char* HouseAscii = R"House(
+.======================================================================================================================.
+|     *                                                  / \                                                           |
+|                  .--.                                 / . \                              *                 *         |
+|          *      (    )  *                            / . : \                                                         |
+|                 '--'                                / . : . \                                        *               |
+|                                                    / . : . : \                                                       |
+|      *                                            / . : . : . \                                                      |
+|                                                  / . : . : . : \                                            *        |
+|                                                 / . : . : . : . \                                                    |
+|                                                / . : . : . : . : \                                                   |
+|                                       /...\   / . : . : . : . : . \   /...\                                          |
+|                                      /.....\ / . : . : . : . : . : \ /.....\                                         |
+|                                             / . : . : . : . : . : . \                                                |
+|                                            / . : . : . : . : . : . : \                                               |
+|                                           / . : . : . : . : . : . : . \                                              |
+|                                          '-----------------------------'                                             |
+|    *                            |>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>|                                    |
+|                                 |<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<|                             *      |
+|   *                             |:::::::::::::::::::::::::::::::::::::::::::::::|                                    |
+|                                 |                                               |                              *     |
+|     *                           |   .---.         .----.  .----.       .---.    |                                    |
+|                                 |   |:.:|         |::::|  |::::|       |:.:|    |                            *       |
+|                                 |   '---'         |::::|  |::::|       '---'    |                                    |
+|                                 |                 |____|__|____|                |                                    |
+|                                 '-----------------------------------------------'                                    |
+)House";
+
+static const char* TimeoutEndingAscii = R"TimeoutEnding(
+.======================================================================================================================.
+|     ~~~~~~~~                           ~~~~~                                  _.--''.--''\         ~~~~~             |
+|                    ~~~~~~~~~~                                            .-------.   / \                ~~~~~~~~~    |
+|   ~~~~~                                               ~~~~~~           /       /      |                              |
+|                              ~~~~~~~~~~~~                             /         \     |                              |
+|     ~~~~~~~~~~                                                        |         |     |                              |
+|                                             ~~~~~~~                   |         |     |                              |
+|                                                                      /           \    |                              |
+|                                                                     /             \   |                              |
+|                                                                    /               \  |                              |
+|'| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '/                || || '| '| '| '| '| '| '| '| '| '|
+|'| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| /                 || || '| '| '| '| '| '| '| '| '| '|
+|'| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '| '|/                  || || '| '| '| '| '| '| '| '| '| '|
+|'|~'| '| '|.'|~'| '| '|~'|.'| '| '|~'| '| '|.'|~'| '| '|~'|.'| '/                   || '|~'|.'| '| '|~'| '| '|.'|~'| '|
+|'|~'| '| '|.'|~'| '| '|~'|.'| '| '|~'| '| '|.'|~'| '| '|~'|.'|'---------------------'| '|~'|.'| '| '|~'| '| '|.'|~'| '|
+|                                       "시간 안에 던전을 클리어하지 못했다..."                                        |
+)TimeoutEnding";
+
+static const char* GameClearEndingAscii = R"GameClearEnding(
+.======================================================================================================================.
+|                             *     *     *     *     *     |     *     *     *     *     *                            |
+|                                       *    *    *    *    |    *    *    *    *                                      |
+|                                                        '''#''.                                                       |
+|                                                     . .'' | ''' '                                                    |
+|                                                .''  . '.  |  .' .  .'.                                               |
+|                                             '. ' . ' '.   |   .' ' . ' .'                                            |
+|                                          .'' .  '  '.'   ==+== '.'  '  . ''.                                         |
+|                                       '. .   ' . . .'    / \    '. . . '   . .'                                      |
+|                                    .   '    .   ' '     |   |     ' '   .    '   .                                   |
+|                                 '    .    '    . .     |     |     . .    '    .    '                                |
+|                            ' .  . '    ' .   .'       |       |       '.   . '    ' .  . '                           |
+|                         . .   '             '        |         |        '             '   . .                        |
+|                      ' '                              |  | |  |                              ' '                     |
+|                    .                                 |  /   \  |                                 .                   |
+|                 '                           `.`.`.`.`.`.`.`.`.`.`.`.`.`.`                           '                |
+|                                                    "게임 클리어!"                                                    |
+)GameClearEnding";
+
 
 inline void PrintTownAsciiArt(short startX = 0, short startY = 0) {
     const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -361,6 +446,66 @@ inline void PrintDungeonClearAsciiArt(short startX = 0, short startY = 0) {
 inline void PrintPlayerDeathAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(PlayerDeathAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//메인메뉴 - 여관(플레이어 부활 위치)
+inline void PrintHouseAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(HouseAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//게임엔딩 - 시간초과
+inline void PrintTimeoutEndingAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(TimeoutEndingAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//게임클리어
+inline void PrintGameClearEndingAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(GameClearEndingAscii);
     string line;
     short row = 0;
 
