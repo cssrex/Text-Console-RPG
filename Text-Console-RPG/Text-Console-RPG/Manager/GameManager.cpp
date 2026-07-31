@@ -141,9 +141,10 @@ void GameManager::EnterHotel() {
 		return;
 	}
 
-	LogManager::GetInstance().PrintHotel();
+	LogManager::GetInstance().PrintHotelMenu();
 
 	player_->SetHp(player_->GetHp());
+	system("pause");
 }
 
 void GameManager::EnterStore() {
