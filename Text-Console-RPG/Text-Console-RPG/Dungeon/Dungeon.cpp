@@ -49,7 +49,7 @@ Dungeon::Dungeon() {
 
 	orcRoom->monsterFactories_.push_back([]() { return new OwkWarrior(); });
 	orcRoom->monsterFactories_.push_back([]() { return new OwkSorcerer(); });
-	
+
 	orcRoom->bossFactory_ = []() { return new OwkChief(); };
 
 	// 드래곤 던전
@@ -57,7 +57,7 @@ Dungeon::Dungeon() {
 
 	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
 	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
-	
+
 	dragonRoom->bossFactory_ = []() { return new TransparentDragon(); };
 
 	rooms_.push_back(slimeRoom);
@@ -109,7 +109,7 @@ void Dungeon::StartDungeonLoop(Player* player) {
 			if (topCanEnter >= 3) Enter(player, 3);
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
-		default:	
+		default:
 			LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
 		}
@@ -131,7 +131,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 	int floor = 1;
 	int command;
 
-	while(true)
+	while (true)
 	{
 		bool isWon = Battle(player, roomIndex, floor);
 
@@ -167,13 +167,17 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 			if (command == 1) break;  // 현재 층 재도전
 			if (command == 2) {       // 다음 층으로
 				floor++;
+				if (floor == (rooms_.size()) - 1)
+				{
+					// TODO : 보스방 개방 메시지
+				}
 				break;
 			}
 			LogManager::GetInstance().PrintInpuErrorMessage();
 		}
-		
+
 	}
-	
+
 	return;
 }
 
@@ -227,7 +231,7 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 		if (monster->IsDead())
 		{
 			/*
-				승리 메시지 띄우고 잠깐 기다렸다가 끝내기
+				// TODO : 승리 메시지 띄우고 잠깐 기다렸다가 끝내기
 			*/
 			GiveReward(player, monster);
 			playerWon = true;
@@ -235,8 +239,7 @@ bool Dungeon::Battle(Player* player, int roomIndex, int floor) {
 		}
 
 		// 몬스터가 플레이어 때리기
-		// player->TakeDamage(monster->GetAttack());
-		//
+		monster->Attack(player);
 
 		if (player->IsDead())
 		{
@@ -254,7 +257,7 @@ void Dungeon::PrintDungeonList() {
 	std::vector<std::string> roomList;
 	for (int i = 0; i < rooms_.size(); i++)
 	{
-		if((i == rooms_.size() - 1) && (topCanEnter != rooms_.size() - 1)) continue;
+		if ((i == rooms_.size() - 1) && (topCanEnter != rooms_.size() - 1)) continue;
 
 		Room* room = rooms_[i];
 
