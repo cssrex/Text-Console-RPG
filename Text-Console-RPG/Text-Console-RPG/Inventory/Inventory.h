@@ -22,7 +22,7 @@ public:
     void AddItem(unique_ptr<Item> item);
 
     // 인벤토리 메뉴
-    void InventoryMenu(Player& player);
+    bool InventoryMenu(Player& player);
 
     // 아이템 선택
     int SelectEquipment(EquipmentType type);
