@@ -1,10 +1,11 @@
-﻿#include "LogManager.h"
+#include "LogManager.h"
 #include "Global.h"
 #include "GameManager.h"
 #include "Player.h"
 #include "Dungeon.h"
 #include "Monster.h"
 #include "SceneAsciiArt.h"
+#include "Utils.h"
 
 LogManager::LogManager() {
 }
@@ -325,7 +326,7 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 	if (maxHp > 0) {
 		fillCount = static_cast<int>((static_cast<double>(currentHp) / maxHp) * 10.0);
 	}
-	
+
 	if (fillCount > 10) fillCount = 10;
 	if (fillCount < 0) fillCount = 0;
 
@@ -338,23 +339,42 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& mo
 	}
 
 	ClearScreen();
-	cout << "==================================================\n";
-	cout << "	       [ " << room->name_ << " (" << floor << "층) ]\n";
-	cout << "==================================================\n";
-	cout << "     이름 : " << monster->GetName() << "\t\t   레벨 : Lv. " << monster->GetLevel() << "\n\n\n";
 
-		// 몬스터 이미지 출력
+	cout << ".===================================================================================================================.\n";
+	cout << "|                                                                                                                   |\n";
+	cout << ".===================================================================================================================.\n";
 
-		//
+	Utils::MoveCursorTo(50, 1);
+	cout << "[ " << room->name_ << " (" << floor << "층) ]";
+	Utils::MoveCursorTo(0, 3);
 
-	cout << "--------------------------------------------------\n";
-	cout << "              [ 몬스터 능력치 (Stats) ]           \n";
-	cout << "           • HP    : " << hpBar << " " << currentHp << " / " << maxHp << "\n";
-	cout << "           • Power : " << monster->GetAttack() << "\n";
-	cout << "==================================================\n";
-	cout << "               [ 행동을 선택하세요! ]            \n\n";
-	cout << "  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병  \n\n";
-	cout << "==================================================\n";
+	monster->PrintAsciiArt(40, 4);
+	Utils::MoveCursorTo(5, 10);
+	cout << "이름 : " << monster->GetName() << " (Lv." << monster->GetLevel() << ")";
+	Utils::MoveCursorTo(5, 11);
+	cout << "HP   : " << hpBar << " " << currentHp << " / " << maxHp;
+
+	for (int i = 3; i < 25; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(116, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 25);
+
+	cout << ".===================================================================================================================.\n";
+	cout << "\t\t\t\t\t\t[ 행동을 선택하세요! ]\n";
+	cout << "\t\t\t\t  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병\n";
+	cout << ".===================================================================================================================.\n";
+	for (int i = 26; i < 28; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(116, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 29);
 	cout << "▶ 행동을 선택하세요: ";
 }
 
