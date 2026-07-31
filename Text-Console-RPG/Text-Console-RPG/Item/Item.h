@@ -99,4 +99,6 @@ public:
 class LootItem : public Item {
 public:
     LootItem(const string& name, int price, int count): Item(ItemType::Loot, name, price, count) {}
+
+    unique_ptr<Item> Clone() const override { return make_unique<LootItem>(name_, price_, 1); }
 };
