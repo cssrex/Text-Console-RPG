@@ -110,7 +110,6 @@ void GameManager::ShowMainMenu() {
 			return;
 		}
 		case 4: {
-			player_->PrintStatus();
 			if (player_ != nullptr) {
 				player_->PrintStatus();
 			}

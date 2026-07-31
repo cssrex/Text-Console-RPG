@@ -23,6 +23,7 @@ Player::Player(string name)
 }
 
 void Player::PrintStatus() const {
+    LogManager::GetInstance().ClearScreen();
     LogManager::GetInstance().PrintPlayerStatus(name_, level_, exp_, maxExp_, hp_, maxHp_, mp_, maxMp_, attack_, defense_);
 
     LogManager::GetInstance().PrintSkillListHeader();
