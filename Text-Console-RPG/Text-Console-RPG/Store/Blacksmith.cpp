@@ -32,17 +32,17 @@ void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
         switch (menu) {
         case 1:
         {
-            int index = SelectItem();
+            /*int index = SelectItem();
             if (index != -1)
-                BuyItem(player, inventory, index);
+                BuyItem(player, inventory, index);*/
             break;
         }
 
         case 2:{
-            int index = inventory.SelectEquipmentForSell();
+            /*int index = inventory.SelectEquipmentForSell();
 
             if (index != -1)
-                SellItem(player, inventory, index);
+                SellItem(player, inventory, index);*/
 
             break;
         }

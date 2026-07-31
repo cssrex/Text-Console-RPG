@@ -54,8 +54,20 @@ void LogManager::PrintMainMenu() {
 )";
 }
 
+void LogManager::PrintWorkshopMenu()
+{
+}
+
 void LogManager::PrintHotel() {
 
+}
+
+void LogManager::PrintStore()
+{
+}
+
+void LogManager::PrintRemoveAllStatusEffect(std::string name)
+{
 }
 
 void LogManager::PrintStoreMenu() {
@@ -120,11 +132,6 @@ void LogManager::PrintCharacterStatus(const string& name, int level, int hp, int
 	cout << "공격력: " << attack << "\n";
 	cout << "-----------------------------------------------\n";
 }
-
-void LogManager::PrintShowAllSkillHeader(const string& name) {
-	cout << "=== " << name << "의 보유 스킬 목록 ===\n";
-}
-
 void LogManager::PrintShowAllSkillItem(int index, const string& skillName, int cost) {
 	cout << "[" << index << "] " << skillName << " (소모 MP: " << cost << ")\n";
 }
@@ -138,13 +145,6 @@ void LogManager::PrintShowAllSkillHeader(const string& name) {
 	cout << "\n=== " << name << "의 보유 스킬 목록 ===\n"; // [추가]
 }
 
-void LogManager::PrintShowAllSkillItem(int index, const string& skillName, int cost) {
-	cout << "[" << index << "] " << skillName << " (소모 MP: " << cost << ")\n"; // [추가]
-}
-
-void LogManager::PrintShowAllSkillFooter() {
-	cout << "===============================\n"; // [추가]
-}
 
 void LogManager::PrintSkillMpLack(const string& skillName) {
 	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n"; // [추가]
@@ -244,10 +244,6 @@ void LogManager::PrintSkillOneUse(const string& casterName, const string& skillN
 
 void LogManager::PrintSkillTwoUse(const string& casterName, const string& skillName, const string& targetName, int damage) {
 	cout << casterName << "의 " << skillName << "! " << targetName << "에게 " << damage << "의 피해를 입혔습니다.\n";
-}
-
-void LogManager::PrintSkillMpLack(const string& skillName) {
-	cout << "MP가 부족하여 " << skillName << " 스킬을 사용할 수 없습니다!\n";
 }
 
 // 상태이상 (StatusEffect) 관련
