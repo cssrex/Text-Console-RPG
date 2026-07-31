@@ -34,6 +34,7 @@ public:
 	std::string GetDropItem() const { return dropItem_; }
 	int GetDropGold() const { return dropGold_; }
 	int GetRewardExp() const { return rewardExp_; }
+	int GetSellPrice() const { return sellPrice_; }
 
 	void TakeDamage(int damage) override;
 

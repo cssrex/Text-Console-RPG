@@ -3,6 +3,7 @@
 #include "LogManager.h"
 #include "Player.h"
 #include "Inventory.h"
+#include "Item.h"
 
 #include "GreenSlime.h"
 #include "HornSlime.h"
@@ -268,10 +269,12 @@ void Dungeon::PrintDungeonList() {
 }
 
 
-
-
-
 void Dungeon::GiveReward(Player* player, Monster* monster) {
-	// player.AddExp();
-}
+	auto item = make_unique<LootItem>(monster->GetDropItem(), monster->GetSellPrice(), 1);
+	player->GetInventory()->AddItem(*item, 1);
+	player->AddGold(monster->GetDropGold());
+	player->AddExp(monster->GetRewardExp());
 
+
+	LogManager::GetInstance().PrintDungeonReward(monster->GetDropItem(), monster->GetDropGold(), monster->GetRewardExp());
+}
