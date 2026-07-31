@@ -14,8 +14,6 @@ enum class Scene
 enum class ItemType {
 	Loot,
 	Consumable,
-	Weapon,
-	Armor
 	Equipment
 };
 
@@ -25,10 +23,8 @@ enum class ItemEffectType {
 	// 회복
 	HealHP,
 	HealMP,
-	HealBoth,
 	HealHPMP,
 	FullRecovery,
-	Antidote
 	Antidote,
 
 	// 강화
