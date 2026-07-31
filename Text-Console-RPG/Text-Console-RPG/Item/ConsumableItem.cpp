@@ -39,9 +39,9 @@ bool ConsumableItem::Use(Player& player) {
             return false;
         }
 
-        auto [healHp, healMp] = HealHPMP(player, player.GetMaxHp() / 2);
+        pair<int, int> result = HealHPMP(player, player.GetMaxHp() / 2);
 
-        cout << name_ << " HP " << healHp << ", MP " << healMp << " 회복" << endl;
+        cout << name_ << " HP " << result.first << ", MP " << result.second << " 회복" << endl;
 
         return true;
     }
@@ -53,9 +53,9 @@ bool ConsumableItem::Use(Player& player) {
             return false;
         }
 
-        auto [healHp, healMp] = FullRecovery(player);
+        pair<int, int> result = FullRecovery(player);
 
-        cout << name_ << " HP " << healHp << ", MP " << healMp << " 회복" << endl;
+        cout << name_ << " HP " << result.first << ", MP " << result.second << " 회복" << endl;
 
         return true;
     }

@@ -1,5 +1,6 @@
 #include "Item.h"
 #include "Player.h"
+#include <iostream>
 
 void EquipmentItem::Equip(Player& player) {
     switch (equipmentType_) {
