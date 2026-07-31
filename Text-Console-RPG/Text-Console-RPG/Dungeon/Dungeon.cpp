@@ -98,12 +98,12 @@ void Dungeon::StartDungeonLoop(Player* player) {
 			return;
 		case 1:
 			Enter(player, 0);
-			return;
+			break;
 		case 2:
 			if (topCanEnter >= 1)
 			{
 				Enter(player, 1);
-				return;
+				break;
 			}
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
@@ -111,7 +111,7 @@ void Dungeon::StartDungeonLoop(Player* player) {
 			if (topCanEnter >= 2)
 			{
 				Enter(player, 2);
-				return;
+				break;
 			}
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
@@ -119,7 +119,7 @@ void Dungeon::StartDungeonLoop(Player* player) {
 			if (topCanEnter >= 3)
 			{
 				Enter(player, 3);
-				return;
+				break;
 			}
 			else LogManager::GetInstance().PrintInpuErrorMessage();
 			break;
@@ -129,9 +129,19 @@ void Dungeon::StartDungeonLoop(Player* player) {
 		}
 
 		if (player->IsDead()) {
-			return;
+			// TODO : 플레이어 죽었을 때 패널티 처리
+			
+			//
+
+			// TODO : 다음날로 변경
+
+			//
 		}
+
+		break;
 	}
+
+	GameManager::GetInstance().SetNextScene(Scene::MAIN);
 }
 
 Monster* Dungeon::CreateMonster(int roomIndex, int level) {
@@ -169,7 +179,10 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 		delete monster;
 
 		// 패배한 경우 : 이전 메뉴로
-		if (!isWon) return;
+		if (!isWon)
+		{
+			return;
+		}
 
 		// 보스층 클리어한 경우
 		if (floor >= rooms_[roomIndex]->floor_) {
