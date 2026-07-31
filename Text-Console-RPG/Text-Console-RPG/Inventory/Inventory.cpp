@@ -23,29 +23,33 @@ void Inventory::AddItem(unique_ptr<Item> item) {
 }
 
 // 인벤토리 메뉴
-void Inventory::InventoryMenu(Player& player) {
+bool Inventory::InventoryMenu(Player& player) {
 	int menu;
 	cout << "===== 인벤토리 =====" << endl;
 	cout << "1. 무기" << endl;
 	cout << "2. 방어구" << endl;
 	cout << "3. 소모품" << endl;
 	cout << "4. 전리품" << endl;
+	cout << "0. 돌아가기" << endl;
 	cin >> menu;
 
 	if (cin.fail())
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
-		return;
+		return false;
 	}
 
 	switch (menu) {
+	case 0: {
+		return false;
+	}
 	case 1: {
 		int index = SelectEquipment(EquipmentType::Weapon);
 		if (index != -1) {
 			EquipmentMenu(player, index);
 		}
-		break;
+		return true;
 	}
 
 	case 2: {
@@ -53,7 +57,7 @@ void Inventory::InventoryMenu(Player& player) {
 		if (index != -1) {
 			EquipmentMenu(player, index);
 		}
-		break;
+		return true;
 	}
 
 	case 3: {
@@ -61,7 +65,7 @@ void Inventory::InventoryMenu(Player& player) {
 		if (index != -1) {
 			UseConsumable(player, index);
 		}
-		break;
+		return true;
 	}
 
 	case 4: {
@@ -69,8 +73,11 @@ void Inventory::InventoryMenu(Player& player) {
 		if (index != -1) {
 			cout << inventory_[index]->GetName() << endl;
 		}
-		break;
+		return true;
 	}
+
+	default:
+		return false;
 	}
 }
 
