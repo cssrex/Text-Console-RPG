@@ -1,6 +1,10 @@
 ﻿#include "Wyvern.h"
 #include <iostream>
 
-void Wyvern::Attack(Character& target){
-	target.TakeDamage(attack_);
+void Wyvern::BasicAttack(Player* player) {
+	player->TakeDamage(GetAttack());
+}
+
+void Wyvern::SpecialAttack(Player* player) {
+	player->TakeDamage(GetAttack() * 2);
 }

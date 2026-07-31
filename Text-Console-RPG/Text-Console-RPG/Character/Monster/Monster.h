@@ -34,13 +34,18 @@ public:
 	std::string GetDropItem() const { return dropItem_; }
 	int GetDropGold() const { return dropGold_; }
 	int GetRewardExp() const { return rewardExp_; }
+
 	void TakeDamage(int damage) override;
+
 	virtual void Attack(Player* player);
+
 	virtual void BasicAttack(Player* player) = 0;
 	virtual void SpecialAttack(Player* player) = 0;
+
 	virtual void HyperAttack(Player* player) {};
-	
+
 	virtual bool SpecialAttackTurn() const;
 	virtual bool HyperAttackTurn() const;
+
 	void Reward(Player* player);
 };
