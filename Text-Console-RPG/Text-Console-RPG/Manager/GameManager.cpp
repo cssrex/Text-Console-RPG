@@ -5,6 +5,7 @@
 #include "Player.h"
 
 GameManager::GameManager() {
+	dungeon_ = new Dungeon();
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
@@ -110,6 +111,7 @@ void GameManager::ShowMainMenu() {
 void GameManager::EnterDungeon() {
 	ChangeDayType();
 	LogManager::GetInstance().PrintDungeonMenu();
+	dungeon_->StartDungeonLoop(player_);
 }
 
 void GameManager::EnterHotel() {
