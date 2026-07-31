@@ -195,6 +195,7 @@ static const char* HouseAscii = R"House(
 |                                 |   '---'         |::::|  |::::|       '---'    |                                    |
 |                                 |                 |____|__|____|                |                                    |
 |                                 '-----------------------------------------------'                                    |
+.======================================================================================================================.
 )House";
 
 static const char* TimeoutEndingAscii = R"TimeoutEnding(
@@ -224,7 +225,7 @@ static const char* GameClearEndingAscii = R"GameClearEnding(
 |                                                     . .'' | ''' '                                                    |
 |                                                .''  . '.  |  .' .  .'.                                               |
 |                                             '. ' . ' '.   |   .' ' . ' .'                                            |
-|                                          .'' .  '  '.'   ==+== '.'  '  . ''.                                         |
+|                                          .'' .  '  '.'  ==+== '.'  '  . ''.                                          |
 |                                       '. .   ' . . .'    / \    '. . . '   . .'                                      |
 |                                    .   '    .   ' '     |   |     ' '   .    '   .                                   |
 |                                 '    .    '    . .     |     |     . .    '    .    '                                |
@@ -241,7 +242,7 @@ inline void PrintTownAsciiArt(short startX = 0, short startY = 0) {
     CONSOLE_SCREEN_BUFFER_INFO screenInfo;
     GetConsoleScreenBufferInfo(console, &screenInfo);
     const size_t visibleWidth =
-        static_cast<size_t>(screenInfo.srWindow.Right - screenInfo.srWindow.Left);
+        static_cast<size_t>(screenInfo.srWindow.Right - screenInfo.srWindow.Left + 1);
 
     istringstream input(TownAscii);
     string line;
