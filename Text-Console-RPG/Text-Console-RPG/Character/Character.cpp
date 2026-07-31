@@ -93,6 +93,6 @@ void Character::ClearStatusEffects() {
 }
 
 // 상태이상 여부 검사
-bool HasStatusEffect() const {
+bool Character::HasStatusEffect() const {
     return !statusEffects_.empty();
 }
