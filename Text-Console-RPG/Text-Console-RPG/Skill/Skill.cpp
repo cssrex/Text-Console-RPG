@@ -7,8 +7,8 @@
 
 using namespace std;
 
-Skill::Skill(const string& name, int cost, int percent, StatusEffect* statusEffect)
-    : name_(name), cost_(cost), percent_(percent), statusEffect_(statusEffect) {
+Skill::Skill(const string& name, const string& description, int cost, int percent, StatusEffect* statusEffect)
+    : name_(name), description_(description), cost_(cost), percent_(percent), statusEffect_(statusEffect) {
 }
 
 Skill::~Skill() {
@@ -24,7 +24,7 @@ bool Skill::CanUse(int currentMp) const {
 
 // 강화평타 (MP 5 소모, 기본 공격력의 120% 데미지)
 BasicAttack::BasicAttack()
-    : Skill("강화평타", 5, 120, nullptr) {
+    : Skill("강화평타", "기본 공격력의 120% 데미지를 줍니다.", 5, 120, nullptr) {
 }
 
 void BasicAttack::Use(Character& caster, Character& target) {
@@ -38,9 +38,9 @@ void BasicAttack::Use(Character& caster, Character& target) {
     target.TakeDamage(damage);
 }
 
-// 스킬 1 (MP 15 소모, 150% 데미지 + 출혈 부여)
+// 스킬 1 (MP 10 소모, 150 % 데미지 + 출혈 부여)
 SkillOne::SkillOne()
-    : Skill("강격", 10, 150, new BleedEffect(10, 3)) {
+    : Skill("강격", "기본 공격력의 150% 데미지를 주고 출혈을 부여합니다.", 10, 150, new BleedEffect(10, 3)) {
 }
 
 void SkillOne::Use(Character& caster, Character& target) {
@@ -60,7 +60,7 @@ void SkillOne::Use(Character& caster, Character& target) {
 
 // 스킬 2 (MP 25 소모, 180% 데미지 + 화상 부여)
 SkillTwo::SkillTwo()
-    : Skill("화염 베기", 15, 180, new BurnEffect(20, 2)) {
+    : Skill("화염 베기", "기본 공격력의 180% 데미지를 주고 화상을 부여합니다.", 15, 180, new BurnEffect(20, 2)) {
 }
 
 void SkillTwo::Use(Character& caster, Character& target) {

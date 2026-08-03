@@ -65,7 +65,7 @@ void Player::PrintStatus() const {
 	// 스킬 및 상태이상 목록 출력
 	LogManager::GetInstance().PrintSkillListHeader();
 	for (size_t i = 0; i < skills_.size(); ++i) {
-		LogManager::GetInstance().PrintSkillItem(i + 1, skills_[i]->GetName(), skills_[i]->GetCost());
+		LogManager::GetInstance().PrintSkillItem(i + 1, skills_[i]->GetName(), skills_[i]->GetCost(), skills_[i]->GetDescription());
 	}
 
 	if (!statusEffects_.empty()) {
