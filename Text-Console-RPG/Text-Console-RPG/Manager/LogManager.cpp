@@ -6,6 +6,8 @@
 #include "Monster.h"
 #include "SceneAsciiArt.h"
 #include "Utils.h"
+#include <limits>
+#include "GameSound.h"
 
 LogManager::LogManager() {
 }
@@ -40,6 +42,60 @@ void LogManager::PrintStartMenu()
 +=====================================================================================================================+
 )";
 	cout << "▶ 이름을 입력해주세요 : ";
+
+}
+
+void LogManager::PrintPrologue() {
+	cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+	string dummy;
+	PrintKnightDream_1AsciiArt();
+	GameSound::PlayPrologueBgm();
+	cout << ".======================================================================================================================.\n";
+	Sleep(1000);
+	cout << " 밤, 마을 어귀. 갑옷은 반쯤 부서지고, 걸음마다 피가 배어나온다. \n";
+	Sleep(1000);
+	cout << "아무도 그를 알아보지 못한다. 그가 누구인지, 어디서 왔는지도. ";
+	Sleep(2000);
+	cout << "\n▶ 다음으로 넘아가려면 Enter 키를 누르세요";
+	getline(cin, dummy);
+	LogManager::ClearScreen();
+	PrintKnightDream_2AsciiArt();
+	cout << ".======================================================================================================================.\n";
+	Sleep(1000);
+	cout << " 기사는 투구를 벗는다. 드러난 얼굴은 - 나다. 다만 더 늙어있고 많이 지쳐보인다. \n";
+	Sleep(1000);
+	cout << "\" 놀라지 마라. 나는... 한 달 뒤의 너다. \"";
+	Sleep(2000);
+	cout << "\n▶ 다음으로 넘아가려면 Enter 키를 누르세요";
+	getline(cin, dummy);
+	LogManager::ClearScreen();
+	PrintDragonPortraitAsciiArt();
+	cout << ".======================================================================================================================.\n";
+	Sleep(1000);
+	cout << "\" 용을 죽였다. 하지만 그땐 이미 늦었어. 마을에는... 아무것도 남지 않았다. \"";
+	Sleep(2000);
+	cout << "\n▶ 다음으로 넘아가려면 Enter 키를 누르세요";
+	getline(cin, dummy);
+	LogManager::ClearScreen();
+	PrintVillageRuinsAsciiArt();
+	cout << ".======================================================================================================================.\n";
+	Sleep(1000);
+	cout << " \" 이번엔 다르다. 너에겐 아직 시간이 있고 내가 알려준 정보가 있으니까. \" \n";
+	Sleep(1000);
+	cout << "\" 그 지옥같은 불바다를 보고싶지 않다면, 던전으로 가서 강해져라. 그리고 용을 죽여라. \"";
+	Sleep(2000);
+	cout << "\n▶ 다음으로 넘아가려면 Enter 키를 누르세요";
+	getline(cin, dummy);
+	LogManager::ClearScreen();
+	PrintKnightDream_2AsciiArt();
+	cout << ".======================================================================================================================.\n";
+	cout << "\" 부탁한다.. 이번엔 ... 지켜줘..  \"\n";
+	Sleep(1000);
+	cout << " 그는, 아무 흔적도 없이 사라졌다. ";
+	Sleep(2000);
+	cout << "\n▶ 다음으로 넘아가려면 Enter 키를 누르세요";
+	getline(cin, dummy);
+	LogManager::ClearScreen();
 }
 
 

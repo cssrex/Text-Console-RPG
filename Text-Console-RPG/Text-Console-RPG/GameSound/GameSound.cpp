@@ -25,7 +25,9 @@ namespace GameSound {
         constexpr const wchar_t* DungeonBgm = L"Sound\\DungeonBgm.wav";
         constexpr const wchar_t* BattleBgm = L"Sound\\BattleBgm.wav";
         constexpr const wchar_t* BossBattleBgm = L"Sound\\BossBattleBgm.wav";
-
+        constexpr const wchar_t* HappyEndingBgm = L"Sound\\HappyEndingBgm.wav";
+        constexpr const wchar_t* BadEndingBgm = L"Sound\\BadEndingBgm.wav";
+        constexpr const wchar_t* PrologueBgm = L"Sound\\PrologueBgm.wav";
         // Sound 폴더에 있는 효과음 파일 경로
         constexpr const wchar_t* MenuMoveSfx = L"Sound\\MenuMoveSfx.wav";
         constexpr const wchar_t* MenuSelectSfx = L"Sound\\MenuSelectSfx.wav";
@@ -181,6 +183,24 @@ namespace GameSound {
         StopBgm();
         StopWave();
         return PlayLoopingWave(BossBattleBgm);
+    }
+    bool PlayHappyEndingBgm() { return PlayBgm(HappyEndingBgm); }
+    bool PlayHappyEndingBgmLoop() {
+        StopBgm();
+        StopWave();
+        return PlayLoopingWave(HappyEndingBgm);
+    }
+    bool PlayBadEndingBgm() { return PlayBgm(BadEndingBgm); }
+    bool PlayBadEndingBgmLoop() {
+        StopBgm();
+        StopWave();
+        return PlayLoopingWave(BadEndingBgm);
+    }
+    bool PlayPrologueBgm() { return PlayBgm(PrologueBgm); }
+    bool PlayPrologueBgmLoop() {
+        StopBgm();
+        StopWave();
+        return PlayLoopingWave(PrologueBgm);
     }
     // UI와 장면 전환 효과음 호출
     bool PlayMenuMoveSfx() { return PlayEffect(MenuMoveSfx); }

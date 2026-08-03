@@ -58,6 +58,9 @@
     <Filter Include="소스 파일\Store">
       <UniqueIdentifier>{b7c7a603-6edf-4508-b033-b1eccfe2d4a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameSound">
+      <UniqueIdentifier>{1165942f-c2b8-4163-9b15-f954af3b994a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,6 +153,12 @@
     <ClCompile Include="Store\Store.cpp">
       <Filter>소스 파일\Store</Filter>
     </ClCompile>
+    <ClCompile Include="AsciiArt\Utils.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSound\GameSound.cpp">
+      <Filter>소스 파일\GameSound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager\GameManager.h">
@@ -241,6 +250,15 @@
     </ClInclude>
     <ClInclude Include="Store\Store.h">
       <Filter>소스 파일\Store</Filter>
+    </ClInclude>
+    <ClInclude Include="AsciiArt\Utils.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalMonster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSound\GameSound.h">
+      <Filter>소스 파일\GameSound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

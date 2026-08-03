@@ -35,6 +35,7 @@ public:
 	void PrintPassDay();
 	void PrintDayOver();
 	void PrintGameClear();
+	void PrintPrologue();
 
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
