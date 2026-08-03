@@ -44,6 +44,14 @@ namespace GameSound {
 	bool PlayBattleBgmLoop();
 	bool PlayBossBattleBgm();
 	bool PlayBossBattleBgmLoop();
+	bool PlayPrologueBgm();
+	bool PlayPrologueBgmLoop();
+	bool PlayHappyEndingBgm();
+	bool PlayHappyEndingBgmLoop();
+	bool PlayBadEndingBgm();
+	bool PlayBadEndingBgmLoop();
+	bool PlayPrologueBgm();
+	bool PlayPrologueBgmLoop();
 
 	// UI와 장면 전환 효과음 호출
 	bool PlayMenuMoveSfx();

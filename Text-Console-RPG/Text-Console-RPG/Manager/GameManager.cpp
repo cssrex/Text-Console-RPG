@@ -67,7 +67,9 @@ void GameManager::StartMenu() {
 	string name;
 	cin >> name;
 	InitializePlayer(name);
+	LogManager::GetInstance().PrintPrologue();
 	SetNextScene(Scene::MAIN);
+
 }
 
 void GameManager::ShowMainMenu() {
@@ -94,7 +96,7 @@ void GameManager::ShowMainMenu() {
 			system("pause");
 			continue;
 		}
-
+		
 		switch (num) {
 		case 0: {
 			isInputZero_ = true;

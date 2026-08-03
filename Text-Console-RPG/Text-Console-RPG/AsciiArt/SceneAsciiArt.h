@@ -45,7 +45,8 @@ static const char* ShopMainAscii = R"SHOP(
 )SHOP";
 
 static const char* PotionShopAscii =
-R"POTION(.======================================================================================================================.
+R"POTION(
+.======================================================================================================================.
 |     .-------------------.                 .----------------------.                   .-------------------.Potion     |
 |     | o  o  o  o  o  o  |                 |  [] [] [] [] [] []   |                   | o  o  o  o  o  o  |           |
 |     | |  |  |  |  |  |  |        .-.      |  || || || || || ||   |         .-.       | |  |  |  |  |  |  |           |
@@ -63,7 +64,8 @@ R"POTION(.======================================================================
 )POTION";
 
 static const char* EquipmentShopAscii =
-R"EquipmentShop(.======================================================================================================================.
+R"EquipmentShop(
+.======================================================================================================================.
 |      [o] [o] [o] [o] [o]       /|\     /|\     /|\     /|\       [o] [o] [o] [o] [o]            EquipmentShop        |
 |      | | | | | | | | | |       |||     |||     |||     |||       | | | | | | | | | |                                 |
 |      [o] [o] [o] [o] [o]       |||     |||     |||     |||       [o] [o] [o] [o] [o]                                 |
@@ -238,6 +240,136 @@ static const char* GameClearEndingAscii = R"GameClearEnding(
 |                 '                           `.`.`.`.`.`.`.`.`.`.`.`.`.`.`                           '                |
 |                                                    "게임 클리어!"                                                    |
 )GameClearEnding";
+
+static const char* KnightPortraitAscii = R"KnightPortrait(
+.======================================================================================================================.
+|                                                       . .l!'                                                         |
+|                                                        .+uCx~.                                                       |
+|                                                      '_z0r)urI                                                       |
+|                                                     ._L&*j-/n}`                                                      |
+|                                                    ..}wWoCcUUx_".                                                    |
+|                                                      {dB@8awX[I".                                                    |
+|                                                .. .~rw&8*dpbpu-:'.                                                   |
+|                                                  '{dB$$$@8#hwj!,,.                                                   |
+|                                               ,1cO#$$@$@&#abmt;   ^>_I.                                              |
+|                                              IJ@$$$$$$$8b00dwx-<?[?fU\^                                              |
+|                                             .fB$@@$$$$$B#pwdQjxmqv1(zni                                              |
+|                                             iO$$$$$$$@*wUYZqQLhBWmJCLxi                                              |
+|                                            ;c&$$$$$$$@*w0OhoOct1{/UwUj\~.                                            |
+|                                            iO$$$$$$$$$BMaka%BhCj||uZUnz(`                                            |
+|                                          .lxh$$$$$$$$$@*bqJZbwZwd*WB&aom}`                                           |
+|                                          :jd#B$$$$$@WomXJ0UYCOd#B$$@8%@@m{                                           |
+|                                          "1Ud&$$$$$$%WbOO00p*B$@M&$$$$$$#f                                           |
+|                                           "(ZM@$$$$$$B&&#hk#&&%@&#&@$%*bah                                           |
+|                                           .[0*&B$$$@&W8BBMbm0LmW$#hMWL}i[z                                           |
+|                                           :tLOwa8$$%#hh*#dJYvjupB@*Ov['                                              |
+|                                           `!~?rOkkOXxx0kpzfQmvfC*oO|".                                               |
+|                                               ^{UX|{)nqa0t(qBZtfn{<;                                                 |
+|                                             .. "[_;i(Lhdv--YOf>,"'                                                   |
+|                                                 '. ^i}\f\_;I,.                                                       |
+|                                          .''''''''''^`'!{?I`.''''''.......                                           |
+)KnightPortrait";
+
+static const char* DragonPortraitAscii = R"DragonPortrait(
+.======================================================================================================================.
+|                                             '     `i<:   ':l^.     "}1"                                              |
+|                                            ;~. . If\^ `<}xCv/1;  ^~xY+                                               |
+|                                            <|;  "nL]^i|zLqhahqz{?|XC}.                                               |
+|                                            ljt~;}QmCzYUUCOqdZJzvzZqf` ^^                                             |
+|                                            ^\UzrnLpwCcjtX0CzcYLq#$Mn~<<`                                             |
+|                                             "tUnfYOUnf{{fj)(C*%B@8hZ0v~.                                             |
+|                                           .;;10YjXQLX/)fj\/Z@$MoW#o*pc_                                              |
+|                                            Itp$8hd0YcxvQaW#W*dqo%$$@dX{"                                             |
+|                                             ^joB@*X))xJp#obOYcY0bokbd0u?'                                            |
+|                                            'lrqoMkCjvmdqmqa*oaa#88M**aZf;                                            |
+|                                            ')h$$$BdcvCZqaB$$$$$$$$$$$@qv]'                                           |
+|                                             >|xq@$WqQq*W@$$$@hw#8oW$$%kY1,                                           |
+|                                                [*$@&8$$M&B@@dLb*wO*@@MdC1,                                           |
+|                                              ..IXB$$$$$Mpk#qUmapph#&*bmu_'                                           |
+|                                                .)a$$$$MZCbbOd#aaB$@*pmU)I                                            |
+|                                                ^]XoB%bc/vmma$$$$$$#OUv\~'                                            |
+|                                                ^;<npmt}tQq*$$$$$%Wb0v)+;                                             |
+|                                                .`l/LmUvLZb@$$$$@#aqJt-I'                                             |
+|                                                .^;\mwUCmpa@$$8##*dCt+,.                                              |
+|                                                .'^~zbZQOm*$BMdwmLn-".                                                |
+|                                                 .',?zOQ0h@8ahhwc[;                                                   |
+|                                                   .`[UwB$%pQO0x!.                                                    |
+|                                                     !zd8%kYrntl                                                      |
+|                                                     .1OqZUrfx{`                                                      |
+|                                                      ^)zvj\}]~`                                                      |
+)DragonPortrait";
+
+static const char* VillageRuinsAscii = R"VillageRuins(
+.======================================================================================================================.
+|                           )                    )              (                       )                 (            |
+|                              (       .    ,     .  (      .    )   )       .      (      (      .    ,               |
+|                          _)_        (   )         (         )          _)_          (   )        (                   |
+|                     /   \                                         /   \                            _)_               |
+|                    | x x |___          ,        (              | x x |            (        (      /   \              |
+|                    |_____|   \        )                  ___    |_____|    ,          )         | x x |              |
+|                  /       \   |__    (       )           /   \  /       \  (    ,           )    |_____|              |
+|                | # # # # |_/    \       ___          | x x |_/  |  # #  |     )        (       /       \             |
+|                |_________|       \___ /   \____      |_____|    |_______|__       ___    ____| # # # # |             |
+|                ////////////\           |  |  |  \    /         \///////      \  /   \  /         \______/            |
+|               /____________  \_________|  |__|___\__/           \___________  \| x  |_/            //////            |
+|                   ..     .. ' \  ~     ~   .. '  '  \\.    ..     ..    ~  '   \|____|'  ~     ..     ..             |
+|               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~            |
+|                                                                                                                      |
+)VillageRuins";
+
+static const char* KnightArrivalAscii = R"KnightArrival(
+.======================================================================================================================.
+|                                                'I+il;' !{<cn|[<" . .                                                 |
+|                                              I?:I;. '!<1|I|ZZzUXr)!.l+.                                              |
+|                                              ,|~,  ,_ru/+,l+jzLm0Xv)|1.                                              |
+|                                              .`!~I''^;' `I   ,i]}+i[i`.                                              |
+|                                              ."",;IIll!,,: .      ,I:"                                               |
+|                                              .":::::lilI;^`'`....'I!I'                                               |
+|                                               ^,"^"^,"";,.`<"':"`:,,:                                                |
+|                                               '::^:,,,^I".^I.';l^`,I,                                                |
+|                                               ',:^,:;"^>, ^!''^`,`^I^                                                |
+|                                               ^,,`::::`^^^",'':",_!,:                                                |
+|                                               ;:,,,^,I^!^.<;`..`i?!l;                                                |
+|                                     .  ''    ';:,;"il ^l"':`  ;~!Ii!'.  ..`'..                                       |
+|                                 .''`"'^^.^,..^^,:;I>_}:"`. ";}), ^"^^``.`;!I"^.'..                                   |
+|                                .^``^,^;I"'^.^' ";lIl:~-+}l/U/}.   ."` `"I!!i;`^``'''.                                |
+|                            .. ^' ..^^,"";  ."..'"I!!!  ^!|/I     .^^'.`II!l:^^"''......                              |
+|                         .` `'.`'`",::;"^".   ^,;:,I:`..  :  ..  .^,?^"",^;:"","``",;;;"''.                           |
+|                       `'`^"`^;;I,,,:;::"".  . ^;,'`"`'...~"...'^"`"<I,"'^:^,:;,;,;;:;:"^```..                        |
+|                      '"^^"'^::,;I,"""""i~l:+"_!'><;,^..  ^.    ,i>~i!]`i~;+>:^,l;II:";!I:,:"'..                      |
+|                    .''^:,^^,,,;,":;,:^`:`.`_;lI'`I_{[{-i;Ill<[??]>,.'?!i".':"^,":^'",,:,,,"`"^'.                     |
+|                   .;.`"^^"":^``"II'"^,"i<I::``..    'li!<)[i!>"    ..`;I;,!;`,"I'>i][l""I;"`'^^"`                    |
+|                   '^`^,"```^^".`+u)n}l'"^`,l'`.l{!       !'      "-?'.,^[|iI "]vfJ[^^;^^:!I;:,'^^.                   |
+|                   .''`,^  .'  ^."l-<,i?}!.>{.''rXv/l'^'I:!:I"."^-\nz~ ';/~If/_^I)I:"^  '^Ii;;!:.``                   |
+|                  ^' `"`   ^',,;I``!.:-UUXYw|'lI^ll}\\nxUUdOJcjj1(I:l^+;!wmLXX<` ~~i'''   ^I'`;l. '                   |
+)KnightArrival";
+
+static const char* BagIconAscii = R"BagIcon(
+.======================================================================================================================.
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                    ....%%%.%..%...                                                   |
+|                                                 .%@@@@@@@@@@%@@@@@%.                                                 |
+|                                                .@@@@%%.........%@@@@.                                                |
+|                                                .@@@%            %@@@%                                                |
+|                                            .%%%%@@@%%%%%%%%%%%%%%@@@%%%%..                                           |
+|                                          .%%%@%%%%%%%%%@@@@@@%%%%%%%%%@%%%.                                          |
+|                                          .%.%@%%%%%%%%%@@@@@@%%%%%%%%%%%.%%                                          |
+|                                          %%.%@%%%%%%%%%@@@@@@%%%%%%%%%%%.%%                                          |
+|                                          %%.%@%%%%%%%%%@@@@@@%%%%%%%%%%%.%%                                          |
+|                                     .....%%.%@%%%%%%%%%@@@@@@%%%%%%%%%%..%%.....                                     |
+|                                    %@%%@@@%...%%%%%%.%%%@@@@%%%%%.%%%...%%@@@@%%%                                    |
+|                                    %@%%%%@%%%%%%%%%%%@@@@@@@@%%%%%%%%%%%%%%%%%%@%                                    |
+|                                    .@@@@@@%.%@%%%%%%@@@@@@@@@@@@%%%%%%%%.%@@@@@@.                                    |
+|                                     %@@@@@%.%%%%%%%%%@@@@@@@@@@%%%%%%%%%.%@@@%%%                                     |
+|                                    .@@@@@@%.%%%%%%%%%%%@%%%%@%%%%%%%%%%%.%@@@@%%.                                    |
+|                                    .@%@@@@%.%%%%%%%%%%%%%%%%%%%%%%%%%%@%.%@@@%%%.                                    |
+|                                     %@@%@@%.%%%%%%%%%%%%%%%%%%%%%%%%%%%%.%@%@%@%                                     |
+|                                     ......%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%..%...                                     |
+|                                            .%%%%%%..........%%%%%%%%%....                                            |
+|                                                                                                                      |
+|                                                                                                                      |
+)BagIcon";
 
 inline void PrintTownAsciiArt(short startX = 0, short startY = 0) {
     const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -506,6 +638,106 @@ inline void PrintTimeoutEndingAsciiArt(short startX = 0, short startY = 0) {
 inline void PrintGameClearEndingAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(GameClearEndingAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//프롤로그 - 기사 첫 만남
+inline void PrintKnightDream_1AsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(KnightPortraitAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//프롤로그 - 드래곤 회상
+inline void PrintDragonPortraitAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(DragonPortraitAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//프롤로그 - 황폐된 마을
+inline void PrintVillageRuinsAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(VillageRuinsAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//프롤로그 - 기사 마지막
+inline void PrintKnightDream_2AsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(KnightArrivalAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//인벤토리
+inline void PrintBagIconAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(BagIconAscii);
     string line;
     short row = 0;
 
