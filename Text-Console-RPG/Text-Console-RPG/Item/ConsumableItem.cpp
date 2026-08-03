@@ -27,9 +27,7 @@ bool ConsumableItem::Use(Player& player) {
 
 		int healHp = HealHP(player, effectValue_);
 
-		PrintMessage(
-			name_ + " HP " + to_string(healHp) + " 회복"
-		);
+		PrintMessage(name_ + " HP " + to_string(healHp) + " 회복");
 
 		return true;
 	}
@@ -43,9 +41,7 @@ bool ConsumableItem::Use(Player& player) {
 
 		int healMp = HealMP(player, effectValue_);
 
-		PrintMessage(
-			name_ + " MP " + to_string(healMp) + " 회복"
-		);
+		PrintMessage(name_ + " MP " + to_string(healMp) + " 회복");
 
 		return true;
 	}
@@ -58,8 +54,7 @@ bool ConsumableItem::Use(Player& player) {
 			return false;
 		}
 
-		pair<int, int> result =
-			HealHPMP(player,player.GetMaxHp() / 2,player.GetMaxMp() / 2);
+		pair<int, int> result = HealHPMP(player,player.GetMaxHp() / 2,player.GetMaxMp() / 2);
 
 		PrintMessage(name_ +" HP " +to_string(result.first) +", MP " +to_string(result.second) +" 회복");
 
@@ -74,8 +69,7 @@ bool ConsumableItem::Use(Player& player) {
 			return false;
 		}
 
-		pair<int, int> result =
-			FullRecovery(player);
+		pair<int, int> result = FullRecovery(player);
 
 		PrintMessage(name_ +" HP " +to_string(result.first) +", MP " +to_string(result.second) +" 회복"	);
 
@@ -87,16 +81,12 @@ bool ConsumableItem::Use(Player& player) {
 		if (player.HasStatusEffect()) {
 			player.ClearStatusEffects();
 
-			PrintMessage(
-				"상태이상이 제거되었습니다."
-			);
+			PrintMessage("상태이상이 제거되었습니다.");
 
 			return true;
 		}
 
-		PrintMessage(
-			"제거할 상태이상이 없습니다."
-		);
+		PrintMessage("제거할 상태이상이 없습니다.");
 
 		return false;
 	}

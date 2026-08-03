@@ -646,8 +646,7 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory)
 
         resultMessage =
             equipment->GetName()
-            + " 강화 성공!\n";
-
+            + " 강화 성공! ";
 
         if (increaseAttack > 0)
         {
