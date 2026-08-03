@@ -71,7 +71,7 @@ void GameManager::StartMenu() {
 }
 
 void GameManager::ShowMainMenu() {
-	GameSound::PlayStartAdventureBgm();
+	GameSound::PlayStartAdventureBgmLoop();
 	int num;
 	while (true) {
 		system("cls");
