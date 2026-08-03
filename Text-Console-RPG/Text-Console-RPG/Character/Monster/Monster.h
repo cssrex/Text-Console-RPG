@@ -69,5 +69,5 @@ public:
 	virtual void MonsterAppearanceScript() {}
 	virtual void MonsterDeadScript() {}
 	
-	void PowerUpMonster() const;
+	virtual int CalculatePowerUpAttack() const;
 };

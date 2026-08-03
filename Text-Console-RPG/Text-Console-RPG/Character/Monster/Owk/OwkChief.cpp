@@ -7,21 +7,21 @@ void OwkChief::PrintAsciiArt(short startX, short startY) {
 void OwkChief::BasicAttack(Player* player) {
 	cout << "오크 족장의 기본 공격!" << endl;
 	cout << "대검 내려치기!!" << endl;
-	player->TakeDamage(GetAttack());
+	player->TakeDamage(CalculatePowerUpAttack());
 }
 
 void OwkChief::SpecialAttack(Player* player) {
 	cout << "이 검 맛좀 봐라!" << endl;
 	cout << "오크 족장의 특수 공격!" << endl;
 	cout << "대검 던지기!!" << endl;
-	player->TakeDamage(GetAttack() * 2);
+	player->TakeDamage(CalculatePowerUpAttack() * 2);
 }
 
 void OwkChief::HyperAttack(Player* player) {
 	cout << "부족의 이름을 걸고... 전력을 다한다!!" << endl;
 	cout << "오크 족장의 궁극기!" << endl;
 	cout << "파워 슬레시!!" << endl;
-	player->TakeDamage(GetAttack() * 3);
+	player->TakeDamage(CalculatePowerUpAttack() * 3);
 }
 
 void OwkChief::MonsterAppearanceScript() {
