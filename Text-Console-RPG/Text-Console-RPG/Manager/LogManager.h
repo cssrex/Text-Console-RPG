@@ -22,17 +22,17 @@ public:
 	void ClearScreen();
 	void PrintInpuErrorMessage();
 
-
-	// 에러 수정용
-	void PrintHotelMenu();
-	void PrintStoreMenu();
 	void PrintRemoveAllStatusEffect(std::string name);
 
 	// 게임 매니저 관련
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();
+	void PrintHotelMenu();
+	void PrintStoreMenu();
 	void PrintDungeonMenu();
+	void PrintDayOver();
+	void PrintGameClear();
 
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);

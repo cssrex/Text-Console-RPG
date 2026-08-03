@@ -46,8 +46,16 @@ void LogManager::PrintStartMenu()
 void LogManager::PrintMainMenu() {
 	if (GameManager::GetInstance().GetDayType() == DayType::MORNING) PrintTownScene();
 	else PrintTownScene(true);
+	int days = GameManager::GetInstance().GetDdays();
 	Utils::MoveCursorTo(1, 1);
-	std::cout << "D-Day : " << GameManager::GetInstance().GetDdays();
+	if (days == 0)
+	{
+		std::cout << "D - Day";
+	}
+	else
+	{
+		std::cout << "D - " << days;
+	}
 	Utils::MoveCursorTo(0, 15);
 	cout << R"(
 +======================================================================================================================+
@@ -90,6 +98,14 @@ void LogManager::PrintDungeonMenu() {
 |                                                                                                                      |
 +======================================================================================================================+
 )";
+}
+
+void LogManager::PrintDayOver() {
+	PrintTimeoutEndingAsciiArt();
+}
+
+void LogManager::PrintGameClear() {
+	PrintGameClearEndingAsciiArt();
 }
 
 LogManager& LogManager::GetInstance() {
