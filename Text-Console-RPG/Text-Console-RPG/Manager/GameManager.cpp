@@ -68,12 +68,12 @@ void GameManager::StartMenu() {
 	cin >> name;
 	InitializePlayer(name);
 	SetNextScene(Scene::MAIN);
-	GameSound::PlayStartAdventureBgm();
 }
 
 void GameManager::ShowMainMenu() {
 	int num;
 	while (true) {
+		GameSound::PlayStartAdventureBgm();
 		system("cls");
 		LogManager::GetInstance().PrintMainMenu();
 		cout << "▶ 번호를 입력해주세요 : ";

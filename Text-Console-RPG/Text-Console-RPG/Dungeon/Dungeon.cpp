@@ -78,6 +78,8 @@ Dungeon::~Dungeon() {
 }
 
 bool Dungeon::StartDungeonLoop(Player* player) {
+	GameSound::PlayDungeonBgm();
+
 	while (true)
 	{
 		PrintDungeonList();
@@ -208,6 +210,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 		// 보스층 클리어한 경우
 		if (floor >= rooms_[roomIndex]->floor_) {
+			GameSound::PlayDungeonClearSfx();
 			// 축하 메시지
 
 			if (topCanEnter == roomIndex && topCanEnter < (rooms_.size()) - 1) {
