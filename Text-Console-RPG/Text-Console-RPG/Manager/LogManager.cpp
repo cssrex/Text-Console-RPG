@@ -544,6 +544,7 @@ void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
 
 void LogManager::PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_)
 {
+	cout << "\n";
 	cout << ".======================================================================================================================.\n";
 	cout << "| [몬스터 처치 정보]                                                                                                   |\n";
 	for (auto iter = killedMonsterList_.begin(); iter != killedMonsterList_.end(); iter++)

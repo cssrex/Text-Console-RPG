@@ -59,8 +59,8 @@ Dungeon::Dungeon() {
 	// 드래곤 던전
 	Room* dragonRoom = new Room{ "드래곤 던전", 3 };
 
-	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
-	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
+	dragonRoom->monsterFactories_.push_back([]() { return new Drake(); });
+	dragonRoom->monsterFactories_.push_back([]() { return new Wyvern(); });
 
 	dragonRoom->bossFactory_ = []() { return new TransparentDragon(); };
 
@@ -96,7 +96,7 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 		}
 
 		bool isRightCommand = true;
-
+		
 		switch (command)
 		{
 		case 0:
@@ -160,6 +160,12 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 
 		break;
 	}
+	if (isClear)
+	{
+		GameManager::GetInstance().SetNextScene(Scene::END);
+
+		return true;
+	}
 
 	GameManager::GetInstance().SetNextScene(Scene::MAIN);
 
@@ -216,13 +222,19 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 		if (floor >= rooms_[roomIndex]->floor_) {
 			GameSound::StopBgm();
 			GameSound::PlayDungeonClearSfx();
+
 			// 축하 메시지
+			if (name == "투명 드래곤")
+			{
+				isClear = true;
+				return true;
+			}
 
 			if (topCanEnter == roomIndex && topCanEnter < (rooms_.size()) - 1) {
 				topCanEnter++;
 			}
 			system("pause");
-			return true;
+			return false;
 		}
 
 		while (true)
@@ -240,7 +252,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 			if (command == 0) {
 				GameManager::GetInstance().SetNextScene(Scene::MAIN);
-				return true; // 던전 떠나기
+				return false; // 던전 떠나기
 			}
 			if (command == 1) {       // 다음 층으로
 				floor++;
@@ -251,7 +263,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 	}
 
-	return true;
+	return false;
 }
 
 bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor) {

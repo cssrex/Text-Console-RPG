@@ -19,7 +19,8 @@ private:
 	std::map<std::string, int> killedMonsterList_;
 	std::vector<Room*> rooms_;
 	int topCanEnter = 0;
-	
+	bool isClear = false;
+
 public:
 	Dungeon();
 	~Dungeon();
