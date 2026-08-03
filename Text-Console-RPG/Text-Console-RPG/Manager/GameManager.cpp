@@ -67,7 +67,7 @@ void GameManager::StartMenu() {
 	cin >> name;
 	InitializePlayer(name);
 	SetNextScene(Scene::MAIN);
-	GameSound::PlayStartAdventureBgm();
+	GameSound::PlayStartAdventureBgmLoop();
 }
 
 void GameManager::ShowMainMenu() {
