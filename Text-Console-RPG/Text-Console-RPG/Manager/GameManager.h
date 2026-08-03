@@ -15,8 +15,9 @@ private:
 	Player*				player_;
 	Scene				curScene_;
 	Scene				nextScene_;
-	int					dDays_;
+	int					day_;
 	DayType				dayType_;
+	bool				isInputZero_;
 private:
 	GameManager();
 	~GameManager();
@@ -29,7 +30,7 @@ public:
 public:
 	void ChangeDayType();
 	DayType GetDayType();
-	int GetDdays();
+	int GetDay();
 	bool EndDay();
 private :
 	void SubDays();

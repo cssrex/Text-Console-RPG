@@ -46,6 +46,17 @@ void LogManager::PrintStartMenu()
 void LogManager::PrintMainMenu() {
 	if (GameManager::GetInstance().GetDayType() == DayType::MORNING) PrintTownScene();
 	else PrintTownScene(true);
+	int day = GameManager::GetInstance().GetDay();
+	Utils::MoveCursorTo(1, 1);
+	if (day == 0)
+	{
+		std::cout << "D - Day";
+	}
+	else
+	{
+		std::cout << "D - " << day;
+	}
+	Utils::MoveCursorTo(0, 15);
 	cout << R"(
 +======================================================================================================================+
 |                                                                                                                      |
@@ -89,6 +100,14 @@ void LogManager::PrintDungeonMenu() {
 )";
 }
 
+void LogManager::PrintDayOver() {
+	PrintTimeoutEndingAsciiArt();
+}
+
+void LogManager::PrintGameClear() {
+	PrintGameClearEndingAsciiArt();
+}
+
 LogManager& LogManager::GetInstance() {
 	static LogManager instance;
 
@@ -103,7 +122,7 @@ void LogManager::ClearScreen()
 void LogManager::PrintInpuErrorMessage()
 {
 	cout << "잘못된 입력입니다\n";
-	system("pause");
+	system("pause > nul");
 }
 
 // 캐릭터 (Character) 관련
@@ -113,6 +132,10 @@ void LogManager::PrintTakeDamage(const string& name, int damage, int currentHp, 
 
 void LogManager::PrintHeal(const string& name, int value) {
 	cout << name << "의 체력이 " << value << "만큼 회복되었습니다.\n";
+}
+
+void LogManager::PrintMpHeal(const string& name, int value) {
+	cout << name << "의 MP가 " << value << "만큼 회복되었습니다.\n";
 }
 
 void LogManager::PrintAddStatusEffect(const string& name, const string& effectName) {
@@ -219,8 +242,17 @@ void LogManager::PrintAddExp(int exp, int currentExp, int maxExp) {
 	cout << exp << " 경험치를 획득했습니다. (현재: " << currentExp << " / " << maxExp << ")\n";
 }
 
-void LogManager::PrintLevelUp(int oldLevel, int newLevel) {
-	cout << "\n★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n\n";
+void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp, 
+	int newMaxMp, int oldAttack, int newAttack, int oldDefense, int newDefense) {
+	std::cout << "\n=========================================\n";
+	std::cout << "★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n";
+	std::cout << "=========================================\n";
+	std::cout << " [최대 HP] " << oldMaxHp << " -> " << newMaxHp << " (+" << (newMaxHp - oldMaxHp) << ")\n";
+	std::cout << " [최대 MP] " << oldMaxMp << " -> " << newMaxMp << " (+" << (newMaxMp - oldMaxMp) << ")\n";
+	std::cout << " [공격력]   " << oldAttack << " -> " << newAttack << " (+" << (newAttack - oldAttack) << ")\n";
+	std::cout << " [방어력]   " << oldDefense << " -> " << newDefense << " (+" << (newDefense - oldDefense) << ")\n";
+	std::cout << "=========================================\n";
+	std::cout << "※ HP와 MP가 모두 회복되었습니다!\n\n";
 }
 
 void LogManager::PrintLevelDown(int level) {
@@ -325,7 +357,7 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& pla
 
 	cout << ".======================================================================================================================.\n";
 	cout << "\t\t\t\t\t\t[ 행동을 선택하세요! ]\n";
-	cout << "\t\t\t\t  1. 기본 공격   2. 스킬   3. 인벤토리   4. 용병\n";
+	cout << "\t\t\t\t   1. 기본 공격       2. 스킬       3. 인벤토리\n";
 	cout << ".======================================================================================================================.\n";
 	for (int i = 26; i < 28; i++)
 	{
@@ -487,4 +519,24 @@ void LogManager::PrintEquipmentStoreMenu() {
 |                                                                                                                      |
 +======================================================================================================================+
 )";
+}
+
+void LogManager::PrintDungeonPlayerDeath()
+{
+	ClearScreen();
+	PrintPlayerDeathAsciiArt();
+	cout << ".======================================================================================================================.\n\n";
+	cout << "                                            ** [플레이어가 사망했습니다] **\n\n";
+	cout << "                                       패널티로 레벨이 감소하며, 하루가 지나갑니다.\n\n";
+	cout << ".======================================================================================================================.\n";
+	for (int i = 16; i < 21; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 22);
+
+	system("pause > nul");
 }

@@ -16,7 +16,7 @@ struct Room {
 
 class Dungeon {
 private:
-	std::map<Monster*, int> killedMonsterList_;
+	std::map<std::string, int> killedMonsterList_;
 	std::vector<Room*> rooms_;
 	int topCanEnter = 0;
 	
@@ -25,11 +25,11 @@ public:
 	~Dungeon();
 
 public:
-	void StartDungeonLoop(Player* player);
+	bool StartDungeonLoop(Player* player);
 
 private:
 	Monster* CreateMonster(int roomIndex, int level);
-	void Enter(Player* player, int roomIndex);
+	bool Enter(Player* player, int roomIndex);
 	bool Battle(Player* player, Monster* monster, int roomIndex, int floor);
 	void GiveReward(Player* player, Monster* monster);
 

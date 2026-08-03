@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "Monster.h"
+#include "NormalMonster.h"
 
-class GoblinArcher : public Monster{
+class GoblinArcher : public NormalMonster {
 public:
-	GoblinArcher(int level = 15) : Monster(
+	GoblinArcher() : NormalMonster(
 
 		"고블린 궁수",
 		15,
