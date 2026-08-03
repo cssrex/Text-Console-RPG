@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "Monster.h"
+#include "NormalMonster.h"
 
-class PoisonSlime : public Monster{
+class PoisonSlime : public NormalMonster {
 public:
-	PoisonSlime() : Monster(
+	PoisonSlime() : NormalMonster(
 		"독 슬라임",
 		8,
 		40,
