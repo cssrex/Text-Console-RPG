@@ -472,3 +472,23 @@ void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
 
 }
 
+void LogManager::PrintDungeonPlayerDeath()
+{
+	ClearScreen();
+	PrintPlayerDeathAsciiArt();
+	cout << ".======================================================================================================================.\n\n";
+	cout << "                                            ** [플레이어가 사망했습니다] **\n\n";
+	cout << "                                       패널티로 레벨이 감소하며, 하루가 지나갑니다.\n\n";
+	cout << ".======================================================================================================================.\n";
+	for (int i = 16; i < 21; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 22);
+
+	system("pause > nul");
+}
+

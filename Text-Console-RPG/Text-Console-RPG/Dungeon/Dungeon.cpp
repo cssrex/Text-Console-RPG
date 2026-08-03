@@ -129,6 +129,9 @@ void Dungeon::StartDungeonLoop(Player* player) {
 		}
 
 		if (player->IsDead()) {
+			GameManager::GetInstance().SetNextScene(Scene::HOTEL);
+
+			return;
 			// TODO : 플레이어 죽었을 때 패널티 처리
 			
 			//
@@ -154,7 +157,7 @@ Monster* Dungeon::CreateMonster(int roomIndex, int level) {
 	return factories[dis(gen)]();
 }
 
-void Dungeon::Enter(Player* player, int roomIndex) {
+bool Dungeon::Enter(Player* player, int roomIndex) {
 	int floor = 1;
 	int command;
 
@@ -181,7 +184,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 		// 패배한 경우 : 이전 메뉴로
 		if (!isWon)
 		{
-			return;
+			return false;
 		}
 
 		// 보스층 클리어한 경우
@@ -192,7 +195,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 				topCanEnter++;
 			}
 			system("pause");
-			return;
+			return true;
 		}
 
 		while (true)
@@ -210,7 +213,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 			if (command == 0) {
 				GameManager::GetInstance().SetNextScene(Scene::MAIN);
-				return; // 던전 떠나기
+				return true; // 던전 떠나기
 			}
 			if (command == 1) {       // 다음 층으로
 				floor++;
@@ -221,7 +224,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 	}
 
-	return;
+	return true;
 }
 
 bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor) {
@@ -301,12 +304,14 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		// 몬스터가 플레이어 때리기
 		monster->Attack(player);
+		cout << "**몬스터 공격 성공**\n";
 		
 		system("pause > nul");
 
 		if (player->IsDead())
 		{
-			GameManager::GetInstance().SetNextScene(Scene::END);
+			player->LevelDown();
+			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
 			break;
 		}
