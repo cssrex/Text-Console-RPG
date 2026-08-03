@@ -344,6 +344,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (player->IsDead())
 		{
+			GameSound::StopBgm();
 			GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
@@ -358,6 +359,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (player->IsDead())
 		{
+			GameSound::StopBgm();
 			GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
