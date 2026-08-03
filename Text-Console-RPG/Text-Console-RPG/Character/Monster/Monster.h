@@ -71,4 +71,5 @@ public:
 	virtual void MonsterDeadScript() {}
 	
 	virtual int CalculatePowerUpAttack() const;
+	virtual int CalculatePowerUpHp() const;
 };
