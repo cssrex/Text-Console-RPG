@@ -26,6 +26,7 @@ public:
 
 public:
 	bool StartDungeonLoop(Player* player);
+	void PrintKilledMonsterList();
 
 private:
 	Monster* CreateMonster(int roomIndex, int level);

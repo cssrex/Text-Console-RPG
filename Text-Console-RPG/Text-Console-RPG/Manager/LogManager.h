@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 struct Room;
 class Monster;
@@ -77,6 +78,7 @@ public:
 	void PrintDungeonMonsterStatus(Monster*& monster);
 	void PrintDungeonProgressOption(Room*& room, int floor, const std::string& rewardItem, int rewardGold, int rewardExp);
 	void PrintDungeonReward(const std::string& item, int gold, int exp);
+	void PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_);
 
 	// 상점 (Store) 관련
 	void PrintPotionStoreMenu();

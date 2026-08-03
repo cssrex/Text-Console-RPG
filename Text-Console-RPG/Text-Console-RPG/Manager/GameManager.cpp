@@ -234,6 +234,7 @@ void GameManager::ChangeScene() {
 		{
 			LogManager::GetInstance().PrintGameClear();
 		}
+		dungeon_->PrintKilledMonsterList();
 		system("pause");
 		break;
 	}

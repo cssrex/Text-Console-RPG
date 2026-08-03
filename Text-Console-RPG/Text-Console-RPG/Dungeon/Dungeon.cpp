@@ -177,7 +177,6 @@ Monster* Dungeon::CreateMonster(int roomIndex, int level) {
 }
 
 bool Dungeon::Enter(Player* player, int roomIndex) {
-	GameSound::PlayBattleBgm();
 
 	int floor = 1;
 	int command;
@@ -189,9 +188,11 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 		if (floor >= currentRoom->floor_) {
 			monster = currentRoom->bossFactory_();
+			GameSound::PlayBattleBgm();
 		}
 		else {
 			monster = CreateMonster(roomIndex, 1);
+			GameSound::PlayBossBattleBgm();
 		}
 
 		string name = monster->GetName();
@@ -213,6 +214,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 		// 보스층 클리어한 경우
 		if (floor >= rooms_[roomIndex]->floor_) {
+			GameSound::StopBgm();
 			GameSound::PlayDungeonClearSfx();
 			// 축하 메시지
 
@@ -380,6 +382,11 @@ void Dungeon::PrintDungeonList() {
 
 	LogManager::GetInstance().PrintDungeonList(roomList);
 
+}
+
+void Dungeon::PrintKilledMonsterList()
+{
+	LogManager::GetInstance().PrintDungeonKillList(killedMonsterList_);
 }
 
 

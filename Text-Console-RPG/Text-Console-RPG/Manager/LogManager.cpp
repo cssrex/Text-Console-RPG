@@ -240,6 +240,7 @@ void LogManager::PrintPlayerStatusFooter() {
 
 void LogManager::PrintAddExp(int exp, int currentExp, int maxExp) {
 	cout << exp << " 경험치를 획득했습니다. (현재: " << currentExp << " / " << maxExp << ")\n";
+	system("pause > nul");
 }
 
 void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp, 
@@ -253,6 +254,7 @@ void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newM
 	std::cout << " [방어력]   " << oldDefense << " -> " << newDefense << " (+" << (newDefense - oldDefense) << ")\n";
 	std::cout << "=========================================\n";
 	std::cout << "※ HP와 MP가 모두 회복되었습니다!\n\n";
+	system("pause > nul");
 }
 
 void LogManager::PrintLevelDown(int level) {
@@ -499,6 +501,26 @@ void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
 {
 	// 보상 뭔지 출력
 
+}
+
+void LogManager::PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_)
+{
+	cout << ".======================================================================================================================.\n";
+	cout << "| [몬스터 처치 정보]                                                                                                   |\n";
+	for (auto iter = killedMonsterList_.begin(); iter != killedMonsterList_.end(); iter++)
+	{
+		string line = " * " + iter->first + " : " + to_string(iter->second) + "마리";
+
+		cout << "|" << line;
+
+		if (GetVisualWidth(line) < 118)
+		{
+			cout << string(118 - GetVisualWidth(line), ' ');
+		}
+
+		cout << "|\n";
+	}
+	cout << ".======================================================================================================================.\n";
 }
 
 void LogManager::PrintPotionStoreMenu() {
