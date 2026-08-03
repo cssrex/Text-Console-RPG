@@ -53,7 +53,7 @@ int GameManager::GetDdays()
 
 bool GameManager::EndDay()
 {
-	return dDays_ == 0;
+	return dDays_ < 0;
 }
 
 void GameManager::SubDays()
@@ -126,7 +126,9 @@ void GameManager::ShowMainMenu() {
 			break;
 		}
 		case 5: {
-			player_->GetInventory()->InventoryMenu(*player_);
+			if (player_ != nullptr) {
+				player_->GetInventory()->InventoryMenu(*player_);
+			}
 			break;
 		}
 		}
@@ -171,9 +173,10 @@ void GameManager::EnterStore() {
 			cin.clear();
 			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
 			cout << "숫자만 입력 해주세요 !\n";
+			system("pause");
 			continue;
 		}
-		if (index < 0 && index > 2)
+		if (index < 0 || index > 2)
 			continue;
 
 		if (index == 0) {
@@ -183,7 +186,6 @@ void GameManager::EnterStore() {
 
 		stores_[index - 1]->StoreMenu(*player_, *player_->GetInventory());
 	}
-
 }
 
 void GameManager::SetNextScene(Scene newScene) {
@@ -213,7 +215,18 @@ void GameManager::ChangeScene() {
 		EnterStore();
 		break;
 	case Scene::END:
+	{
+		if (dDays_ < 0)
+		{
+			LogManager::GetInstance().PrintDayOver();
+		}
+		else
+		{
+			LogManager::GetInstance().PrintGameClear();
+		}
+		system("pause");
 		break;
+	}
 	}
 	system("cls");
 }
