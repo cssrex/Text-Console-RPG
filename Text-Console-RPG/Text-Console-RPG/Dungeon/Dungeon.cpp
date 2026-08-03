@@ -132,13 +132,6 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 			GameManager::GetInstance().SetNextScene(Scene::HOTEL);
 
 			return true;
-			// TODO : 플레이어 죽었을 때 패널티 처리
-			
-			//
-
-			// TODO : 다음날로 변경
-
-			//
 		}
 
 		break;
@@ -252,6 +245,17 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 		{
 			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, player, monster);
 
+			player->UpdateStatusEffects();
+
+			if (player->IsDead())
+			{
+				player->LevelDown();
+				LogManager::GetInstance().PrintDungeonPlayerDeath();
+				playerWon = false;
+				break;
+			}
+
+
 			// 플레이어가 몬스터 때리기
 			int command;
 			std::cin >> command;
@@ -303,6 +307,18 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		// 몬스터 턴 시작 시 상태이상 업데이트
 		monster->UpdateStatusEffects();
+
+		if (monster->IsDead())
+		{
+			// TODO : 승리 메시지 띄우고 잠깐 기다렸다가 끝내기
+			cout << monster->GetName() << "을(를) 무찔렀다!\n";
+			system("pause > nul");
+			//
+
+			GiveReward(player, monster);
+			playerWon = true;
+			break;
+		}
 
 		// 몬스터가 플레이어 때리기
 		monster->Attack(player);
