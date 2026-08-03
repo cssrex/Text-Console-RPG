@@ -37,6 +37,7 @@ public:
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
 	void PrintHeal(const std::string& name, int value);
+	void PrintMpHeal(const std::string& name, int value);
 	void PrintAddStatusEffect(const std::string& name, const std::string& effectName);
 	void PrintRemoveStatusEffect(const std::string& name, const std::string& effectName);
 	void PrintCharacterStatus(const std::string& name, int level, int hp, int maxHp, int mp, int maxMp, int attack);

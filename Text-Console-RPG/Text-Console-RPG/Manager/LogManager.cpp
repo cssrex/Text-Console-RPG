@@ -134,6 +134,10 @@ void LogManager::PrintHeal(const string& name, int value) {
 	cout << name << "의 체력이 " << value << "만큼 회복되었습니다.\n";
 }
 
+void LogManager::PrintMpHeal(const string& name, int value) {
+	cout << name << "의 MP가 " << value << "만큼 회복되었습니다.\n";
+}
+
 void LogManager::PrintAddStatusEffect(const string& name, const string& effectName) {
 	cout << name << "에게 [" << effectName << "] 상태이상이 부여되었습니다!\n";
 }
