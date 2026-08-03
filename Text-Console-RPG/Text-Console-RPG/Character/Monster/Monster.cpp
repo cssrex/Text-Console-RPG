@@ -1,6 +1,5 @@
 #include "Monster.h"
 #include "GameManager.h"
-
 #include <iostream>
 
 // 피격 및 사망 로직
@@ -39,7 +38,10 @@ void Monster::Attack(Player* player) {
 	}
 }
 
-// 몬스터 파워 업
-void PowerUpMonster() {
 
+// 몬스터 파워 업
+int Monster::CalculatePowerUpAttack() const{
+	int currentDay_ = 28 - GameManager::GetInstance().GetDay();
+	double powerUpAttack_ = GetAttack() + (GetAttack() * currentDay_ * 0.1); // 계산은  double형으로
+	return static_cast<int>(powerUpAttack_); // 반환은 int형으로
 }
