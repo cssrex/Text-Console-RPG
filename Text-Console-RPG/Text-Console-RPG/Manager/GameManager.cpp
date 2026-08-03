@@ -42,12 +42,12 @@ void GameManager::ChangeDayType() {
 	}
 }
 
-DayType GameManager::GetDayType()
+DayType GameManager::GetDayType() const
 {
 	return dayType_;
 }
 
-int GameManager::GetDay()
+int GameManager::GetDay() const
 {
 	return day_;
 }
@@ -71,9 +71,10 @@ void GameManager::StartMenu() {
 }
 
 void GameManager::ShowMainMenu() {
-	GameSound::PlayStartAdventureBgmLoop();
 	int num;
 	while (true) {
+		if (dayType_ == DayType::MORNING) GameSound::PlayStartAdventureBgmLoop();
+		else GameSound::PlayTownNightBgmLoop();
 		system("cls");
 		LogManager::GetInstance().PrintMainMenu();
 		cout << "▶ 번호를 입력해주세요 : ";
@@ -129,6 +130,7 @@ void GameManager::ShowMainMenu() {
 		}
 		case 5: {
 			if (player_ != nullptr) {
+				
 				player_->GetInventory()->InventoryMenu(*player_);
 			}
 			break;
@@ -252,6 +254,10 @@ GameManager& GameManager::GetInstance() {
 }
 
 Player* GameManager::GetPlayer() {
+	return player_;
+}
+
+const Player* GameManager::GetPlayer() const {
 	return player_;
 }
 
