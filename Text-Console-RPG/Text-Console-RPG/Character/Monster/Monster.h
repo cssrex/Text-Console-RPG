@@ -55,17 +55,19 @@ public:
 
 	void TakeDamage(int damage) override;
 
-	virtual void Attack(Player* player);
+	void Attack(Player* player);
 
 	virtual void BasicAttack(Player* player) = 0;
 	virtual void SpecialAttack(Player* player) = 0;
 
 	virtual void HyperAttack(Player* player) {};
 
-	virtual bool SpecialAttackTurn() const;
+	bool SpecialAttackTurn() const;
 	virtual bool HyperAttackTurn() const;
 	virtual void PrintAsciiArt(short startX = 40, short startY = 0) = 0;
 
 	virtual void MonsterAppearanceScript() {}
 	virtual void MonsterDeadScript() {}
+	
+	void PowerUpMonster() const;
 };
