@@ -32,6 +32,7 @@ public:
 	void PrintHotelMenu();
 	void PrintStoreMenu();
 	void PrintDungeonMenu();
+	void PrintPassDay();
 	void PrintDayOver();
 	void PrintGameClear();
 
