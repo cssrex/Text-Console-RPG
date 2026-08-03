@@ -39,6 +39,7 @@ public:
     int GetGold() const { return gold_; }
     int GetDefense() const { return defense_; }
     void SetDefense(int defense) { defense_ = defense; }
+    void SetGold(int gold) { gold_ = gold; }
     Inventory* GetInventory() { return inventory; }
 };
 

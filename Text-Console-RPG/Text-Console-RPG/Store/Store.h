@@ -21,7 +21,7 @@ public:
     virtual void StoreMenu(Player& player, Inventory& inventory) = 0;
 
     // 구매
-    void BuyItem(Player& player, Inventory& inventory, int index);
+    bool BuyItem(Player& player, Inventory& inventory, int index);
 
     // 판매
     bool SellItem(Player& player, Inventory& inventory, int index);
@@ -31,6 +31,8 @@ public:
 
     // 아이템 출력
     void ShowItems() const;
+
+    int GetDisplayWidth(const string& str) const;
 };
 
 class PotionStore : public Store {
