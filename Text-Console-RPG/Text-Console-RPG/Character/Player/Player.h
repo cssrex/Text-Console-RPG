@@ -11,7 +11,8 @@ private:
     int defense_; 
 
     // 레벨업 시 스텟 증가 수치
-    int hpBonusPerLevel_ = 20;      
+    int hpBonusPerLevel_ = 20;
+    int mpBonusPerLevel_ = 10;
     int attackBonusPerLevel_ = 5;   
     int defenseBonusPerLevel_ = 2;
 
@@ -38,6 +39,7 @@ public:
     int GetGold() const { return gold_; }
     int GetDefense() const { return defense_; }
     void SetDefense(int defense) { defense_ = defense; }
+    void SetGold(int gold) { gold_ = gold; }
     Inventory* GetInventory() { return inventory; }
 };
 

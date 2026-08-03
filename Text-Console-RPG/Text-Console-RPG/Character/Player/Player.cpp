@@ -23,6 +23,7 @@ Player::Player(string name)
 }
 
 void Player::PrintStatus() const {
+    LogManager::GetInstance().ClearScreen();
     LogManager::GetInstance().PrintPlayerStatus(name_, level_, exp_, maxExp_, hp_, maxHp_, mp_, maxMp_, attack_, defense_);
 
     LogManager::GetInstance().PrintSkillListHeader();
@@ -64,27 +65,36 @@ void Player::AddExp(int exp) {
 // 레벨업
 void Player::LevelUp() {
     int oldLevel = level_;
+    int oldMaxHp = maxHp_;
+    int oldMaxMp = maxMp_;
+    int oldAttack = attack_;
+    int oldDefense = defense_;
+
     level_++;
     maxExp_ += 25;
 
     int hpBonus = level_ * hpBonusPerLevel_;
+    int mpBonus = level_ * mpBonusPerLevel_;
     int attackBonus = level_ * attackBonusPerLevel_;
     int defenseBonus = defenseBonusPerLevel_;
 
     maxHp_ += hpBonus;
-    maxMp_ += 10;
+    maxMp_ += mpBonus;
     attack_ += attackBonus;
     defense_ += defenseBonus;
 
     hp_ = maxHp_;
     mp_ = maxMp_;
 
-    LogManager::GetInstance().PrintLevelUp(oldLevel, level_);
+    LogManager::GetInstance().PrintLevelUp(oldLevel, level_, oldMaxHp, maxHp_, oldMaxMp, maxMp_,
+        oldAttack, attack_, oldDefense, defense_);
 }
 
 void Player::LevelDown() {
     if (level_ > 1) {
         level_--;
+        exp_ = 0;
+        maxExp_ -= 25;
         LogManager::GetInstance().PrintLevelDown(level_);
     }
 }

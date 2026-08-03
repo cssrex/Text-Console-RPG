@@ -75,13 +75,6 @@ bool ConsumableItem::Use(Player& player) {
         }
     }
 
-    // 강화석
-    case ItemEffectType::EnhanceStone:
-    {
-        // 추후 구현
-        return false;
-    }
-
     default:
         return false;
     }

@@ -193,6 +193,7 @@
     <ClInclude Include="Manager\GameManager.h" />
     <ClInclude Include="Manager\LogManager.h" />
     <ClInclude Include="Manager\SoundManager.h" />
+    <ClInclude Include="NormalMonster.h" />
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="Skill\Skill.h" />
     <ClInclude Include="StatusEffect\StatusEffect.h" />

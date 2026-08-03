@@ -2,9 +2,11 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 struct Room;
 class Monster;
+class Player;
 class LogManager {
 private:
 
@@ -21,23 +23,22 @@ public:
 	void ClearScreen();
 	void PrintInpuErrorMessage();
 
-
-	// 에러 수정용
-	void PrintStoreMenu();
-	void PrintHotel();
-	void PrintStore();
 	void PrintRemoveAllStatusEffect(std::string name);
 
 	// 게임 매니저 관련
 	void PrintInitializeCharacter();
 	void PrintStartMenu();
 	void PrintMainMenu();
-	void PrintWorkshopMenu();
+	void PrintHotelMenu();
+	void PrintStoreMenu();
 	void PrintDungeonMenu();
+	void PrintDayOver();
+	void PrintGameClear();
 
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
 	void PrintHeal(const std::string& name, int value);
+	void PrintMpHeal(const std::string& name, int value);
 	void PrintAddStatusEffect(const std::string& name, const std::string& effectName);
 	void PrintRemoveStatusEffect(const std::string& name, const std::string& effectName);
 	void PrintCharacterStatus(const std::string& name, int level, int hp, int maxHp, int mp, int maxMp, int attack);
@@ -56,7 +57,8 @@ public:
 	void PrintActiveStatusEffectItem(const std::string& effectName, int turn);
 	void PrintPlayerStatusFooter();
 	void PrintAddExp(int exp, int currentExp, int maxExp);
-	void PrintLevelUp(int oldLevel, int newLevel);
+	void PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp, 
+		int newMaxMp, int oldAttack, int newAttack, int oldDefense, int newDefense);
 	void PrintLevelDown(int level);
 	void PrintAddGold(int gold);
 
@@ -71,7 +73,16 @@ public:
 
 	// 던전 (Dungeon) 관련
 	void PrintDungeonList(const std::vector<std::string>& roomList);
-	void PrintDungeonBattleMainMenu(Room*& room, int floor, Monster*& monster);
-	void PrintDungeonProgressOption(Room*& room, int floor);
+	void PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster);
+	void PrintDungeonPlayerStatus(Player*& player);
+	void PrintDungeonMonsterStatus(Monster*& monster);
+	void PrintDungeonProgressOption(Room*& room, int floor, const std::string& rewardItem, int rewardGold, int rewardExp);
 	void PrintDungeonReward(const std::string& item, int gold, int exp);
+	void PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_);
+
+	// 상점 (Store) 관련
+	void PrintPotionStoreMenu();
+	void PrintEquipmentStoreMenu();
+
+	void PrintDungeonPlayerDeath();
 };

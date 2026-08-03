@@ -51,5 +51,7 @@ public:
 
     void SetHp(int hp) { hp_ = hp; }
     void SetMp(int mp) { mp_ = mp; }
+    void SetMaxHp(int maxHp) { maxHp_ = maxHp; }
+    void SetMaxMp(int maxMp) { maxMp_ = maxMp; }
     void SetAttack(int attack) { attack_ = attack; }
 };

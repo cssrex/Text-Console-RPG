@@ -13,7 +13,8 @@ enum class Scene {
 enum class ItemType {
 	Loot,
 	Consumable,
-	Equipment
+	Equipment,
+	Material
 };
 
 enum class ItemEffectType {
@@ -25,9 +26,6 @@ enum class ItemEffectType {
 	HealHPMP,
 	FullRecovery,
 	Antidote,
-
-	// 강화
-	EnhanceStone
 };
 
 enum class EquipmentType {
@@ -47,4 +45,8 @@ enum class DayType
 {
 	MORNING,
 	NIGHT
+};
+
+enum class MaterialType {
+	EnhanceStone,
 };
