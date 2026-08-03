@@ -160,6 +160,7 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 
 		break;
 	}
+
 	if (isClear)
 	{
 		GameManager::GetInstance().SetNextScene(Scene::END);
@@ -182,7 +183,7 @@ Monster* Dungeon::CreateMonster(int roomIndex, int level) {
 	return factories[dis(gen)]();
 }
 
-bool Dungeon::Enter(Player* player, int roomIndex) {
+void Dungeon::Enter(Player* player, int roomIndex) {
 
 	int floor = 1;
 	int command;
@@ -213,7 +214,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 		// 패배한 경우 : 이전 메뉴로
 		if (!isWon)
 		{
-			return false;
+			return;
 		}
 
 		killedMonsterList_[name]++;
@@ -227,14 +228,14 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 			if (name == "투명 드래곤")
 			{
 				isClear = true;
-				return true;
+				return;
 			}
 
 			if (topCanEnter == roomIndex && topCanEnter < (rooms_.size()) - 1) {
 				topCanEnter++;
 			}
 			system("pause");
-			return false;
+			return;
 		}
 
 		while (true)
@@ -252,7 +253,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 			if (command == 0) {
 				GameManager::GetInstance().SetNextScene(Scene::MAIN);
-				return false; // 던전 떠나기
+				return; // 던전 떠나기
 			}
 			if (command == 1) {       // 다음 층으로
 				floor++;
@@ -263,7 +264,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 	}
 
-	return false;
+	return;
 }
 
 bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor) {
@@ -276,7 +277,6 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 		player->UpdateStatusEffects();
 
 		if (player->IsDead()) {
-			GameManager::GetInstance().SetNextScene(Scene::END);
 			playerWon = false;
 			break;
 		}

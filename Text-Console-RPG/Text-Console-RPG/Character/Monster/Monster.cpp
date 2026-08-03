@@ -1,6 +1,8 @@
 #include "Monster.h"
-#include "GameManager.cpp"
+#include "GameManager.h"
+
 #include <iostream>
+
 // 피격 및 사망 로직
 void Monster::TakeDamage(int damage){
 	Character::TakeDamage(damage);
