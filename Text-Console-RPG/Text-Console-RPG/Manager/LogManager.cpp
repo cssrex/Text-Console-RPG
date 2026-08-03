@@ -331,7 +331,7 @@ void LogManager::PrintDungeonList(const vector<string>& roomList)
 	std::string s;
 	for (int i = 0; i < roomList.size(); ++i) {
 		s += std::to_string(i + 1) + ". " + roomList[i];
-		if(i!=roomList.size()-1) s+="    ";
+		if (i != roomList.size() - 1) s+="    ";
 	}
 	int visualWidth = GetVisualWidth(s);
 	int padding = (120 - visualWidth) / 2;

@@ -78,7 +78,7 @@ Dungeon::~Dungeon() {
 }
 
 bool Dungeon::StartDungeonLoop(Player* player) {
-	GameSound::PlayDungeonBgm();
+	GameSound::PlayDungeonBgmLoop();
 
 	while (true)
 	{
@@ -195,11 +195,11 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 		if (floor >= currentRoom->floor_) {
 			monster = currentRoom->bossFactory_();
-			GameSound::PlayBattleBgm();
+			GameSound::PlayBattleBgmLoop();
 		}
 		else {
 			monster = CreateMonster(roomIndex, 1);
-			GameSound::PlayBossBattleBgm();
+			GameSound::PlayBossBattleBgmLoop();
 		}
 
 		string name = monster->GetName();
@@ -222,6 +222,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 		// 보스층 클리어한 경우
 		if (floor >= rooms_[roomIndex]->floor_) {
 			GameSound::StopBgm();
+			GameSound::StopWave();
 			GameSound::PlayDungeonClearSfx();
 
 			// 축하 메시지
