@@ -159,10 +159,8 @@ void GameManager::EnterHotel() {
 	}
 
 	LogManager::GetInstance().PrintHotelMenu();
-	player_->SetHp(player_->GetMaxHp());
-	player_->SetMp(player_->GetMaxMp());
-	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxHp());
-	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxMp());
+	player_->Heal(player_->GetMaxHp());
+	player_->HealMp(player_->GetMaxMp());
 	SetNextScene(Scene::MAIN);
 	system("pause");
 }
