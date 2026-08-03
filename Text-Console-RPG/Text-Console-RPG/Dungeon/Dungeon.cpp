@@ -194,6 +194,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 			monster = CreateMonster(roomIndex, 1);
 		}
 
+		string name = monster->GetName();
 		string rewardItem = monster->GetDropItem();
 		int rewardGold = monster->GetDropGold();
 		int rewardExp = monster->GetRewardExp();
@@ -207,6 +208,8 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 		{
 			return false;
 		}
+
+		killedMonsterList_[name]++;
 
 		// 보스층 클리어한 경우
 		if (floor >= rooms_[roomIndex]->floor_) {
@@ -310,8 +313,9 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 				player->GetInventory()->InventoryMenu(*player);
 				system("pause > nul");
 				break;
+			/* 용병 삭제됨
 			case 4:
-				break;
+				break;*/
 			default:
 				LogManager::GetInstance().PrintInpuErrorMessage();
 				break;

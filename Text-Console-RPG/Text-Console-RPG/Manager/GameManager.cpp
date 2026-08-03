@@ -71,9 +71,9 @@ void GameManager::StartMenu() {
 }
 
 void GameManager::ShowMainMenu() {
+	GameSound::PlayStartAdventureBgm();
 	int num;
 	while (true) {
-		GameSound::PlayStartAdventureBgm();
 		system("cls");
 		LogManager::GetInstance().PrintMainMenu();
 		cout << "▶ 번호를 입력해주세요 : ";

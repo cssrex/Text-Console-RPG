@@ -16,7 +16,7 @@ struct Room {
 
 class Dungeon {
 private:
-	std::map<Monster*, int> killedMonsterList_;
+	std::map<std::string, int> killedMonsterList_;
 	std::vector<Room*> rooms_;
 	int topCanEnter = 0;
 	
