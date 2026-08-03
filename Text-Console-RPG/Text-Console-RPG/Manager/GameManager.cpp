@@ -15,7 +15,7 @@ GameManager::GameManager() {
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
-	day_ = 28;
+	day_ = 2;
 	dayType_ = DayType::MORNING;
 	isInputZero_ = false;
 }
@@ -227,7 +227,7 @@ void GameManager::ChangeScene() {
 		break;
 	case Scene::END:
 	{
-		if (day_ < 0)
+		if (day_ <= 0)
 		{
 			LogManager::GetInstance().PrintDayOver();
 		}

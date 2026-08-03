@@ -164,11 +164,15 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 	if (isClear)
 	{
 		GameManager::GetInstance().SetNextScene(Scene::END);
-
-		return true;
 	}
-
-	GameManager::GetInstance().SetNextScene(Scene::MAIN);
+	else if (GameManager::GetInstance().GetDay() <= 0)
+	{
+		GameManager::GetInstance().SetNextScene(Scene::END);
+	}
+	else
+	{
+		GameManager::GetInstance().SetNextScene(Scene::MAIN);
+	}
 
 	return true;
 }
@@ -345,7 +349,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 		if (player->IsDead())
 		{
 			GameSound::StopBgm();
-			GameSound::PlayPlayerDeathSfx();
+			// GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
@@ -360,7 +364,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 		if (player->IsDead())
 		{
 			GameSound::StopBgm();
-			GameSound::PlayPlayerDeathSfx();
+			// GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
