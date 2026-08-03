@@ -6,6 +6,7 @@
 #include "Store.h"
 #include "Inventory.h"
 #include "MonsterAsciiArt.h"
+#include "GameSound.h"
 
 GameManager::GameManager() {
 	stores_.push_back(new PotionStore());
@@ -66,6 +67,7 @@ void GameManager::StartMenu() {
 	cin >> name;
 	InitializePlayer(name);
 	SetNextScene(Scene::MAIN);
+	GameSound::PlayStartAdventureBgm();
 }
 
 void GameManager::ShowMainMenu() {
