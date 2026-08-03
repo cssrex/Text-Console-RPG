@@ -59,7 +59,7 @@ public:
 		const std::string& glovesName = "(없음)",
 		const std::string& bootsName = "(없음)");
 	void PrintSkillListHeader();
-	void PrintSkillItem(int index, const std::string& skillName, int cost);
+	void PrintSkillItem(int index, const std::string& skillName, int cost, const std::string& description);
 	void PrintActiveStatusEffectsHeader();
 	void PrintActiveStatusEffectItem(const std::string& effectName, int turn);
 	void PrintPlayerStatusFooter();
