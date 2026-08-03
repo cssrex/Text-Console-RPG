@@ -162,6 +162,7 @@ void GameManager::EnterHotel() {
 	player_->SetHp(player_->GetMaxHp());
 	player_->SetMp(player_->GetMaxMp());
 	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxHp());
+	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxMp());
 	SetNextScene(Scene::MAIN);
 	system("pause");
 }
@@ -227,7 +228,7 @@ void GameManager::ChangeScene() {
 		}
 		else if (isInputZero_)
 		{
-
+		
 		}
 		else
 		{
