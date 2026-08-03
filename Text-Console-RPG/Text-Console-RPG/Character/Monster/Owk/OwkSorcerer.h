@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "Monster.h"
+#include "NormalMonster.h"
 
-class OwkSorcerer : public Monster{
+class OwkSorcerer : public NormalMonster {
 public:
-	OwkSorcerer(int level = 25) : Monster(
+	OwkSorcerer() : NormalMonster(
 
 		"오크 주술사",
 		25,

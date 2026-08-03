@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "Monster.h"
+#include "NormalMonster.h"
 
-class Drake : public Monster{
+class Drake : public NormalMonster {
 public:
-	Drake() : Monster(
+	Drake() : NormalMonster(
 
 		"드레이크",
 		35,
