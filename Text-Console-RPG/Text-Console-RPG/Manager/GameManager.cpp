@@ -122,7 +122,7 @@ void GameManager::ShowMainMenu() {
 			}
 			cout << "\n▶ 메뉴로 돌아가려면 Enter 키를 누르세요";
 			cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
-			PrintPlayerInfoAsciiArt(60, 0);
+			PrintPlayerInfoAsciiArt(60, -1);
 			string dummy;
 			getline(cin, dummy);
 			break;
