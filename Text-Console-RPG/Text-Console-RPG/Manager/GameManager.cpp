@@ -67,7 +67,7 @@ void GameManager::StartMenu() {
 	string name;
 	cin >> name;
 	InitializePlayer(name);
-	LogManager::GetInstance().PrintPrologue();
+	//LogManager::GetInstance().PrintPrologue();
 	SetNextScene(Scene::MAIN);
 
 }
@@ -151,6 +151,8 @@ void GameManager::EnterDungeon() {
 }
 
 void GameManager::EnterHotel() {
+	LogManager::GetInstance().PrintHotelMenu();
+	system("pause"); // 여관 날짜 확인용도
 	if (dayType_ == DayType::NIGHT)
 	{
 		ChangeDayType();
@@ -165,8 +167,6 @@ void GameManager::EnterHotel() {
 		SetNextScene(Scene::END);
 		return;
 	}
-
-	LogManager::GetInstance().PrintHotelMenu();
 	LogManager::GetInstance().PrintPassDay();
 	player_->Heal(player_->GetMaxHp());
 	player_->HealMp(player_->GetMaxMp());

@@ -436,14 +436,11 @@ inline void PrintTownSky(bool isNight) {
 //메인메뉴 - 배경아트 PrintTownScene(false) 낮, (true) 밤 으로 호출
 inline void PrintTownScene(bool isNight = false) {
     SetConsoleOutputCP(CP_UTF8);
-    SetTownTheme(isNight);
     PrintTownAsciiArt(0, 0);
     PrintTownSky(isNight);
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 15 });
-    SetConsoleTextAttribute(
-        GetStdHandle(STD_OUTPUT_HANDLE),
-        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE |
-        FOREGROUND_INTENSITY);
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), 
+        { 0, 15 }
+    );
 }
 
 //메인메뉴 - 상점

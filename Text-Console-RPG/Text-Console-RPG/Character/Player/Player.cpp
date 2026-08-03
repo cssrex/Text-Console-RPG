@@ -82,6 +82,8 @@ void Player::PrintStatus() const {
 void Player::TakeDamage(int damage) {
     int actualDamage = damage - defense_;
     if (actualDamage < 1) actualDamage = 1;
+    
+    LogManager::GetInstance().PrintPlayerHitEffect(actualDamage);
 
     hp_ -= actualDamage;
     if (hp_ < 0) hp_ = 0;

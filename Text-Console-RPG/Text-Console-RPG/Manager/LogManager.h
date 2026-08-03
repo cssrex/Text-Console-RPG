@@ -35,7 +35,10 @@ public:
 	void PrintPassDay();
 	void PrintDayOver();
 	void PrintGameClear();
+	//게임시작 - 프롤로그
 	void PrintPrologue();
+	//인게임 화면 색상 출력(낮,밤,디데이)
+	void ApplyTimeColor();
 
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
@@ -88,6 +91,10 @@ public:
 	void PrintDungeonProgressOption(Room*& room, int floor, const std::string& rewardItem, int rewardGold, int rewardExp);
 	void PrintDungeonReward(const std::string& item, int gold, int exp);
 	void PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_);
+	//몬스터 피격 데미지 출력
+	void PrintMonsterHitEffect(int damage);
+	//플레이어 피격 데미지 출력
+	void PrintPlayerHitEffect(int damage);
 
 	// 상점 (Store) 관련
 	void PrintPotionStoreMenu();

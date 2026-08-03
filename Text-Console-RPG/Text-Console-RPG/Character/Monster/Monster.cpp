@@ -1,10 +1,13 @@
 #include "Monster.h"
 #include "GameManager.h"
 #include <iostream>
+#include "LogManager.h"
 
 // 피격 및 사망 로직
 void Monster::TakeDamage(int damage){
 	Character::TakeDamage(damage);
+
+	LogManager::GetInstance().PrintMonsterHitEffect(damage);
 	if (IsDead()){
 		if (RollDropChance())
 		{
