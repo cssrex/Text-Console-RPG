@@ -25,7 +25,7 @@ public:
 	~Dungeon();
 
 public:
-	void StartDungeonLoop(Player* player);
+	bool StartDungeonLoop(Player* player);
 
 private:
 	Monster* CreateMonster(int roomIndex, int level);
