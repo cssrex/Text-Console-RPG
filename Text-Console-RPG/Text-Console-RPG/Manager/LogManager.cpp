@@ -46,6 +46,9 @@ void LogManager::PrintStartMenu()
 void LogManager::PrintMainMenu() {
 	if (GameManager::GetInstance().GetDayType() == DayType::MORNING) PrintTownScene();
 	else PrintTownScene(true);
+	Utils::MoveCursorTo(1, 1);
+	std::cout << "D-Day : " << GameManager::GetInstance().GetDdays();
+	Utils::MoveCursorTo(0, 15);
 	cout << R"(
 +======================================================================================================================+
 |                                                                                                                      |

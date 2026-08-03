@@ -151,7 +151,7 @@ void GameManager::EnterHotel() {
 	}
 
 	LogManager::GetInstance().PrintHotelMenu();
-	player_->SetHp(player_->GetHp());
+	player_->SetHp(player_->GetMaxHp());
 	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxHp());
 	SetNextScene(Scene::MAIN);
 	system("pause");
