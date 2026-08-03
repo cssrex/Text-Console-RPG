@@ -372,6 +372,45 @@ void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& pla
 	cout << "▶ 행동을 선택하세요: ";
 }
 
+void LogManager::PrintDungeonBattleMonsterTurn(Room*& room, int floor, Player*& player, Monster*& monster)
+{
+	ClearScreen();
+
+	cout << ".======================================================================================================================.\n";
+	cout << "|                                                                                                                      |\n";
+	cout << ".======================================================================================================================.\n";
+
+	Utils::MoveCursorTo(50, 1);
+	cout << "[ " << room->name_ << " (" << floor << "층) ]";
+	Utils::MoveCursorTo(0, 3);
+
+	monster->PrintAsciiArt(40, 4);
+	PrintDungeonPlayerStatus(player);
+	PrintDungeonMonsterStatus(monster);
+
+	for (int i = 3; i < 25; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 25);
+
+	cout << ".======================================================================================================================.\n";
+	cout << "\t\t\t\t\t\t[ 몬스터 턴! ]\n";
+	cout << "\n";
+	cout << ".======================================================================================================================.\n";
+	for (int i = 26; i < 28; i++)
+	{
+		Utils::MoveCursorTo(0, i);
+		cout << "|";
+		Utils::MoveCursorTo(119, i);
+		cout << "|";
+	}
+	Utils::MoveCursorTo(0, 29);
+}
+
 void LogManager::PrintDungeonPlayerStatus(Player*& player)
 {
 	int playerCurrentHp = player->GetHp();
@@ -547,6 +586,7 @@ void LogManager::PrintDungeonPlayerDeath()
 {
 	ClearScreen();
 	PrintPlayerDeathAsciiArt();
+	cout << "\n";
 	cout << ".======================================================================================================================.\n\n";
 	cout << "                                            ** [플레이어가 사망했습니다] **\n\n";
 	cout << "                                       패널티로 레벨이 감소하며, 하루가 지나갑니다.\n\n";

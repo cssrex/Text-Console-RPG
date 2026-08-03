@@ -74,6 +74,7 @@ public:
 	// 던전 (Dungeon) 관련
 	void PrintDungeonList(const std::vector<std::string>& roomList);
 	void PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster);
+	void PrintDungeonBattleMonsterTurn(Room*& room, int floor, Player*& player, Monster*& monster);
 	void PrintDungeonPlayerStatus(Player*& player);
 	void PrintDungeonMonsterStatus(Monster*& monster);
 	void PrintDungeonProgressOption(Room*& room, int floor, const std::string& rewardItem, int rewardGold, int rewardExp);

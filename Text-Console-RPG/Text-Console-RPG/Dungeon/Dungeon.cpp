@@ -277,17 +277,6 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 		{
 			LogManager::GetInstance().PrintDungeonBattleMainMenu(rooms_[roomIndex], floor, player, monster);
 
-			player->UpdateStatusEffects();
-
-			if (player->IsDead())
-			{
-				player->LevelDown();
-				LogManager::GetInstance().PrintDungeonPlayerDeath();
-				playerWon = false;
-				break;
-			}
-
-
 			// 플레이어가 몬스터 때리기
 			int command;
 			std::cin >> command;
@@ -336,16 +325,15 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 			break;
 		}
 
-		// 몬스터 턴 시작 시 상태이상 업데이트
-		monster->UpdateStatusEffects();
+		LogManager::GetInstance().PrintDungeonBattleMonsterTurn(rooms_[roomIndex], floor, player, monster);
 
-		if (monster->IsDead())
+		player->UpdateStatusEffects();
+
+		if (player->IsDead())
 		{
-			cout << monster->GetName() << "을(를) 무찔렀다!\n";
-			system("pause > nul");
-
-			GiveReward(player, monster);
-			playerWon = true;
+			player->LevelDown();
+			LogManager::GetInstance().PrintDungeonPlayerDeath();
+			playerWon = false;
 			break;
 		}
 
@@ -359,6 +347,19 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
+			break;
+		}
+
+		// 몬스터 턴 시작 시 상태이상 업데이트
+		monster->UpdateStatusEffects();
+
+		if (monster->IsDead())
+		{
+			cout << monster->GetName() << "을(를) 무찔렀다!\n";
+			system("pause > nul");
+
+			GiveReward(player, monster);
+			playerWon = true;
 			break;
 		}
 	}
