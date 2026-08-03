@@ -1,4 +1,5 @@
 #include "Monster.h"
+#include "GameManager.cpp"
 #include <iostream>
 // 피격 및 사망 로직
 void Monster::TakeDamage(int damage){
@@ -34,4 +35,9 @@ void Monster::Attack(Player* player) {
 	{
 		BasicAttack(player);
 	}
+}
+
+// 몬스터 파워 업
+void PowerUpMonster() {
+
 }
