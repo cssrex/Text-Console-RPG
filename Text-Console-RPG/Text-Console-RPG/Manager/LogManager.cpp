@@ -234,8 +234,8 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 
 void LogManager::PrintSkillListHeader() { cout << "  [ 보유 스킬 (Skills) ]\n"; }
 void LogManager::PrintSkillItem(int index, const string& skillName, int cost) {
-	cout << "   [" << index << "] " << skillName << "\n";
-	cout << "       └ (소모 MP: " << cost << ")\n\n";
+	cout << "   [" << index << "] " << skillName;
+	cout << "   (소모 MP: " << cost << ")\n\n";
 }
 
 void LogManager::PrintActiveStatusEffectsHeader() {
