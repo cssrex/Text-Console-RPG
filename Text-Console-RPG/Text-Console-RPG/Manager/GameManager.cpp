@@ -151,6 +151,10 @@ void GameManager::EnterHotel() {
 	{
 		ChangeDayType();
 	}
+	else
+	{
+		SubDays();
+	}
 
 	if (EndDay())
 	{
@@ -159,6 +163,7 @@ void GameManager::EnterHotel() {
 	}
 
 	LogManager::GetInstance().PrintHotelMenu();
+	LogManager::GetInstance().PrintPassDay();
 	player_->Heal(player_->GetMaxHp());
 	player_->HealMp(player_->GetMaxMp());
 	SetNextScene(Scene::MAIN);
