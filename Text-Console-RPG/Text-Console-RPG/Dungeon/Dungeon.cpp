@@ -59,8 +59,8 @@ Dungeon::Dungeon() {
 	// 드래곤 던전
 	Room* dragonRoom = new Room{ "드래곤 던전", 3 };
 
-	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
-	dragonRoom->monsterFactories_.push_back([]() { return new TransparentDragon(); });
+	dragonRoom->monsterFactories_.push_back([]() { return new Drake(); });
+	dragonRoom->monsterFactories_.push_back([]() { return new Wyvern(); });
 
 	dragonRoom->bossFactory_ = []() { return new TransparentDragon(); };
 
@@ -78,7 +78,7 @@ Dungeon::~Dungeon() {
 }
 
 bool Dungeon::StartDungeonLoop(Player* player) {
-	GameSound::PlayDungeonBgm();
+	GameSound::PlayDungeonBgmLoop();
 
 	while (true)
 	{
@@ -96,7 +96,7 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 		}
 
 		bool isRightCommand = true;
-
+		
 		switch (command)
 		{
 		case 0:
@@ -161,6 +161,13 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 		break;
 	}
 
+	if (isClear)
+	{
+		GameManager::GetInstance().SetNextScene(Scene::END);
+
+		return true;
+	}
+
 	GameManager::GetInstance().SetNextScene(Scene::MAIN);
 
 	return true;
@@ -176,7 +183,7 @@ Monster* Dungeon::CreateMonster(int roomIndex, int level) {
 	return factories[dis(gen)]();
 }
 
-bool Dungeon::Enter(Player* player, int roomIndex) {
+void Dungeon::Enter(Player* player, int roomIndex) {
 
 	int floor = 1;
 	int command;
@@ -188,11 +195,11 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 		if (floor >= currentRoom->floor_) {
 			monster = currentRoom->bossFactory_();
-			GameSound::PlayBattleBgm();
+			GameSound::PlayBattleBgmLoop();
 		}
 		else {
 			monster = CreateMonster(roomIndex, 1);
-			GameSound::PlayBossBattleBgm();
+			GameSound::PlayBossBattleBgmLoop();
 		}
 
 		string name = monster->GetName();
@@ -207,7 +214,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 		// 패배한 경우 : 이전 메뉴로
 		if (!isWon)
 		{
-			return false;
+			return;
 		}
 
 		killedMonsterList_[name]++;
@@ -215,14 +222,21 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 		// 보스층 클리어한 경우
 		if (floor >= rooms_[roomIndex]->floor_) {
 			GameSound::StopBgm();
+			GameSound::StopWave();
 			GameSound::PlayDungeonClearSfx();
+			
 			// 축하 메시지
+			if (name == "투명 드래곤")
+			{
+				isClear = true;
+				return;
+			}
 
 			if (topCanEnter == roomIndex && topCanEnter < (rooms_.size()) - 1) {
 				topCanEnter++;
 			}
 			system("pause");
-			return true;
+			return;
 		}
 
 		while (true)
@@ -240,7 +254,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 			if (command == 0) {
 				GameManager::GetInstance().SetNextScene(Scene::MAIN);
-				return true; // 던전 떠나기
+				return; // 던전 떠나기
 			}
 			if (command == 1) {       // 다음 층으로
 				floor++;
@@ -251,7 +265,7 @@ bool Dungeon::Enter(Player* player, int roomIndex) {
 
 	}
 
-	return true;
+	return;
 }
 
 bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor) {
@@ -264,7 +278,6 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 		player->UpdateStatusEffects();
 
 		if (player->IsDead()) {
-			GameManager::GetInstance().SetNextScene(Scene::END);
 			playerWon = false;
 			break;
 		}
@@ -331,6 +344,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (player->IsDead())
 		{
+			GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
@@ -344,6 +358,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (player->IsDead())
 		{
+			GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
@@ -367,7 +382,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 	return playerWon;
 }
 
-void Dungeon::PrintDungeonList() {
+void Dungeon::PrintDungeonList() const {
 	std::vector<std::string> roomList;
 	for (int i = 0; i < rooms_.size(); i++)
 	{
@@ -385,8 +400,7 @@ void Dungeon::PrintDungeonList() {
 
 }
 
-void Dungeon::PrintKilledMonsterList()
-{
+void Dungeon::PrintKilledMonsterList() const {
 	LogManager::GetInstance().PrintDungeonKillList(killedMonsterList_);
 }
 

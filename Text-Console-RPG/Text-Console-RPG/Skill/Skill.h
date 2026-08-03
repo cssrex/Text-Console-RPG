@@ -8,24 +8,32 @@ class StatusEffect;
 class Skill {
 protected:
     std::string name_;
+    std::string description_;
     int cost_;
     StatusEffect* statusEffect_ = nullptr;
     int percent_;
 
 public:
-    Skill(const std::string& name, int cost, int percent, StatusEffect* statusEffect = nullptr);
+    Skill(const std::string& name, const std::string& description, int cost, int percent, StatusEffect* statusEffect = nullptr);
     virtual ~Skill();
 
     virtual bool CanUse(int currentMp) const;
     virtual void Use(Character& caster, Character& target) = 0;
 
     std::string GetName() const { return name_; }
+    std::string GetDescription() const { return description_; }
     int GetCost() const { return cost_; }
     int GetPercent() const { return percent_; }
 };
 
+// 기본 공격
+class NormalAttack : public Skill {
+public:
+    NormalAttack();
+    void Use(Character& caster, Character& target) override;
+};
 
-// 평타 (Cost 사용 X)
+// 강화평타
 class BasicAttack : public Skill {
 public:
     BasicAttack();

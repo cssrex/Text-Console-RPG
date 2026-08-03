@@ -100,6 +100,12 @@ void LogManager::PrintDungeonMenu() {
 )";
 }
 
+void LogManager::PrintPassDay()
+{
+	int day = GameManager::GetInstance().GetDay();
+	std::cout << "여관에서 쉬어갑니다. 하루가 지났습니다 ! ( " << day + 1 << " -> " << day << " )\n";
+}
+
 void LogManager::PrintDayOver() {
 	PrintTimeoutEndingAsciiArt();
 }
@@ -190,8 +196,13 @@ void LogManager::PrintPlayerTakeDamage(const string& name, int actualDamage, int
 }
 
 void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int maxExp,
-	int hp, int maxHp, int mp, int maxMp,
-	int attack, int defense) {
+	int hp, int maxHp, int mp, int maxMp, int attack, int defense, int bonusAttack, int bonusDefense,
+	const string& weaponName,
+	const string& helmetName,
+	const string& armorName,
+	const string& glovesName,
+	const string& bootsName) {
+
 	int expPercent = (maxExp > 0) ? (exp * 100 / maxExp) : 0;
 	string expBar = "";
 	int expBlocks = expPercent / 20;
@@ -203,7 +214,7 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 	string mpBar = MakeGaugeBar(mp, maxMp, 20);
 
 	cout << "==================================================\n";
-	cout << "                 [ 캐릭터 정보 ]                  \n";
+	cout << "                  [ 캐릭터 정보 ]                  \n";
 	cout << "==================================================\n";
 	cout << "  이름 : " << left << setw(23) << name << "직업 : 모험가\n";
 	cout << "  레벨 : Lv. " << left << setw(17) << level << "경험치 : [" << expBar << "] " << expPercent << "%\n";
@@ -211,18 +222,26 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 	cout << "  [ 기본 능력치 (Stats) ]\n";
 	cout << "   • HP      : " << hpBar << " " << right << setw(3) << hp << " / " << setw(3) << maxHp << "\n";
 	cout << "   • MP      : " << mpBar << " " << right << setw(3) << mp << " / " << setw(3) << maxMp << "\n";
-	cout << "   • Power   : " << attack << "\n";
-	cout << "   • Defense : " << defense << "\n\n";
-	cout << "  <장비>\n";
-	cout << "   • 무기    : (없음)\n";
-	cout << "   • 방어구  : (없음)\n";
+	cout << "   • Power   : " << attack;
+	if (bonusAttack > 0) cout << " (+" << bonusAttack << ")";
+	cout << "\n";
+	cout << "   • Defense : " << defense;
+	if (bonusDefense > 0) cout << " (+" << bonusDefense << ")";
+	cout << "\n\n";
+	// 착용 중인 장비 출력
+	cout << "  [ 착용 장비 ]\n";
+	cout << "   • 무기    : " << weaponName << "\n";
+	cout << "   • 헬멧    : " << helmetName << "\n";
+	cout << "   • 갑옷    : " << armorName << "\n";
+	cout << "   • 장갑    : " << glovesName << "\n";
+	cout << "   • 신발    : " << bootsName << "\n";
 	cout << "--------------------------------------------------\n";
 }
 
 void LogManager::PrintSkillListHeader() { cout << "  [ 보유 스킬 (Skills) ]\n"; }
-void LogManager::PrintSkillItem(int index, const string& skillName, int cost) {
-	cout << "   [" << index << "] " << skillName << "\n";
-	cout << "       └ (소모 MP: " << cost << ")\n\n";
+void LogManager::PrintSkillItem(int index, const string& skillName, int cost, const string& description) {
+	cout << "   [" << index << "] " << skillName << " (소모 MP : " << cost << ")\n";
+	cout << "       - " << description << "\n"; 
 }
 
 void LogManager::PrintActiveStatusEffectsHeader() {
@@ -312,7 +331,7 @@ void LogManager::PrintDungeonList(const vector<string>& roomList)
 	std::string s;
 	for (int i = 0; i < roomList.size(); ++i) {
 		s += std::to_string(i + 1) + ". " + roomList[i];
-		if(i!=roomList.size()-1) s+="    ";
+		if (i != roomList.size() - 1) s+="    ";
 	}
 	int visualWidth = GetVisualWidth(s);
 	int padding = (120 - visualWidth) / 2;
@@ -544,6 +563,7 @@ void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
 
 void LogManager::PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_)
 {
+	cout << "\n";
 	cout << ".======================================================================================================================.\n";
 	cout << "| [몬스터 처치 정보]                                                                                                   |\n";
 	for (auto iter = killedMonsterList_.begin(); iter != killedMonsterList_.end(); iter++)

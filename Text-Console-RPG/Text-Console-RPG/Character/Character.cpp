@@ -4,6 +4,7 @@
 #include "Skill.h"
 #include "StatusEffect.h"
 #include "LogManager.h"
+#include "GameSound.h"
 
 using namespace std;
 
@@ -39,6 +40,8 @@ void Character::ShowAllSkill() const {
 void Character::TakeDamage(int damage) {
     hp_ -= damage;
     if (hp_ < 0) hp_ = 0;
+
+    GameSound::PlayMonsterHitSfx();
     LogManager::GetInstance().PrintTakeDamage(name_, damage, hp_, maxHp_);
 }
 
@@ -49,6 +52,7 @@ void Character::Heal(int value) {
         hp_ = maxHp_;
     }
 
+    GameSound::PlayHealSfx();
     LogManager::GetInstance().PrintHeal(name_, value);
 }
 
@@ -59,6 +63,7 @@ void Character::HealMp(int amount) {
         mp_ = maxMp_;
     }
 
+    GameSound::PlayHealSfx();
     LogManager::GetInstance().PrintMpHeal(name_, amount);
 }
 
@@ -104,7 +109,7 @@ void Character::ClearStatusEffects() {
     }
 
     statusEffects_.clear();
-
+    GameSound::PlayHealSfx();
     LogManager::GetInstance().PrintRemoveAllStatusEffect(name_);
 }
 

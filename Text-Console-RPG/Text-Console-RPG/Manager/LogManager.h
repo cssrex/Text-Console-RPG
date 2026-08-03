@@ -32,6 +32,7 @@ public:
 	void PrintHotelMenu();
 	void PrintStoreMenu();
 	void PrintDungeonMenu();
+	void PrintPassDay();
 	void PrintDayOver();
 	void PrintGameClear();
 
@@ -50,9 +51,15 @@ public:
 	
 	// 플레이어 (Player) 관련
 	void PrintPlayerTakeDamage(const std::string& name, int actualDamage, int defense, int currentHp, int maxHp);
-	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp, int hp, int maxHp, int mp, int maxMp, int attack, int defense);
+	void PrintPlayerStatus(const std::string& name, int level, int exp, int maxExp,
+		int hp, int maxHp, int mp, int maxMp, int attack, int defense, int bonusAttack = 0, int bonusDefense = 0,
+		const std::string& weaponName = "(없음)",
+		const std::string& helmetName = "(없음)",
+		const std::string& armorName = "(없음)",
+		const std::string& glovesName = "(없음)",
+		const std::string& bootsName = "(없음)");
 	void PrintSkillListHeader();
-	void PrintSkillItem(int index, const std::string& skillName, int cost);
+	void PrintSkillItem(int index, const std::string& skillName, int cost, const std::string& description);
 	void PrintActiveStatusEffectsHeader();
 	void PrintActiveStatusEffectItem(const std::string& effectName, int turn);
 	void PrintPlayerStatusFooter();
