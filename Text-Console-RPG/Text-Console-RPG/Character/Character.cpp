@@ -58,6 +58,7 @@ void Character::UseMp(int amount) {
     if (mp_ < 0) mp_ = 0;
 }
 
+
 // 상태이상 추가
 void Character::AddStatusEffect(StatusEffect* effect) {
     LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName());

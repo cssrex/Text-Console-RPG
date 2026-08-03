@@ -238,8 +238,17 @@ void LogManager::PrintAddExp(int exp, int currentExp, int maxExp) {
 	cout << exp << " 경험치를 획득했습니다. (현재: " << currentExp << " / " << maxExp << ")\n";
 }
 
-void LogManager::PrintLevelUp(int oldLevel, int newLevel) {
-	cout << "\n★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n\n";
+void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp, 
+	int newMaxMp, int oldAttack, int newAttack, int oldDefense, int newDefense) {
+	std::cout << "\n=========================================\n";
+	std::cout << "★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n";
+	std::cout << "=========================================\n";
+	std::cout << " [최대 HP] " << oldMaxHp << " -> " << newMaxHp << " (+" << (newMaxHp - oldMaxHp) << ")\n";
+	std::cout << " [최대 MP] " << oldMaxMp << " -> " << newMaxMp << " (+" << (newMaxMp - oldMaxMp) << ")\n";
+	std::cout << " [공격력]   " << oldAttack << " -> " << newAttack << " (+" << (newAttack - oldAttack) << ")\n";
+	std::cout << " [방어력]   " << oldDefense << " -> " << newDefense << " (+" << (newDefense - oldDefense) << ")\n";
+	std::cout << "=========================================\n";
+	std::cout << "※ HP와 MP가 모두 회복되었습니다!\n\n";
 }
 
 void LogManager::PrintLevelDown(int level) {

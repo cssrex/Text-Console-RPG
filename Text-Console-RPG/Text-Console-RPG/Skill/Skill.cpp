@@ -22,12 +22,17 @@ bool Skill::CanUse(int currentMp) const {
     return currentMp >= cost_;
 }
 
-// 평타 (코스트 0, 기본 데미지)
+// 강화평타 (MP 5 소모, 기본 공격력의 120% 데미지)
 BasicAttack::BasicAttack()
-    : Skill("평타", 0, 100, nullptr) {
+    : Skill("강화평타", 5, 120, nullptr) {
 }
 
 void BasicAttack::Use(Character& caster, Character& target) {
+    if (!CanUse(caster.GetMp())) {
+        LogManager::GetInstance().PrintSkillMpLack(name_);
+        return;
+    }
+    caster.UseMp(cost_);
     int damage = (caster.GetAttack() * percent_) / 100;
     LogManager::GetInstance().PrintSkillUseBasic(caster.GetName(), target.GetName(), damage);
     target.TakeDamage(damage);
@@ -35,7 +40,7 @@ void BasicAttack::Use(Character& caster, Character& target) {
 
 // 스킬 1 (MP 15 소모, 150% 데미지 + 출혈 부여)
 SkillOne::SkillOne()
-    : Skill("강격", 15, 150, new BleedEffect(10, 3)) {
+    : Skill("강격", 10, 150, new BleedEffect(10, 3)) {
 }
 
 void SkillOne::Use(Character& caster, Character& target) {
@@ -53,9 +58,9 @@ void SkillOne::Use(Character& caster, Character& target) {
     target.AddStatusEffect(new BleedEffect(10, 3));
 }
 
-// 스킬 2 (MP 25 소모, 120% 데미지 + 화상 부여)
+// 스킬 2 (MP 25 소모, 180% 데미지 + 화상 부여)
 SkillTwo::SkillTwo()
-    : Skill("화염 베기", 25, 120, new BurnEffect(20, 2)) {
+    : Skill("화염 베기", 15, 180, new BurnEffect(20, 2)) {
 }
 
 void SkillTwo::Use(Character& caster, Character& target) {
