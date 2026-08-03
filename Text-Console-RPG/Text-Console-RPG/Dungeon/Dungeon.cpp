@@ -75,7 +75,7 @@ Dungeon::~Dungeon() {
 	}
 }
 
-void Dungeon::StartDungeonLoop(Player* player) {
+bool Dungeon::StartDungeonLoop(Player* player) {
 	while (true)
 	{
 		PrintDungeonList();
@@ -95,7 +95,7 @@ void Dungeon::StartDungeonLoop(Player* player) {
 		{
 		case 0:
 			GameManager::GetInstance().SetNextScene(Scene::MAIN);
-			return;
+			return false;
 		case 1:
 			Enter(player, 0);
 			break;
@@ -131,7 +131,7 @@ void Dungeon::StartDungeonLoop(Player* player) {
 		if (player->IsDead()) {
 			GameManager::GetInstance().SetNextScene(Scene::HOTEL);
 
-			return;
+			return true;
 			// TODO : 플레이어 죽었을 때 패널티 처리
 			
 			//
@@ -145,6 +145,8 @@ void Dungeon::StartDungeonLoop(Player* player) {
 	}
 
 	GameManager::GetInstance().SetNextScene(Scene::MAIN);
+
+	return true;
 }
 
 Monster* Dungeon::CreateMonster(int roomIndex, int level) {
