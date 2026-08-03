@@ -75,4 +75,8 @@ public:
 	void PrintDungeonMonsterStatus(Monster*& monster);
 	void PrintDungeonProgressOption(Room*& room, int floor, const std::string& rewardItem, int rewardGold, int rewardExp);
 	void PrintDungeonReward(const std::string& item, int gold, int exp);
+
+	// 상점 (Store) 관련
+	void PrintPotionStoreMenu();
+	void PrintEquipmentStoreMenu();
 };

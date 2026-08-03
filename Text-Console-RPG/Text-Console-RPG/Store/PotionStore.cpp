@@ -1,7 +1,10 @@
 #include <iostream>
+#include <conio.h>
 #include "Store.h"
 #include "Player.h"
 #include "Inventory.h"
+#include "SceneAsciiArt.h"
+#include "LogManager.h"
 
 using namespace std;
 
@@ -28,11 +31,9 @@ PotionStore::PotionStore() {
 // 상점 메뉴
 void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
     while (true) {
-        cout << "\n===== 포션 상점 =====\n";
-        cout << "1. 구매\n";
-        cout << "2. 판매\n";
-        cout << "0. 돌아가기\n";
-        cout << "선택 : ";
+        LogManager::GetInstance().ClearScreen();
+        LogManager::GetInstance().PrintPotionStoreMenu();
+        cout << "▶ 번호를 입력해주세요 : ";
 
         int menu;
         cin >> menu;
@@ -47,8 +48,10 @@ void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
             return;
 
         case 1: {
+            LogManager::GetInstance().ClearScreen();
+            cout << PotionShopAscii;
             ShowItems();
-            cout << "구매할 아이템 : ";
+            cout << "▶ 번호를 입력해주세요 : ";
 
             int index;
             cin >> index;
@@ -59,12 +62,17 @@ void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
             }
 
             // 화면 번호 -> vector index
-            BuyItem(player, inventory, index - 1);
-
+            bool itemBuied = BuyItem(player, inventory, index - 1);
+            if (itemBuied == true) {
+                cout << "아무 키나 누르면 돌아갑니다.";
+                _getch();
+            }
             break;
         }
 
         case 2: {
+            LogManager::GetInstance().ClearScreen();
+            cout << PotionShopAscii;
             SellMenu(player, inventory);
             break;
         }

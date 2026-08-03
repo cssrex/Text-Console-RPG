@@ -1,9 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <conio.h>
 #include "Store.h"
 #include "Player.h"
 #include "Inventory.h"
+#include "LogManager.h"
+#include "SceneAsciiArt.h"
 
 using namespace std;
 
@@ -47,12 +50,9 @@ Blacksmith::Blacksmith()
 
 void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
     while (true) {
-        cout << "\n===== 대장간 =====\n";
-        cout << "1. 구매\n";
-        cout << "2. 판매\n";
-        cout << "3. 강화\n";
-        cout << "0. 돌아가기\n";
-        cout << "선택 : ";
+        LogManager::GetInstance().ClearScreen();
+        LogManager::GetInstance().PrintEquipmentStoreMenu();
+        cout << "▶ 번호를 입력해주세요 : ";
 
         int menu;
         cin >> menu;
@@ -67,6 +67,8 @@ void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
             return;
 
         case 1: {
+            LogManager::GetInstance().ClearScreen();
+            cout << EquipmentShopAscii;
             ShowItems();
             cout << "구매할 아이템 : ";
 
@@ -78,17 +80,25 @@ void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
                 break;
             }
 
-            BuyItem(player, inventory, index - 1);
-
+            // 화면 번호 -> vector index
+            bool itemBuied = BuyItem(player, inventory, index - 1);
+            if (itemBuied == true) {
+                cout << "아무 키나 누르면 돌아갑니다.";
+                _getch();
+            }
             break;
         }
 
         case 2:{
+            LogManager::GetInstance().ClearScreen();
+            cout << EquipmentShopAscii;
             SellMenu(player, inventory);
             break;
         }
 
         case 3:
+            LogManager::GetInstance().ClearScreen();
+            cout << EquipmentShopAscii;
             Enhance(player, inventory);
             break;
 
@@ -100,6 +110,18 @@ void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
 }
 
 void Blacksmith::Enhance(Player& player, Inventory& inventory) {
+    cout <<
+        R"(+======================================================================================================================+
+|                                                      강화 목록                                                       |
++======================================================================================================================+
+|                                                                                                                      |
+)";
+    cout << R"(|                               1. 무기               2. 헬멧             3. 갑옷                                      |
+|                               4. 장갑               5. 신발             0. 돌아가기                                  |
+|                                                                                                                      |
++======================================================================================================================+
+)";
+    cout << "▶ 번호를 입력해주세요 : ";
     cout << "장비 강화\n";
     cout << "1. 무기\n";
     cout << "2. 헬멧\n";
