@@ -1,6 +1,8 @@
 ﻿#include "Dungeon.h"
 #include "GameManager.h"
 #include "LogManager.h"
+#include "GameSound.h"
+
 #include "Player.h"
 #include "Inventory.h"
 #include "Item.h"
@@ -173,6 +175,8 @@ Monster* Dungeon::CreateMonster(int roomIndex, int level) {
 }
 
 bool Dungeon::Enter(Player* player, int roomIndex) {
+	GameSound::PlayBattleBgm();
+
 	int floor = 1;
 	int command;
 
@@ -315,10 +319,8 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (monster->IsDead())
 		{
-			// TODO : 승리 메시지 띄우고 잠깐 기다렸다가 끝내기
 			cout << monster->GetName() << "을(를) 무찔렀다!\n";
 			system("pause > nul");
-			//
 			
 			GiveReward(player, monster);
 			playerWon = true;
@@ -330,10 +332,8 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (monster->IsDead())
 		{
-			// TODO : 승리 메시지 띄우고 잠깐 기다렸다가 끝내기
 			cout << monster->GetName() << "을(를) 무찔렀다!\n";
 			system("pause > nul");
-			//
 
 			GiveReward(player, monster);
 			playerWon = true;
@@ -342,7 +342,6 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		// 몬스터가 플레이어 때리기
 		monster->Attack(player);
-		cout << "**몬스터 공격 성공**\n";
 		
 		system("pause > nul");
 
