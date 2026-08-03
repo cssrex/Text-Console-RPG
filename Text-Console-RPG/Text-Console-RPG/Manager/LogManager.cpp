@@ -100,6 +100,12 @@ void LogManager::PrintDungeonMenu() {
 )";
 }
 
+void LogManager::PrintPassDay()
+{
+	int day = GameManager::GetInstance().GetDay();
+	std::cout << "여관에서 쉬어갑니다. 하루가 지났습니다 ! ( " << day + 1 << " -> " << day << " )\n";
+}
+
 void LogManager::PrintDayOver() {
 	PrintTimeoutEndingAsciiArt();
 }
