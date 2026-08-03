@@ -55,7 +55,8 @@ public:
 	void PrintActiveStatusEffectItem(const std::string& effectName, int turn);
 	void PrintPlayerStatusFooter();
 	void PrintAddExp(int exp, int currentExp, int maxExp);
-	void PrintLevelUp(int oldLevel, int newLevel);
+	void PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp, 
+		int newMaxMp, int oldAttack, int newAttack, int oldDefense, int newDefense);
 	void PrintLevelDown(int level);
 	void PrintAddGold(int gold);
 
