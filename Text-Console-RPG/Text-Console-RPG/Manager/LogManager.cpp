@@ -122,7 +122,7 @@ void LogManager::ClearScreen()
 void LogManager::PrintInpuErrorMessage()
 {
 	cout << "잘못된 입력입니다\n";
-	system("pause");
+	system("pause > nul");
 }
 
 // 캐릭터 (Character) 관련

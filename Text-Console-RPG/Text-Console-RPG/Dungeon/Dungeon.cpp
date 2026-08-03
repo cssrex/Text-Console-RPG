@@ -87,9 +87,11 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 			std::cin.clear();
 			std::cin.ignore(1000, '\n');
 			LogManager::GetInstance().PrintInpuErrorMessage();
-			system("pause");
+			system("pause > nul");
 			continue;
 		}
+
+		bool isRightCommand = true;
 
 		switch (command)
 		{
@@ -105,7 +107,11 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 				Enter(player, 1);
 				break;
 			}
-			else LogManager::GetInstance().PrintInpuErrorMessage();
+			else
+			{
+				LogManager::GetInstance().PrintInpuErrorMessage();
+				isRightCommand = false;
+			}
 			break;
 		case 3:
 			if (topCanEnter >= 2)
@@ -113,7 +119,11 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 				Enter(player, 2);
 				break;
 			}
-			else LogManager::GetInstance().PrintInpuErrorMessage();
+			else
+			{
+				LogManager::GetInstance().PrintInpuErrorMessage();
+				isRightCommand = false;
+			}
 			break;
 		case 4:
 			if (topCanEnter >= 3)
@@ -121,11 +131,21 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 				Enter(player, 3);
 				break;
 			}
-			else LogManager::GetInstance().PrintInpuErrorMessage();
+			else
+			{
+				LogManager::GetInstance().PrintInpuErrorMessage();
+				isRightCommand = false;
+			}
 			break;
 		default:
 			LogManager::GetInstance().PrintInpuErrorMessage();
+			isRightCommand = false;
 			break;
+		}
+
+		if (!isRightCommand)
+		{
+			continue;
 		}
 
 		if (player->IsDead()) {
