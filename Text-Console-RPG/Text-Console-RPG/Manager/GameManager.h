@@ -24,29 +24,34 @@ private:
 	GameManager(const GameManager&) = delete;
 	GameManager& operator=(const GameManager&) = delete;
 
-public:
+private:
 	void Update();
 
 public:
-	void ChangeDayType();
-	DayType GetDayType();
-	int GetDay();
-	bool EndDay();
+	DayType GetDayType() const;
+	int GetDay() const;
+
 private :
+	void ChangeDayType();
 	void SubDays();
+	bool EndDay();
 
 public:
+	void SetNextScene(Scene newScene);
+
+private:
 	void StartMenu();
 	void ShowMainMenu();
 	void EnterDungeon();
 	void EnterHotel();
 	void EnterStore();
-	void SetNextScene(Scene newScene);
 	void ChangeScene();
 
 public:
 	static GameManager& GetInstance();
+	const Player* GetPlayer() const;
 	Player* GetPlayer();
+
 public:
 	void InitializePlayer(std::string name);
 	void GameLoop();
