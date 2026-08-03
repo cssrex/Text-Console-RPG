@@ -52,6 +52,16 @@ void Character::Heal(int value) {
     LogManager::GetInstance().PrintHeal(name_, value);
 }
 
+// MP 회복
+void Character::HealMp(int amount) {
+    mp_ += amount;
+    if (mp_ > maxMp_) {
+        mp_ = maxMp_;
+    }
+
+    LogManager::GetInstance().PrintMpHeal(name_, amount);
+}
+
 // 마나 소모
 void Character::UseMp(int amount) {
     mp_ -= amount;
