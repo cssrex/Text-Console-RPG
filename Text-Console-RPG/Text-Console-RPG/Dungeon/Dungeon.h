@@ -27,7 +27,7 @@ public:
 
 public:
 	bool StartDungeonLoop(Player* player);
-	void PrintKilledMonsterList();
+	void PrintKilledMonsterList() const;
 
 private:
 	Monster* CreateMonster(int roomIndex, int level);
@@ -35,5 +35,5 @@ private:
 	bool Battle(Player* player, Monster* monster, int roomIndex, int floor);
 	void GiveReward(Player* player, Monster* monster);
 
-	void PrintDungeonList();
+	void PrintDungeonList() const;
 };

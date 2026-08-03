@@ -224,7 +224,7 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 			GameSound::StopBgm();
 			GameSound::StopWave();
 			GameSound::PlayDungeonClearSfx();
-
+			
 			// 축하 메시지
 			if (name == "투명 드래곤")
 			{
@@ -344,6 +344,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (player->IsDead())
 		{
+			GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
@@ -357,6 +358,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 
 		if (player->IsDead())
 		{
+			GameSound::PlayPlayerDeathSfx();
 			player->LevelDown();
 			LogManager::GetInstance().PrintDungeonPlayerDeath();
 			playerWon = false;
@@ -380,7 +382,7 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 	return playerWon;
 }
 
-void Dungeon::PrintDungeonList() {
+void Dungeon::PrintDungeonList() const {
 	std::vector<std::string> roomList;
 	for (int i = 0; i < rooms_.size(); i++)
 	{
@@ -398,8 +400,7 @@ void Dungeon::PrintDungeonList() {
 
 }
 
-void Dungeon::PrintKilledMonsterList()
-{
+void Dungeon::PrintKilledMonsterList() const {
 	LogManager::GetInstance().PrintDungeonKillList(killedMonsterList_);
 }
 
