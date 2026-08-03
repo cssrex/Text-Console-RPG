@@ -540,3 +540,25 @@ void LogManager::PrintDungeonPlayerDeath()
 
 	system("pause > nul");
 }
+
+int LogManager::GetDisplayWidth(const std::string& str) const {
+	int width = 0;
+
+	for (int i = 0; i < str.size();)
+	{
+		unsigned char c = str[i];
+
+		if (c >= 0xE0)
+		{
+			width += 2;
+			i += 3;
+		}
+		else
+		{
+			width += 1;
+			i += 1;
+		}
+	}
+
+	return width;
+}
