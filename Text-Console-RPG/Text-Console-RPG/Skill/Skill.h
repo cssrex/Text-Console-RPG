@@ -26,8 +26,14 @@ public:
     int GetPercent() const { return percent_; }
 };
 
+// 기본 공격
+class NormalAttack : public Skill {
+public:
+    NormalAttack();
+    void Use(Character& caster, Character& target) override;
+};
 
-// 평타 (Cost 사용 X)
+// 강화평타
 class BasicAttack : public Skill {
 public:
     BasicAttack();

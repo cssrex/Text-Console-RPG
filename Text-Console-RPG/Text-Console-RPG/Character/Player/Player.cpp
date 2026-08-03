@@ -7,6 +7,7 @@
 #include "StatusEffect.h"
 #include "LogManager.h"
 #include "Inventory.h"
+#include "GameSound.h";
 
 using namespace std;
 
@@ -85,12 +86,20 @@ void Player::TakeDamage(int damage) {
     hp_ -= actualDamage;
     if (hp_ < 0) hp_ = 0;
 
+    if (hp_ == 0) {
+        GameSound::PlayPlayerDeathSfx();
+    }
+    else {
+        GameSound::PlayMonsterHitSfx();
+    }
     LogManager::GetInstance().PrintPlayerTakeDamage(name_, actualDamage, defense_, hp_, maxHp_);
 }
 
 // 경험치 획득
 void Player::AddExp(int exp) {
     exp_ += exp;
+
+    GameSound::PlayRewardSfx();
     LogManager::GetInstance().PrintAddExp(exp, exp_, maxExp_);
 
     while (exp_ >= maxExp_) {
@@ -101,6 +110,8 @@ void Player::AddExp(int exp) {
 
 // 레벨업
 void Player::LevelUp() {
+	GameSound::PlayLevelUpSfx();
+
     int oldLevel = level_;
     int oldMaxHp = maxHp_;
     int oldMaxMp = maxMp_;
@@ -132,11 +143,15 @@ void Player::LevelDown() {
         level_--;
         exp_ = 0;
         maxExp_ -= 25;
+
+        GameSound::PlayCancelSfx();
         LogManager::GetInstance().PrintLevelDown(level_);
     }
 }
 
 void Player::AddGold(int gold) {
     gold_ += gold;
+
+    GameSound::PlayGoldRewardSfx();
     LogManager::GetInstance().PrintAddGold(gold);
 }
