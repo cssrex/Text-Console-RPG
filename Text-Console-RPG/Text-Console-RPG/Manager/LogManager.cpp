@@ -190,8 +190,13 @@ void LogManager::PrintPlayerTakeDamage(const string& name, int actualDamage, int
 }
 
 void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int maxExp,
-	int hp, int maxHp, int mp, int maxMp,
-	int attack, int defense) {
+	int hp, int maxHp, int mp, int maxMp, int attack, int defense, int bonusAttack, int bonusDefense,
+	const string& weaponName,
+	const string& helmetName,
+	const string& armorName,
+	const string& glovesName,
+	const string& bootsName) {
+
 	int expPercent = (maxExp > 0) ? (exp * 100 / maxExp) : 0;
 	string expBar = "";
 	int expBlocks = expPercent / 20;
@@ -203,7 +208,7 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 	string mpBar = MakeGaugeBar(mp, maxMp, 20);
 
 	cout << "==================================================\n";
-	cout << "                 [ 캐릭터 정보 ]                  \n";
+	cout << "                  [ 캐릭터 정보 ]                  \n";
 	cout << "==================================================\n";
 	cout << "  이름 : " << left << setw(23) << name << "직업 : 모험가\n";
 	cout << "  레벨 : Lv. " << left << setw(17) << level << "경험치 : [" << expBar << "] " << expPercent << "%\n";
@@ -211,11 +216,19 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 	cout << "  [ 기본 능력치 (Stats) ]\n";
 	cout << "   • HP      : " << hpBar << " " << right << setw(3) << hp << " / " << setw(3) << maxHp << "\n";
 	cout << "   • MP      : " << mpBar << " " << right << setw(3) << mp << " / " << setw(3) << maxMp << "\n";
-	cout << "   • Power   : " << attack << "\n";
-	cout << "   • Defense : " << defense << "\n\n";
-	cout << "  <장비>\n";
-	cout << "   • 무기    : (없음)\n";
-	cout << "   • 방어구  : (없음)\n";
+	cout << "   • Power   : " << attack;
+	if (bonusAttack > 0) cout << " (+" << bonusAttack << ")";
+	cout << "\n";
+	cout << "   • Defense : " << defense;
+	if (bonusDefense > 0) cout << " (+" << bonusDefense << ")";
+	cout << "\n\n";
+	// 착용 중인 장비 출력
+	cout << "  [ 착용 장비 ]\n";
+	cout << "   • 무기    : " << weaponName << "\n";
+	cout << "   • 헬멧    : " << helmetName << "\n";
+	cout << "   • 갑옷    : " << armorName << "\n";
+	cout << "   • 장갑    : " << glovesName << "\n";
+	cout << "   • 신발    : " << bootsName << "\n";
 	cout << "--------------------------------------------------\n";
 }
 
