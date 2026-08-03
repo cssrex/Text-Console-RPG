@@ -136,34 +136,50 @@ namespace GameSound {
     // 장면별 BGM 호출
     bool PlayStartAdventureBgm() { return PlayBgm(StartAdventureBgm); }
     bool PlayStartAdventureBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(StartAdventureBgm);
     }
     bool PlayTownDayBgm() { return PlayBgm(TownDayBgm); }
     bool PlayTownDayBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(TownDayBgm);
     }
     bool PlayTownNightBgm() { return PlayBgm(TownNightBgm); }
     bool PlayTownNightBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(TownNightBgm);
     }
     bool PlayShopAmbienceBgm() { return PlayBgm(ShopAmbienceBgm); }
     bool PlayShopAmbienceBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(ShopAmbienceBgm);
     }
     bool PlayInnRestBgm() { return PlayBgm(InnRestBgm); }
     bool PlayInnRestBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(InnRestBgm);
     }
     bool PlayDungeonBgm() { return PlayBgm(DungeonBgm); }
     bool PlayDungeonBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(DungeonBgm);
     }
     bool PlayBattleBgm() { return PlayBgm(BattleBgm); }
     bool PlayBattleBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(BattleBgm);
     }
     bool PlayBossBattleBgm() { return PlayBgm(BossBattleBgm); }
     bool PlayBossBattleBgmLoop() {
+        StopBgm();
+        StopWave();
         return PlayLoopingWave(BossBattleBgm);
     }
     // UI와 장면 전환 효과음 호출

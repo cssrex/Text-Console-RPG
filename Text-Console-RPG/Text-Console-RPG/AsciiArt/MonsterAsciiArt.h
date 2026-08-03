@@ -466,7 +466,7 @@ inline void PrintNormalSlimeAsciiArt(short startX = 40, short startY = 0) {
 // 보스 슬라임 호출 함수
 inline void PrintBossSlimeAsciiArt(short startX = 40, short startY = 0) {
     // ASCII아트 가로 크기를 55로 맞추주는 기능
-    constexpr size_t kTargetWidth = 40;
+    constexpr size_t kTargetWidth = 55;
     // 원본 문자열을 한 줄씩 읽는 스트림
     istringstream input(BossSlime_ASCII);
     vector<string> sourceLines;
@@ -592,7 +592,7 @@ inline void PrintBossGoblinAsciiArt(short startX = 40, short startY = 0) {
 // 노말 오크 호출 함수
 inline void PrintNormalOrcAsciiArt(short startX = 40, short startY = 0) {
     // ASCII아트 가로 크기를 55로 맞추주는 기능
-    constexpr size_t kTargetWidth = 40;
+    constexpr size_t kTargetWidth = 31;
     // 원본 문자열을 한 줄씩 읽는 스트림
     istringstream input(NormalOrc_ASCII);
     vector<string> sourceLines;
@@ -634,7 +634,7 @@ inline void PrintNormalOrcAsciiArt(short startX = 40, short startY = 0) {
 // 보스 오크 호출 함수
 inline void PrintBossOrcAsciiArt(short startX = 40, short startY = 0) {
     // ASCII아트 가로 크기를 55로 맞추주는 기능
-    constexpr size_t kTargetWidth = 40;
+    constexpr size_t kTargetWidth = 31;
     // 원본 문자열을 한 줄씩 읽는 스트림
     istringstream input(BossOrc_ASCII);
     vector<string> sourceLines;
@@ -718,7 +718,7 @@ inline void PrintNormalDragonAsciiArt(short startX = 40, short startY = 0) {
 // 보스 드래곤 호출 함수
 inline void PrintBossDragonAsciiArt(short startX = 40, short startY = 0) {
     // ASCII아트 가로 크기를 55로 맞추주는 기능
-    constexpr size_t kTargetWidth = 40;
+    constexpr size_t kTargetWidth = 34;
     // 원본 문자열을 한 줄씩 읽는 스트림
     istringstream input(BossDragon_ASCII);
     vector<string> sourceLines;
