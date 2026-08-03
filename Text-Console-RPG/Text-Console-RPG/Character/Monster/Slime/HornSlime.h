@@ -15,7 +15,10 @@ public:
 		200,
 		80,
 		90
-	) {}
+	) {
+		SetMaxHp(CalculatePowerUpHp());
+		SetHp(CalculatePowerUpHp());
+	}
 
 	void BasicAttack(Player* player) override;
 	void SpecialAttack(Player* player) override;
