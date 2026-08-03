@@ -11,9 +11,9 @@ enum class Scene {
 };
 
 enum class ItemType {
-	Loot,
 	Consumable,
 	Equipment,
+	Loot,
 	Material
 };
 
@@ -41,12 +41,17 @@ enum class EquipmentSlot {
 	Boots
 };
 
-enum class DayType
-{
+enum class DayType {
 	MORNING,
 	NIGHT
 };
 
 enum class MaterialType {
 	EnhanceStone,
+};
+
+enum class BuyResult {
+	Success,
+	InvalidItem,
+	NotEnoughGold
 };

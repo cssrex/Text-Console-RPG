@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <iomanip>
+#include <conio.h>
 #include "Store.h"
 #include "Player.h"
 #include "Inventory.h"
@@ -8,179 +9,293 @@
 
 using namespace std;
 
-constexpr double SELL_RATE = 0.6; // 판매 가격: 원가의 60%
+constexpr double SELL_RATE = 0.6;
 
-int Store::GetDisplayWidth(const string& str) const
+
+// 아이템 출력
+void Store::ShowItems() const
 {
-    int width = 0;
-
-    for (int i = 0; i < str.size();)
-    {
-        unsigned char c = str[i];
-
-        if (c >= 0xE0) // UTF-8 한글
-        {
-            width += 2;
-            i += 3;
-        }
-        else
-        {
-            width += 1;
-            i += 1;
-        }
-    }
-
-    return width;
-}
-
-void Store::ShowItems() const {
-    cout <<
-        R"(+======================================================================================================================+
-|                                                      구매 목록                                                       |
-+======================================================================================================================+
-|                                                                                                                      |
-)";
-
     const int BOX_WIDTH = 117;
 
-    for (int i = 0; i < static_cast<int>(items_.size()); i++) {
-        string itemInfo = to_string(i + 1) + ". "
-            + items_[i]->GetName()
-            + ": "
-            + to_string(items_[i]->GetPrice())
-            + " 골드";
 
-        if (items_[i]->GetType() != ItemType::Equipment) {
-            itemInfo += " x " + to_string(items_[i]->GetCount());
+    for (int i = 0; i < static_cast<int>(items_.size()); i++)
+    {
+        string itemInfo =
+            to_string(i + 1) +
+            ". " +
+            items_[i]->GetName() +
+            ": " +
+            to_string(items_[i]->GetPrice()) +
+            " 골드";
+
+
+        if (items_[i]->GetType() != ItemType::Equipment)
+        {
+            itemInfo +=
+                " x " +
+                to_string(items_[i]->GetCount());
         }
+
 
         cout << "| " << itemInfo;
 
-        int space = BOX_WIDTH - GetDisplayWidth(itemInfo);
 
-        for (int j = 0; j < space; j++) {
+        int space =
+            BOX_WIDTH -
+            LogManager::GetInstance().GetDisplayWidth(itemInfo);
+
+
+        for (int j = 0; j < space; j++)
             cout << " ";
-        }
+
 
         cout << "|\n";
     }
+
+
     string back = "0. 돌아가기";
+
 
     cout << "| " << back;
 
-    int space = BOX_WIDTH - GetDisplayWidth(back);
 
-    for (int i = 0; i < space; i++) {
+    int space =
+        BOX_WIDTH -
+        LogManager::GetInstance().GetDisplayWidth(back);
+
+
+    for (int i = 0; i < space; i++)
         cout << " ";
-    }
+
 
     cout << "|\n";
 
-    cout << R"(|                                                                                                                      |
-+======================================================================================================================+)";
+
+    cout <<
+        "+======================================================================================================================+\n";
 }
+
 
 // 아이템 구매
-bool Store::BuyItem(Player& player, Inventory& inventory, int index) {
-    if (index < 0 || index >= static_cast<int>(items_.size())) { // 돌아가기 및 예외처리
-        return false;
+BuyResult Store::BuyItem(Player& player, Inventory& inventory, int index)
+{
+    if (index < 0 || index >= static_cast<int>(items_.size()))
+    {
+        return BuyResult::InvalidItem;
     }
 
-    Item* item = items_[index].get();
-    string name = item->GetName();
-    int price = item->GetPrice();
 
-    if (player.GetGold() < price) {
-        cout << "골드가 부족합니다.\n";
-        return true;
+    Item* item =
+        items_[index].get();
+
+
+    int price =
+        item->GetPrice();
+
+
+    if (player.GetGold() < price)
+    {
+        return BuyResult::NotEnoughGold;
     }
-    player.SetGold(player.GetGold() - price);
-    cout << price << " 골드를 소모했습니다.\n";
-    inventory.AddItem(item->Clone());
+
+
+    player.SetGold(
+        player.GetGold() - price
+    );
+
+
+    inventory.AddItem(
+        item->Clone()
+    );
+
+
     item->RemoveCount(1);
 
-    if (item->GetCount() == 0) {
-        items_.erase(items_.begin() + index);
-    }
-    cout << name << " 구매 완료\n";
 
-    return true;
+    if (item->GetCount() == 0)
+    {
+        items_.erase(
+            items_.begin() + index
+        );
+    }
+
+
+    return BuyResult::Success;
 }
+
 
 // 아이템 판매
-bool Store::SellItem(Player& player, Inventory& inventory, int index) {
-    const auto& items = inventory.GetInventory();
+bool Store::SellItem(Player& player, Inventory& inventory, int index)
+{
+    const auto& items =
+        inventory.GetInventory();
 
-    if (index < 0 || index >= static_cast<int>(items.size())) {
-        cout << "잘못된 아이템입니다.\n";
+
+    if (index < 0 || index >= static_cast<int>(items.size()))
+    {
+        cout << "존재하지 않는 아이템입니다." << endl;
         return false;
     }
 
-    Item* item = items[index].get();
-    string name = item->GetName();
-    int price = static_cast<int>(item->GetPrice() * SELL_RATE);
 
-    if (!inventory.RemoveItem(index, 1)) {
+    Item* item =
+        items[index].get();
+
+
+    string name =
+        item->GetName();
+
+
+    int price =
+        static_cast<int>(
+            item->GetPrice() * SELL_RATE
+            );
+
+
+    if (!inventory.RemoveItem(index, 1))
+    {
+        _getch();
         return false;
     }
+
 
     player.AddGold(price);
-    cout << name << "을(를) 판매했습니다. (+" << price << " 골드)\n";
+
+
+    cout <<
+        name <<
+        "을(를) 판매했습니다. (+" <<
+        price <<
+        " 골드)" <<
+        endl;
+
+
     return true;
 }
 
+
 // 판매 메뉴
-void Store::SellMenu(Player& player, Inventory& inventory) {
+void Store::SellMenu(Player& player, Inventory& inventory, const string& ascii)
+{
+    const int BOX_WIDTH = 117;
+    LogManager::GetInstance().ClearScreen();
+
+    cout << ascii;
     cout <<
         R"(+======================================================================================================================+
 |                                                      판매 목록                                                       |
 +======================================================================================================================+
 |                                                                                                                      |
-)";
-    cout << R"(|                               1. 무기               2. 방어구           3. 소모품                                    |
-|                                        4. 전리품             0. 돌아가기                                             |
+|                               1. 무기               2. 방어구             3. 소모품                                  |
+|                                         4. 전리품             0. 돌아가기                                            |
 |                                                                                                                      |
 +======================================================================================================================+
 )";
+
+    const auto& items =
+        inventory.GetInventory();
+
+    bool hasItem = !items.empty();
     cout << "▶ 번호를 입력해주세요 : ";
 
+
     int menu;
+
     cin >> menu;
-    if (cin.fail()) {
+
+
+    if (cin.fail())
+    {
         cin.clear();
         cin.ignore(1000, '\n');
+
+        cout << "잘못된 입력입니다." << endl;
+
         return;
     }
+
 
     int index = -1;
 
-    switch (menu) {
+
+    switch (menu)
+    {
     case 0:
+        LogManager::GetInstance().ClearScreen();
+
+        cout << ascii;
+        if (hasItem)
+            return;
+
+        cout << "판매할 아이템이 없습니다." << endl;
         return;
+
+
 
     case 1:
-        index = inventory.SelectEquipment(EquipmentType::Weapon);
+        LogManager::GetInstance().ClearScreen();
+
+        cout << ascii;
+        index =
+            inventory.SelectEquipment(
+                EquipmentType::Weapon
+            );
+
         break;
+
+
 
     case 2:
-        index = inventory.SelectEquipment(EquipmentType::Armor);
+        LogManager::GetInstance().ClearScreen();
+
+        cout << ascii;
+        index =
+            inventory.SelectEquipment(
+                EquipmentType::Armor
+            );
+
         break;
+
+
 
     case 3:
-        index = inventory.SelectConsumable();
+        LogManager::GetInstance().ClearScreen();
+
+        cout << ascii;
+        index =
+            inventory.SelectConsumable();
+
         break;
+
+
 
     case 4:
-        index = inventory.SelectLoot();
+        LogManager::GetInstance().ClearScreen();
+
+        cout << ascii;
+        index =
+            inventory.SelectLoot();
+
         break;
 
-    default:
-        cout << "잘못된 입력입니다.\n";
-        return;
 
+
+    default:
+        LogManager::GetInstance().ClearScreen();
+
+        cout << ascii;
+        cout << "잘못된 입력입니다." << endl;
+
+        return;
     }
 
-    if (index != -1) {
-        SellItem(player, inventory, index);
+
+    if (index >= 0)
+    {
+        SellItem(
+            player,
+            inventory,
+            index
+        );
     }
 }

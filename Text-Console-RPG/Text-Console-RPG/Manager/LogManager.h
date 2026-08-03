@@ -91,6 +91,7 @@ public:
 	// 상점 (Store) 관련
 	void PrintPotionStoreMenu();
 	void PrintEquipmentStoreMenu();
+	int GetDisplayWidth(const std::string& str) const;
 
 	void PrintDungeonPlayerDeath();
 };
