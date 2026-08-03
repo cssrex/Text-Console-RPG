@@ -26,14 +26,17 @@ void Monster::Attack(Player* player) {
 	turnCount_++;
 	if (HyperAttackTurn())
 	{
+		GameSound::PlayMonsterHitSfx();
 		HyperAttack(player);
 	}
 	else if (SpecialAttackTurn())
 	{
+		GameSound::PlayMonsterHitSfx();
 		SpecialAttack(player);
 	}
 	else
 	{
+		GameSound::PlayMonsterHitSfx();
 		BasicAttack(player);
 	}
 }
