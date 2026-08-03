@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "Player.h"
 #include "..\..\..\AsciiArt\MonsterAsciiArt.h"
+#include "GameSound.h"
 #include <random>
 
 
