@@ -46,15 +46,15 @@ void LogManager::PrintStartMenu()
 void LogManager::PrintMainMenu() {
 	if (GameManager::GetInstance().GetDayType() == DayType::MORNING) PrintTownScene();
 	else PrintTownScene(true);
-	int days = GameManager::GetInstance().GetDdays();
+	int day = GameManager::GetInstance().GetDay();
 	Utils::MoveCursorTo(1, 1);
-	if (days == 0)
+	if (day == 0)
 	{
 		std::cout << "D - Day";
 	}
 	else
 	{
-		std::cout << "D - " << days;
+		std::cout << "D - " << day;
 	}
 	Utils::MoveCursorTo(0, 15);
 	cout << R"(

@@ -15,8 +15,9 @@ GameManager::GameManager() {
 	player_ = nullptr;
 	curScene_ = Scene::NONE;
 	nextScene_ = Scene::START;
-	dDays_ = 28;
+	day_ = 28;
 	dayType_ = DayType::MORNING;
+	isInputZero_ = false;
 }
 
 GameManager::~GameManager() {
@@ -46,19 +47,19 @@ DayType GameManager::GetDayType()
 	return dayType_;
 }
 
-int GameManager::GetDdays()
+int GameManager::GetDay()
 {
-	return dDays_;
+	return day_;
 }
 
 bool GameManager::EndDay()
 {
-	return dDays_ < 0;
+	return day_ < 0;
 }
 
 void GameManager::SubDays()
 {
-	dDays_--;
+	day_--;
 }
 
 void GameManager::StartMenu() {
@@ -96,6 +97,7 @@ void GameManager::ShowMainMenu() {
 
 		switch (num) {
 		case 0: {
+			isInputZero_ = true;
 			SetNextScene(Scene::END);
 			return;
 		}
@@ -138,8 +140,10 @@ void GameManager::ShowMainMenu() {
 }
 
 void GameManager::EnterDungeon() {
-	ChangeDayType();
-	dungeon_->StartDungeonLoop(player_);
+	bool change = dungeon_->StartDungeonLoop(player_);
+	if (change) {
+		ChangeDayType();
+	}
 }
 
 void GameManager::EnterHotel() {
@@ -156,6 +160,7 @@ void GameManager::EnterHotel() {
 
 	LogManager::GetInstance().PrintHotelMenu();
 	player_->SetHp(player_->GetMaxHp());
+	player_->SetMp(player_->GetMaxMp());
 	LogManager::GetInstance().PrintHeal(player_->GetName(), player_->GetMaxHp());
 	SetNextScene(Scene::MAIN);
 	system("pause");
@@ -216,9 +221,13 @@ void GameManager::ChangeScene() {
 		break;
 	case Scene::END:
 	{
-		if (dDays_ < 0)
+		if (day_ < 0)
 		{
 			LogManager::GetInstance().PrintDayOver();
+		}
+		else if (isInputZero_)
+		{
+
 		}
 		else
 		{
