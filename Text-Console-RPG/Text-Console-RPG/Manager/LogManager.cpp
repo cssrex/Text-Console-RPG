@@ -181,6 +181,8 @@ void LogManager::ApplySpecialColor() {
 
 void LogManager::PrintBossEntranceMessage(Monster* monster) {
 	LogManager::ClearScreen();
+	GameSound::StopBgm();
+	GameSound::StopWave();
 	PrintBossEmergencyBannerAsciiArt();
 	GameSound::PlayBossEntranceSfx();
 	if (monster->GetName() == "킹 슬라임") {
