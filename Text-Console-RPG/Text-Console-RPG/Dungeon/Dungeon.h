@@ -29,6 +29,8 @@ public:
 	bool StartDungeonLoop(Player* player);
 	void PrintKilledMonsterList() const;
 
+	bool GetIsClear() { return isClear; }
+
 private:
 	Monster* CreateMonster(int roomIndex, int level);
 	void Enter(Player* player, int roomIndex);
