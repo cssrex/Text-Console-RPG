@@ -116,7 +116,7 @@ void Player::LevelUp() {
 
     int oldLevel = level_;
     int oldMaxHp = maxHp_;
-    int oldMaxMp = maxMp_;
+    // int oldMaxMp = maxMp_;
     int oldAttack = attack_;
     int oldDefense = defense_;
 
@@ -124,19 +124,19 @@ void Player::LevelUp() {
     maxExp_ += 25;
 
     int hpBonus = level_ * hpBonusPerLevel_;
-    int mpBonus = level_ * mpBonusPerLevel_;
+    // int mpBonus = level_ * mpBonusPerLevel_;
     int attackBonus = level_ * attackBonusPerLevel_;
     int defenseBonus = defenseBonusPerLevel_;
 
     maxHp_ += hpBonus;
-    maxMp_ += mpBonus;
+    // maxMp_ += mpBonus;
     attack_ += attackBonus;
     defense_ += defenseBonus;
 
     hp_ = maxHp_;
     mp_ = maxMp_;
 
-    LogManager::GetInstance().PrintLevelUp(oldLevel, level_, oldMaxHp, maxHp_, oldMaxMp, maxMp_,
+    LogManager::GetInstance().PrintLevelUp(oldLevel, level_, oldMaxHp, maxHp_, -1, maxMp_,
         oldAttack, attack_, oldDefense, defense_);
 }
 

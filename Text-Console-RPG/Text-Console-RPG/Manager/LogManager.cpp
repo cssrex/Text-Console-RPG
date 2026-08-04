@@ -399,7 +399,7 @@ void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newM
 	std::cout << "★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n";
 	std::cout << "=========================================\n";
 	std::cout << " [최대 HP] " << oldMaxHp << " -> " << newMaxHp << " (+" << (newMaxHp - oldMaxHp) << ")\n";
-	std::cout << " [최대 MP] " << oldMaxMp << " -> " << newMaxMp << " (+" << (newMaxMp - oldMaxMp) << ")\n";
+	// std::cout << " [최대 MP] " << oldMaxMp << " -> " << newMaxMp << " (+" << (newMaxMp - oldMaxMp) << ")\n";
 	std::cout << " [공격력]   " << oldAttack << " -> " << newAttack << " (+" << (newAttack - oldAttack) << ")\n";
 	std::cout << " [방어력]   " << oldDefense << " -> " << newDefense << " (+" << (newDefense - oldDefense) << ")\n";
 	std::cout << "=========================================\n";
