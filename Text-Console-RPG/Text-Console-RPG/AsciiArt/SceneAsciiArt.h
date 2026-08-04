@@ -398,6 +398,43 @@ static const char* GameMenuOutAscii = R"GameMuneout(
 |.  .   ,    .  '  .   ,  .    '  .   ,    .  '  .   .   ,  '   .  .   ,  .   '  .  ,   .  '   .   ,  .  '  .   ,   .  |
 )GameMuneout";
 
+static const char* BossSlimeInfoAscii = R"BossSlimeInfo(
+
+.======================================================================================================================.
+|                                           <   킹     슬  라  임   >                                                  |
+|               "무수한 슬라임을 흡수하며 몸집을 불려온 존재. 물컹한 몸속에 숨겨진 핵이 진짜 약점이다."                |
+========================================================================================================================
+)BossSlimeInfo";
+
+static const char* BossGoblinInfoAscii = R"BossGoblinInfo(
+.======================================================================================================================.
+|                                        <  고 블 린     제 사 장  >                                                   |
+|               "저주받은 의식으로 동족의 힘을 빨아들인 사제. 그가 읊조리는 주문은 죽은 자도 일으킨다."                |
+========================================================================================================================
+)BossGoblinInfo";
+
+static const char* BossOrcInfoAscii = R"BossOrcInfo(
+.======================================================================================================================.
+|                                          <   오 크     족 장   >                                                     |
+|                     "수많은 전장을 넘어온 노련한 전사. 그의 도끼에 쓰러진 자의 수는 셀 수 없다."                     |
+========================================================================================================================
+)BossOrcInfo";
+
+static const char* BossDragonInfoAscii = R"BossDragonInfo(
+.======================================================================================================================.
+|                                          <   투 명    드 래 곤   >                                                   |
+|        "빛조차 삼켜버리는 비늘을 지닌 명명백백한 최강의 용. 눈에 보이지 않는 공격이야말로 가장 두려운 무기다."       |
+=======================================================================================================================
+)BossDragonInfo";
+
+static const char* BossEmergencyAscii = R"BossEmergency(
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                                                                                    !!
+!!          E   M   E   R   G   E   N   C   Y             B   O   S   S       A   P   P   R   O   A   C   H           !!
+!!                                                                                                                    !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+)BossEmergency";
+
 inline void PrintTownAsciiArt(short startX = 0, short startY = 0) {
     const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO screenInfo;
@@ -784,6 +821,106 @@ inline void PrintBagIconAsciiArt(short startX = 0, short startY = 0) {
 inline void PrintGameMenuOutAsciiArt(short startX = 0, short startY = 0) {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     istringstream input(GameMenuOutAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//보스슬라임 하단출력텍스트
+inline void PrintBossSlimeInfoAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(BossSlimeInfoAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//보스고블린 하단출력텍스트
+inline void PrintBossGoblinInfoAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(BossGoblinInfoAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//보스오크 하단출력텍스트
+inline void PrintBossOrcInfoAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(BossOrcInfoAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//보스드래곤 하단출력텍스트
+inline void PrintBossDragonInfoAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(BossDragonInfoAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
+}
+
+//보스방 입장 상단 출력텍스트
+inline void PrintBossEmergencyBannerAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(BossEmergencyAscii);
     string line;
     short row = 0;
 

@@ -102,6 +102,8 @@ public:
 	void PrintMonsterHitFlash(Monster* monster);
 	//플레이어 피격 데미지 출력
 	void PrintPlayerHitEffect(int damage);
+	//보스전 입장 출력메시지
+	void PrintBossEntranceMessage(Monster* monster);
 	
 	// 상점 (Store) 관련
 	void PrintPotionStoreMenu();
