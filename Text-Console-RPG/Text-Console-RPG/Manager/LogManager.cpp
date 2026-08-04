@@ -176,7 +176,35 @@ void LogManager::ApplyTimeColor() {
 
 void LogManager::ApplySpecialColor() {
 	//디폴트 색으로 변경 - 낮
-		Utils::SetColor(7);
+	Utils::SetColor(7);
+}
+
+void LogManager::PrintBossEntranceMessage(Monster* monster) {
+	LogManager::ClearScreen();
+	PrintBossEmergencyBannerAsciiArt();
+	GameSound::PlayBossEntranceSfx();
+	if (monster->GetName() == "킹 슬라임") {
+		PrintBossSlimeAsciiArt(40,5);
+		PrintBossSlimeInfoAsciiArt(0,26);
+	}
+	else if (monster->GetName() == "고블린 주술사") {
+		PrintBossGoblinAsciiArt(40,5);
+		PrintBossGoblinInfoAsciiArt(0,26);
+	}
+	else if (monster->GetName() == "오크 족장") {
+		PrintBossOrcAsciiArt(40,5);
+		PrintBossOrcInfoAsciiArt(0,26);
+	}
+	else if (monster->GetName() == "투명 드래곤") {
+		PrintBossDragonAsciiArt(40,5);
+		PrintBossDragonInfoAsciiArt(0,26);
+	}
+	else {
+		cout << "[ BOSS ] " << monster->GetName()
+			<< "이(가) 나타났습니다!\n";
+	}
+
+	Sleep(1500);
 }
 
 // 날짜 로그 수정으로 변경
@@ -388,7 +416,7 @@ void LogManager::PrintPlayerStatus(const string& name, int level, int exp, int m
 void LogManager::PrintSkillListHeader() { cout << "  [ 보유 스킬 (Skills) ]\n"; }
 void LogManager::PrintSkillItem(int index, const string& skillName, int cost, const string& description) {
 	cout << "   [" << index << "] " << skillName << " (소모 MP : " << cost << ")\n";
-	cout << "       - " << description << "\n"; 
+	cout << "       - " << description << "\n";
 }
 
 void LogManager::PrintActiveStatusEffectsHeader() {
@@ -409,7 +437,7 @@ void LogManager::PrintAddExp(int exp, int currentExp, int maxExp) {
 	system("pause > nul");
 }
 
-void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp, 
+void LogManager::PrintLevelUp(int oldLevel, int newLevel, int oldMaxHp, int newMaxHp, int oldMaxMp,
 	int newMaxMp, int oldAttack, int newAttack, int oldDefense, int newDefense) {
 	std::cout << "\n=========================================\n";
 	std::cout << "★ 레벨 업! (Lv. " << oldLevel << " -> Lv. " << newLevel << ") ★\n";
@@ -489,7 +517,7 @@ void LogManager::PrintDungeonList(const vector<string>& roomList)
 	std::string s;
 	for (int i = 0; i < roomList.size(); ++i) {
 		s += std::to_string(i + 1) + ". " + roomList[i];
-		if (i != roomList.size() - 1) s+="    ";
+		if (i != roomList.size() - 1) s += "    ";
 	}
 	int visualWidth = GetVisualWidth(s);
 	int padding = (120 - visualWidth) / 2;

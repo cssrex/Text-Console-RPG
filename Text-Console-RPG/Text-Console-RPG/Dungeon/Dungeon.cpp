@@ -206,7 +206,9 @@ void Dungeon::Enter(Player* player, int roomIndex) {
 
 		if (floor >= currentRoom->floor_) {
 			monster = currentRoom->bossFactory_();
+			LogManager::GetInstance().PrintBossEntranceMessage(monster);
 			GameSound::PlayBattleBgmLoop();
+
 		}
 		else {
 			monster = CreateMonster(roomIndex, 1);
