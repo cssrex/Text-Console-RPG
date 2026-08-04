@@ -520,11 +520,40 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory)
 )";
 
 
-    PrintLine("1. 강화석(SR)   (성공률 25%)");
+    int srIndex = inventory.FindMaterial("강화석(SR)");
+    int ssrIndex = inventory.FindMaterial("강화석(SSR)");
+    int uIndex = inventory.FindMaterial("강화석(U)");
 
-    PrintLine("2. 강화석(SSR)  (성공률 50%)");
+    int srCount = (srIndex != -1)
+        ? inventory.GetInventory()[srIndex]->GetCount()
+        : 0;
 
-    PrintLine("3. 강화석(U)    (성공률 100%)");
+    int ssrCount = (ssrIndex != -1)
+        ? inventory.GetInventory()[ssrIndex]->GetCount()
+        : 0;
+
+    int uCount = (uIndex != -1)
+        ? inventory.GetInventory()[uIndex]->GetCount()
+        : 0;
+
+
+    PrintLine(
+        "1. 강화석(SR)   (성공률 25%)   보유: "
+        + to_string(srCount)
+        + "개"
+    );
+
+    PrintLine(
+        "2. 강화석(SSR)  (성공률 50%)   보유: "
+        + to_string(ssrCount)
+        + "개"
+    );
+
+    PrintLine(
+        "3. 강화석(U)    (성공률 100%)  보유: "
+        + to_string(uCount)
+        + "개"
+    );
 
     PrintLine("");
 
@@ -599,16 +628,14 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory)
 
 
 
-    if (stoneIndex == -1)
-    {
+    if (stoneIndex == -1) {
         PrintResultBox(
             "강화석 선택",
             "보유 중인 " + stoneName + "이(가) 없습니다."
         );
 
-
-        int wait;
-        cin >> wait;
+        cout << "▶ 아무 키나 입력해주세요 : ";
+        _getch();
 
         return;
     }
