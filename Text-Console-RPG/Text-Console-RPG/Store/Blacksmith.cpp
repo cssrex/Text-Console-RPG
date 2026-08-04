@@ -105,7 +105,7 @@ void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
                 ShowItems();
 
                 cout << "▶ 번호를 입력해주세요 : ";
-
+                
                 int index;
                 cin >> index;
 
@@ -350,7 +350,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 continue;
             }
 
-
             // 착용 중인 장비는 강화할 수 없음
             if (inventory.IsEquipped(*equipment)) {
                 cout << "착용 중인 장비는 강화할 수 없습니다.\n";
@@ -361,7 +360,7 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 continue;
             }
 
-            // 여기부터 강화석 선택
+            // 강화석 선택
             while (true) {
 
                 LogManager::GetInstance().ClearScreen();
@@ -373,8 +372,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
 +======================================================================================================================+
 |                                                                                                                      |
 )";
-
-
                 int srIndex =
                     inventory.FindMaterial("강화석(SR)");
 
@@ -420,13 +417,9 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 );
 
                 PrintLine("");
-
                 PrintLine("0. 돌아가기");
 
-
-                cout <<
-                    "+======================================================================================================================+\n";
-
+                cout << "+======================================================================================================================+\n";
                 cout << "▶ 번호를 입력해주세요 : ";
 
                 int stoneMenu;
@@ -475,16 +468,12 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                     continue;
                 }
 
-
                 // 강화석 선택 화면에서 0을 누른 경우
                 if (stoneMenu == 0) {
                     break;
                 }
 
-
-                int stoneIndex =
-                    inventory.FindMaterial(stoneName);
-
+                int stoneIndex = inventory.FindMaterial(stoneName);
 
                 if (stoneIndex == -1) {
                     PrintResultBox(
@@ -501,21 +490,11 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 }
 
                 // 강화석 사용
-                inventory.RemoveItem(stoneIndex, 1);
-
-                // RemoveItem()에서 vector의 앞쪽 원소가 삭제되면
-                // equipment의 인덱스가 하나 감소할 수 있음
-                if (stoneIndex < index) {
-                    index--;
+                if (!inventory.RemoveItem(stoneIndex, 1)) {
+                    cout << "강화석 사용에 실패했습니다.\n";
+                    _getch();
+                    continue;
                 }
-
-
-                // 삭제 이후 장비 포인터 다시 가져오기
-                equipment =
-                    dynamic_cast<EquipmentItem*>(
-                        inventory.GetInventory()[index].get()
-                        );
-
 
                 int random = rand() % 100;
 
@@ -585,11 +564,7 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 }
 
 
-                PrintResultBox(
-                    "강화 결과",
-                    resultMessage
-                );
-
+                PrintResultBox("강화 결과",resultMessage);
 
                 cout << "▶ 아무 키나 입력해주세요 : ";
                 _getch();
