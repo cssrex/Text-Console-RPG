@@ -422,7 +422,7 @@ void Inventory::EquipmentMenu(Player& player, int index) {
 	bool equipped = IsEquipped(*equipment);
 
 	LogManager::GetInstance().ClearScreen();
-	cout << TownAscii;
+	PrintBagIconAsciiArt();
 	cout <<
 R"(+======================================================================================================================+
 |                                                      장비 정보                                                       |
@@ -435,11 +435,9 @@ R"(+============================================================================
 	string itemName = "[" + equipment->GetName() + "]";
 	cout << "| " << itemName;
 	int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(itemName);
-
 	for (int i = 0; i < space; i++) { cout << " "; }
 	cout << "|\n";
 
-	// 빈 줄
 	cout << "| ";
 	for (int i = 0; i < BOX_WIDTH; i++) { cout << " "; }
 	cout << "|\n";
@@ -453,16 +451,15 @@ R"(+============================================================================
 
 	cout << "| " << menu1;
 	space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(menu1);
-
 	for (int i = 0; i < space; i++) { cout << " "; }
 	cout << "|\n";
 
 	string menu2 = "2. 돌아가기";
 	cout << "| " << menu2;
 	space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(menu2);
-
 	for (int i = 0; i < space; i++) { cout << " "; }
 	cout << "|\n";
+
 	cout <<
 R"(+======================================================================================================================+
 )";
@@ -474,6 +471,9 @@ R"(+============================================================================
 		cin.clear();
 		cin.ignore(1000, '\n');
 
+		cout << "잘못된 입력입니다.";
+		_getch();
+
 		return;
 	}
 
@@ -481,9 +481,11 @@ R"(+============================================================================
 	case 1:
 		if (equipped) {
 			TakeOffEquipment(player,equipment->GetEquipmentSlot());
+			_getch();
 		}
 		else {
 			WearEquipment(player,index);
+			_getch();
 		}
 		break;
 
@@ -491,12 +493,8 @@ R"(+============================================================================
 		return;
 
 	default: {
-		string errorMessage = "잘못된 입력입니다.";
-		cout << "| " << errorMessage;
-		space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
-
-		for (int i = 0; i < space; i++) { cout << " "; }
-		cout << "|\n";
+		cout << "잘못된 입력입니다.";
+		_getch();
 
 		break;
 	}

@@ -5,115 +5,65 @@
 
 using namespace std;
 
-void EquipmentItem::Equip(Player& player)
-{
-    auto PrintMessage = [](const string& message)
-        {
-            const int BOX_WIDTH = 117;
+void EquipmentItem::Equip(Player& player) {
+    cout << "\n" << name_ + "을(를) 착용했습니다.\n";
 
-            cout << "| " << message;
-
-            int space =
-                BOX_WIDTH -
-                LogManager::GetInstance().GetDisplayWidth(message);
-
-            for (int i = 0; i < space; i++)
-                cout << " ";
-
-            cout << "|\n";
-        };
-
-    PrintMessage(name_ + "을(를) 착용했습니다.");
-
-    switch (equipmentType_)
-    {
+    switch (equipmentType_) {
     case EquipmentType::Weapon:
-
         player.SetAttack(player.GetAttack() + attackValue_);
-
-        PrintMessage("공격력 +" + to_string(attackValue_));
+        cout << "공격력 +" + to_string(attackValue_) << "증가!\n";
 
         break;
 
     case EquipmentType::Armor:
-
         player.SetDefense(player.GetDefense() + defenseValue_);
         player.SetMaxHp(player.GetMaxHp() + healthValue_);
 
-        if (defenseValue_ > 0)
-        {
-            PrintMessage("방어력 +" + to_string(defenseValue_));
+        if (defenseValue_ > 0) {
+            cout << "방어력 +" + to_string(defenseValue_) << "증가!\n";
         }
-
-        if (healthValue_ > 0)
-        {
-            PrintMessage("최대 HP +" + to_string(healthValue_));
+        if (healthValue_ > 0) {
+            cout << "최대 HP +" + to_string(healthValue_) << "증가!\n";
         }
 
         break;
 
     default:
-
-        PrintMessage("잘못된 장비 타입입니다.");
+        cout << "잘못된 장비 타입입니다.\n";
         break;
     }
 }
 
-void EquipmentItem::TakeOff(Player& player)
-{
-    auto PrintMessage = [](const string& message)
-        {
-            const int BOX_WIDTH = 117;
+void EquipmentItem::TakeOff(Player& player) {
+    cout << "\n" << name_ + "을(를) 해제했습니다.\n";
 
-            cout << "| " << message;
-
-            int space =
-                BOX_WIDTH -
-                LogManager::GetInstance().GetDisplayWidth(message);
-
-            for (int i = 0; i < space; i++)
-                cout << " ";
-
-            cout << "|\n";
-        };
-
-    PrintMessage(name_ + "을(를) 해제했습니다.");
-
-    switch (equipmentType_)
-    {
+    switch (equipmentType_) {
     case EquipmentType::Weapon:
-
         player.SetAttack(player.GetAttack() - attackValue_);
-
-        PrintMessage("공격력 -" + to_string(attackValue_));
+        cout << "공격력 -" + to_string(attackValue_) << "감소!\n";
 
         break;
 
     case EquipmentType::Armor:
-
         player.SetDefense(player.GetDefense() - defenseValue_);
         player.SetMaxHp(player.GetMaxHp() - healthValue_);
 
-        if (player.GetHp() > player.GetMaxHp())
-        {
+        if (player.GetHp() > player.GetMaxHp()) {
             player.SetHp(player.GetMaxHp());
         }
 
-        if (defenseValue_ > 0)
-        {
-            PrintMessage("방어력 -" + to_string(defenseValue_));
+        if (defenseValue_ > 0) {
+            cout << "방어력 -" + to_string(defenseValue_) << "감소!\n";
         }
-
-        if (healthValue_ > 0)
-        {
-            PrintMessage("최대 HP -" + to_string(healthValue_));
+        if (healthValue_ > 0) {
+            cout << "최대 HP -" + to_string(healthValue_) << "감소!\n";
         }
 
         break;
 
     default:
+        cout << "잘못된 장비 타입입니다.\n";
 
-        PrintMessage("잘못된 장비 타입입니다.");
         break;
     }
 }
