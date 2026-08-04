@@ -481,12 +481,12 @@ R"(+============================================================================
 	case 1:
 		if (equipped) {
 			TakeOffEquipment(player,equipment->GetEquipmentSlot());
-			_getch();
 		}
 		else {
 			WearEquipment(player,index);
-			_getch();
 		}
+		_getch();
+
 		break;
 
 	case 2:
@@ -510,33 +510,15 @@ bool Inventory::IsEquipped(const EquipmentItem& item) {
 	return it->second == &item;
 }
 
-// 소모품 사용
+// 전투 - 소모품 사용
 bool Inventory::UseConsumable(Player& player, int index) {
-	const int BOX_WIDTH = 117;
-
 	if (index < 0 || index >= static_cast<int>(inventory_.size())) {
-		string errorMessage = "잘못된 아이템입니다.";
-		cout << "| " << errorMessage;
-
-		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
-
-		for (int i = 0; i < space; i++) cout << " ";
-		cout << "|\n";
-
 		return false;
 	}
 
 	ConsumableItem* item = dynamic_cast<ConsumableItem*>(inventory_[index].get());
 
 	if (item == nullptr) {
-		string errorMessage = "사용할 수 없는 아이템입니다.";
-		cout << "| " << errorMessage;
-
-		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
-
-		for (int i = 0; i < space; i++) cout << " ";
-		cout << "|\n";
-
 		return false;
 	}
 
@@ -557,35 +539,19 @@ bool Inventory::UseConsumable(Player& player, int index) {
 
 // 장비 착용
 void Inventory::WearEquipment(Player& player, int index) {
-	const int BOX_WIDTH = 117;
 	if (index < 0 || index >= static_cast<int>(inventory_.size())) {
-		string errorMessage = "잘못된 장비입니다.";
-		cout << "| " << errorMessage;
-		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
-
-		for (int i = 0; i < space; i++) { cout << " "; }
-		cout << "|\n";
-
 		return;
 	}
 
 	EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(inventory_[index].get());
 
 	if (equipment == nullptr) {
-		string errorMessage = "장착할 수 없는 아이템입니다.";
-		cout << "| " << errorMessage;
-
-		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
-
-		for (int i = 0; i < space; i++) { cout << " "; }
-		cout << "|\n";
-
 		return;
 	}
 
 	EquipmentSlot slot = equipment->GetEquipmentSlot();
 
-	// 착용 중 장비 해제
+	// 해당 슬롯 장비 착용 중 -> 착용 중 장비 해제 -> 새 장비 착용
 	auto it = equipment_.find(slot);
 
 	if (it != equipment_.end()) {
@@ -599,18 +565,9 @@ void Inventory::WearEquipment(Player& player, int index) {
 
 // 장비 해제
 void Inventory::TakeOffEquipment(Player& player, EquipmentSlot slot) {
-	const int BOX_WIDTH = 117;
 	auto it = equipment_.find(slot);
 
 	if (it == equipment_.end()) {
-		string message = "착용한 장비가 없습니다.";
-		cout << "| " << message;
-
-		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(message);
-
-		for (int i = 0; i < space; i++) { cout << " "; }
-		cout << "|\n";
-
 		return;
 	}
 
@@ -620,8 +577,6 @@ void Inventory::TakeOffEquipment(Player& player, EquipmentSlot slot) {
 
 // 인벤토리에서 제거
 bool Inventory::RemoveItem(int index, int count) {
-	const int BOX_WIDTH = 117;
-
 	if (index < 0 || index >= static_cast<int>(inventory_.size())) return false;
 
 	Item* item = inventory_[index].get();
@@ -630,8 +585,7 @@ bool Inventory::RemoveItem(int index, int count) {
 		EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(item);
 
 		if (equipment && IsEquipped(*equipment)) {
-			string message = "착용 중인 장비입니다.";
-			cout << message << "\n";
+			cout << "착용 중인 장비입니다.\n";
 
 			return false;
 		}
@@ -654,7 +608,7 @@ int Inventory::SelectEquipment(EquipmentSlot slot) {
 	vector<int> indexes;
 
 	cout <<
-		R"(+======================================================================================================================+
+R"(+======================================================================================================================+
 |                                                      강화 장비                                                       |
 +======================================================================================================================+
 |                                                                                                                      |
@@ -663,31 +617,16 @@ int Inventory::SelectEquipment(EquipmentSlot slot) {
 	const int BOX_WIDTH = 117;
 	int number = 1;
 
-
 	for (int i = 0; i < static_cast<int>(inventory_.size()); i++) {
 		EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(inventory_[i].get());
-
 
 		if (equipment == nullptr) continue;
 
 		if (equipment->GetEquipmentSlot() == slot) {
-			string itemInfo =
-				to_string(number) +
-				". " +
-				equipment->GetName() +
-				" (+" +
-				to_string(equipment->GetEnhanceLevel()) +
-				")";
-
+			string itemInfo = to_string(number) + ". " + equipment->GetName() + " (+" + to_string(equipment->GetEnhanceLevel()) + ")";
 			cout << "| " << itemInfo;
-
-			int space =
-				BOX_WIDTH -
-				LogManager::GetInstance().GetDisplayWidth(itemInfo);
-
-			for (int j = 0; j < space; j++)
-				cout << " ";
-
+			int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(itemInfo);
+			for (int j = 0; j < space; j++) cout << " ";
 			cout << "|\n";
 
 			indexes.push_back(i);
@@ -696,56 +635,51 @@ int Inventory::SelectEquipment(EquipmentSlot slot) {
 	}
 
 	if (indexes.empty()) {
-		string emptyMessage =
-			"강화 가능한 장비가 없습니다.";
-
+		string emptyMessage = "강화 가능한 장비가 없습니다.";
 		cout << "| " << emptyMessage;
-
-		int space =
-			BOX_WIDTH -
-			LogManager::GetInstance().GetDisplayWidth(emptyMessage);
-
-		for (int i = 0; i < space; i++)
-			cout << " ";
-
+		int space = BOX_WIDTH -	LogManager::GetInstance().GetDisplayWidth(emptyMessage);
+		for (int i = 0; i < space; i++) cout << " ";
 		cout << "|\n";
 
 		cout <<
-			R"(|                                                                                                                      |
+R"(|                                                                                                                      |
 +======================================================================================================================+
 )";
+		cout << "▶ 아무 키나 입력해주세요: ";
+		_getch();
 
 		return -1;
 	}
 
 	cout << "| ";
-
-	for (int i = 0; i < BOX_WIDTH; i++)
-		cout << " ";
-
+	for (int i = 0; i < BOX_WIDTH; i++) cout << " ";
 	cout << "|\n";
 	cout <<
 		R"(+======================================================================================================================+
 )";
 
 	int select;
-
 	cout << "▶ 번호를 입력해주세요 : ";
-
 	cin >> select;
 
 	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 
+		cout << "잘못된 입력입니다.";
+		_getch();
+
 		return -2;
 	}
 
-	if (select == 0)
-		return -2;
+	if (select == 0) return -2;
 
-	if (select < 1 || select > static_cast<int>(indexes.size()))
+	if (select < 1 || select > static_cast<int>(indexes.size())) {
+		cout << "잘못된 입력입니다.";
+		_getch();
+		
 		return -2;
+	}
 
 	return indexes[select - 1];
 }
