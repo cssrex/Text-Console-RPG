@@ -246,6 +246,8 @@ void GameManager::ChangeScene() {
 		}
 		else
 		{
+			GameSound::StopBgm();
+			GameSound::StopWave();
 			LogManager::GetInstance().PrintGameOut();
 		}
 		dungeon_->PrintKilledMonsterList();
