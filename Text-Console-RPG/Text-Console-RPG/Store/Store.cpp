@@ -128,27 +128,79 @@ R"(+============================================================================
             return;
 
         case 1:
-            LogManager::GetInstance().ClearScreen();
-            cout << ascii;
-            index = inventory.SelectEquipment(EquipmentType::Weapon);
+            while (true) {
+                LogManager::GetInstance().ClearScreen();
+                cout << ascii;
+
+                index = inventory.SelectEquipment(EquipmentType::Weapon);
+
+                if (index == -1) {
+                    break;
+                }
+
+                if (index == -2) {
+                    continue;
+                }
+
+                SellItem(player, inventory, index);
+            }
             break;
 
         case 2:
-            LogManager::GetInstance().ClearScreen();
-            cout << ascii;
-            index = inventory.SelectEquipment(EquipmentType::Armor);
+            while (true) {
+                LogManager::GetInstance().ClearScreen();
+                cout << ascii;
+
+                index = inventory.SelectEquipment(EquipmentType::Armor);
+
+                if (index == -1) {
+                    break;
+                }
+
+                if (index == -2) {
+                    continue;
+                }
+
+                SellItem(player, inventory, index);
+            }
             break;
 
         case 3:
-            LogManager::GetInstance().ClearScreen();
-            cout << ascii;
-            index = inventory.SelectConsumable();
+            while (true) {
+                LogManager::GetInstance().ClearScreen();
+                cout << ascii;
+
+                index = inventory.SelectConsumable();
+
+                if (index == -1) {
+                    break;
+                }
+
+                if (index == -2) {
+                    continue;
+                }
+
+                SellItem(player, inventory, index);
+            }
             break;
 
         case 4:
-            LogManager::GetInstance().ClearScreen();
-            cout << ascii;
-            index = inventory.SelectLoot();
+            while (true) {
+                LogManager::GetInstance().ClearScreen();
+                cout << ascii;
+
+                index = inventory.SelectLoot();
+
+                if (index == -1) {
+                    break;
+                }
+
+                if (index == -2) {
+                    continue;
+                }
+
+                SellItem(player, inventory, index);
+            }
             break;
 
         default:
