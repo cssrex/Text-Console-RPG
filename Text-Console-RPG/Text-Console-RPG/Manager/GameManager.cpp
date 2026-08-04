@@ -17,7 +17,6 @@ GameManager::GameManager() {
 	nextScene_ = Scene::START;
 	day_ = 28;
 	dayType_ = DayType::MORNING;
-	isInputZero_ = false;
 }
 
 GameManager::~GameManager() {
@@ -107,7 +106,6 @@ void GameManager::ShowMainMenu() {
 		
 		switch (num) {
 		case 0: {
-			isInputZero_ = true;
 			SetNextScene(Scene::END);
 			return;
 		}
@@ -246,15 +244,9 @@ void GameManager::ChangeScene() {
 			GameSound::PlayBadEndingBgmLoop();
 			LogManager::GetInstance().PrintDayOver();
 		}
-		else if (isInputZero_)
-		{
-			GameSound::StopBgm();
-			GameSound::StopWave();
-			LogManager::GetInstance().PrintGameOut();
-		}
 		else
 		{
-			LogManager::GetInstance().PrintDayOver();
+			LogManager::GetInstance().PrintGameOut();
 		}
 		dungeon_->PrintKilledMonsterList();
 		system("pause");
