@@ -55,6 +55,12 @@ public:
 	// 전투 중 소모품만 보이는 메뉴
 	bool BattleConsumableMenu(Player& player);
 
+	// 마을 전용 소모품 메뉴
+	int SelectConsumableInTown();
+
+	// 마을 전용 전리품 메뉴
+	void SelectLootInTown();
+
 	// Getter
 	const vector<unique_ptr<Item>>& GetInventory() const {
 		return inventory_;
