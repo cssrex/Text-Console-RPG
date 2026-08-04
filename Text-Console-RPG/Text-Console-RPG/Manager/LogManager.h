@@ -35,6 +35,7 @@ public:
 	void PrintPassDay();
 	void PrintDayOver();
 	void PrintGameClear();
+	void PrintGameOut();
 	//게임시작 - 프롤로그
 	void PrintPrologue();
 	//인게임 화면 색상 출력(낮,밤,디데이)
@@ -106,6 +107,5 @@ public:
 	void PrintPotionStoreMenu();
 	void PrintEquipmentStoreMenu();
 	int GetDisplayWidth(const std::string& str) const;
-
 	void PrintDungeonPlayerDeath();
 };
