@@ -89,10 +89,7 @@ R"(+============================================================================
 			LogManager::GetInstance().ClearScreen();
 			PrintBagIconAsciiArt();
 
-			int index = SelectConsumable();
-			if (index != -1) {
-				UseConsumable(player, index);
-			}
+			SelectConsumableInTown();
 
 			continue;
 		}
@@ -101,17 +98,7 @@ R"(+============================================================================
 			LogManager::GetInstance().ClearScreen();
 			PrintBagIconAsciiArt();
 
-			int index = SelectLoot();
-			if (index != -1) {
-				const int BOX_WIDTH = 117;
-
-				string lootName = inventory_[index]->GetName();
-				cout << "| " << lootName;
-
-				int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(lootName);
-				for (int i = 0; i < space; i++) { cout << " "; }
-				cout << "|\n";
-			}
+			SelectLootInTown();
 
 			continue;
 		}
@@ -780,4 +767,122 @@ bool Inventory::BattleConsumableMenu(Player& player) {
 
 		return used;
 	}
+}
+
+// 마을 소모품 선택
+int Inventory::SelectConsumableInTown() {
+	vector<int> indexes;
+
+	cout <<
+		R"(+======================================================================================================================+
+|                                                       소모품                                                         |
++======================================================================================================================+
+|                                                                                                                      |
+)";
+
+	const int BOX_WIDTH = 117;
+	int number = 1;
+
+	// 아이템 출력
+	for (int i = 0; i < static_cast<int>(inventory_.size()); i++) {
+		if (inventory_[i]->GetType() == ItemType::Consumable) {
+			string itemInfo = to_string(number) + ". " +
+				inventory_[i]->GetName() + " x " +
+				to_string(inventory_[i]->GetCount());
+
+			cout << "| " << itemInfo;
+
+			int space = BOX_WIDTH -
+				LogManager::GetInstance().GetDisplayWidth(itemInfo);
+
+			for (int j = 0; j < space; j++) {
+				cout << " ";
+			}
+
+			cout << "|\n";
+
+			indexes.push_back(i);
+			number++;
+		}
+	}
+
+	// 아이템이 없을 때
+	if (indexes.empty()) {
+		string emptyMessage = "보유한 소모품이 없습니다.";
+
+		cout << "| " << emptyMessage;
+
+		int space = BOX_WIDTH -
+			LogManager::GetInstance().GetDisplayWidth(emptyMessage);
+
+		for (int i = 0; i < space; i++) {
+			cout << " ";
+		}
+
+		cout << "|\n";
+
+		cout << "| ";
+		for (int i = 0; i < BOX_WIDTH; i++) {
+			cout << " ";
+		}
+		cout << "|\n";
+
+		cout <<
+			R"(+======================================================================================================================+
+)";
+
+		cout << "▶ 아무 키나 입력해주세요. : ";
+		_getch();
+
+		return -1;
+	}
+
+	cout <<
+		"+======================================================================================================================+\n";
+
+	cout << "▶ 아무 키나 입력해주세요 : ";
+	_getch();
+
+	return -1;
+}
+
+void Inventory::SelectLootInTown() {
+	cout <<
+		R"(+======================================================================================================================+
+|                                                       전리품                                                         |
++======================================================================================================================+
+|                                                                                                                      |
+)";
+
+	const int BOX_WIDTH = 117;
+	int number = 1;
+
+	// 전리품 출력
+	for (int i = 0; i < static_cast<int>(inventory_.size()); i++) {
+		if (inventory_[i]->GetType() == ItemType::Loot) {
+			string itemInfo = to_string(number) + ". " +
+				inventory_[i]->GetName() + " x " +
+				to_string(inventory_[i]->GetCount());
+
+			cout << "| " << itemInfo;
+
+			int space = BOX_WIDTH -
+				LogManager::GetInstance().GetDisplayWidth(itemInfo);
+
+			for (int j = 0; j < space; j++) {
+				cout << " ";
+			}
+
+			cout << "|\n";
+
+			number++;
+		}
+	}
+
+	// 목록 끝
+	cout <<
+		"+======================================================================================================================+\n";
+
+	cout << "▶ 아무 키나 입력해주세요 : ";
+	_getch();
 }
