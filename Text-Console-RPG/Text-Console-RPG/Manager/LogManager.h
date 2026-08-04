@@ -83,6 +83,8 @@ public:
 
 	// 상태이상 (StatusEffect) 관련
 	void PrintStatusEffectDamage(const std::string& effectName, const std::string& targetName, int damage);
+	void PrintAddStatusEffect(const std::string& name, const std::string& effectName, int duration);
+	void PrintRefreshStatusEffect(const std::string& name, const std::string& effectName, int duration);
 
 	// 던전 (Dungeon) 관련
 	void PrintDungeonList(const std::vector<std::string>& roomList);

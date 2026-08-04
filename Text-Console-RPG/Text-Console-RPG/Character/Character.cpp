@@ -73,7 +73,6 @@ void Character::UseMp(int amount) {
     if (mp_ < 0) mp_ = 0;
 }
 
-
 // 상태이상 추가
 void Character::AddStatusEffect(StatusEffect* effect) {
     if (effect == nullptr) return;
@@ -83,20 +82,20 @@ void Character::AddStatusEffect(StatusEffect* effect) {
         if (existingEffect->GetName() == effect->GetName()) {
             // 이미 존재함 -> 턴 수 갱신 (새로 들어온 effect의 초기 턴 수로 리셋)
             existingEffect->ResetTurn(effect->GetTurn());
-            
+
             // 턴 갱신 로그
-            LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName()); 
+            LogManager::GetInstance().PrintRefreshStatusEffect(name_, effect->GetName(), existingEffect->GetTurn());
             GameSound::PlayHitBeep();
 
             // 동적 할당 객체 메모리 해제
-            delete effect;
+            delete effect; 
             return;
         }
     }
 
-    // 목록에 없는 새로운 상태이상인 경우 -> 추가
-    LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName());
+    // 신규 상태이상 추가
     statusEffects_.push_back(effect);
+    LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName(), effect->GetTurn());
     GameSound::PlayHitBeep();
 }
 

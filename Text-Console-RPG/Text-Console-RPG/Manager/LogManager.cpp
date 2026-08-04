@@ -449,6 +449,17 @@ void LogManager::PrintStatusEffectDamage(const string& effectName, const string&
 	cout << "[" << effectName << "] 효과 발생! " << targetName << "에게 " << damage << "의 지속 피해를 입깁니다.\n";
 }
 
+// 상태이상 신규 부여 로그
+void LogManager::PrintAddStatusEffect(const string& name, const string& effectName, int duration) {
+	cout << "  [상태이상] " << name << "에게 [" << effectName << "] 효과가 부여되었습니다! (남은 턴: " << duration << "턴)\n";
+}
+
+// 상태이상 턴 갱신 로그
+void LogManager::PrintRefreshStatusEffect(const string& name, const string& effectName, int duration) {
+	cout << "  [상태이상] " << name << "의 [" << effectName << "] 지속 시간이 갱신되었습니다! (남은 턴: " << duration << "턴)\n";
+}
+
+
 int GetVisualWidth(const std::string& str) {
 	int width = 0;
 	for (size_t i = 0; i < str.length(); ) {
