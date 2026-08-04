@@ -231,10 +231,12 @@ void GameManager::ChangeScene() {
 	{
 		if (dungeon_->GetIsClear())
 		{
+			GameSound::PlayHappyEndingBgmLoop();
 			LogManager::GetInstance().PrintGameClear();
 		}
 		else if (day_ <= 0)
 		{
+			GameSound::PlayBadEndingBgmLoop();
 			LogManager::GetInstance().PrintDayOver();
 		}
 		else if (isInputZero_)
@@ -243,7 +245,7 @@ void GameManager::ChangeScene() {
 		}
 		else
 		{
-			
+			LogManager::GetInstance().PrintDayOver();
 		}
 		dungeon_->PrintKilledMonsterList();
 		system("pause");
