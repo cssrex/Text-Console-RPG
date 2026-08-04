@@ -7,6 +7,7 @@
 void Monster::TakeDamage(int damage){
 	Character::TakeDamage(damage);
 
+	LogManager::GetInstance().PrintMonsterHitFlash(this);
 	LogManager::GetInstance().PrintMonsterHitEffect(damage);
 	if (IsDead()){
 		if (RollDropChance())

@@ -93,9 +93,12 @@ public:
 	void PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_);
 	//몬스터 피격 데미지 출력
 	void PrintMonsterHitEffect(int damage);
+	//몬스터 피격 이미지 출력
+	void PrintMonsterHitFlash(Monster* monster);
+
 	//플레이어 피격 데미지 출력
 	void PrintPlayerHitEffect(int damage);
-
+	
 	// 상점 (Store) 관련
 	void PrintPotionStoreMenu();
 	void PrintEquipmentStoreMenu();

@@ -114,6 +114,25 @@ void LogManager::PrintMonsterHitEffect(int damage) {
 	SetConsoleCursorPosition(console, consoleInfo.dwCursorPosition);
 }
 
+void LogManager::PrintMonsterHitFlash(Monster* monster) {
+	// 콘솔 조작권한 
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	// 현재 위치를 저장하는 세트 저장값(공백, 저장)
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	GetConsoleScreenBufferInfo(console, &consoleInfo);
+
+	//피격 시 빨간색 변환
+	Utils::SetColor(12);
+	monster->PrintAsciiArt(40, 4);
+	Sleep(100);
+
+	//색 원복
+	Utils::SetColor(7);
+	monster->PrintAsciiArt(40, 4);
+	//저장된 위치로 원복
+	SetConsoleCursorPosition(console, consoleInfo.dwCursorPosition);
+}
+
 void LogManager::PrintPlayerHitEffect(int damage) {
 	// 콘솔 조작권한 
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
