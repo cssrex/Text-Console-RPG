@@ -105,41 +105,31 @@
 
 ## 메인 화면
 
-```
 ![Main Menu](Images/MainMenu.png)
-```
 
 ---
 
 ## 전투 화면
 
-```
 ![Battle](Images/Battle.png)
-```
 
 ---
 
 ## 상점
 
-```
 ![Shop](Images/Shop.png)
-```
 
 ---
 
 ## 인벤토리
 
-```
 ![Inventory](Images/Inventory.png)
-```
 
 ---
 
 ## 보스전
 
-```
 ![Boss](Images/Boss.png)
-```
 
 ---
 
