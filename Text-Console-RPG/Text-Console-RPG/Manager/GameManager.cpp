@@ -67,7 +67,7 @@ void GameManager::StartMenu() {
 	string name;
 	cin >> name;
 	InitializePlayer(name);
-	//LogManager::GetInstance().PrintPrologue();
+	LogManager::GetInstance().PrintPrologue();
 	SetNextScene(Scene::MAIN);
 
 }

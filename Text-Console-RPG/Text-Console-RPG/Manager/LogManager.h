@@ -95,7 +95,6 @@ public:
 	void PrintMonsterHitEffect(int damage);
 	//몬스터 피격 이미지 출력
 	void PrintMonsterHitFlash(Monster* monster);
-
 	//플레이어 피격 데미지 출력
 	void PrintPlayerHitEffect(int damage);
 	
