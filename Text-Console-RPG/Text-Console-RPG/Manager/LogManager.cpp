@@ -160,7 +160,7 @@ void LogManager::PrintPlayerHitEffect(int damage) {
 }
 
 void LogManager::ApplyTimeColor() {
-	//디폴트 낮
+	// D-day
 	if (GameManager::GetInstance().GetDay() == 0) {
 		Utils::SetColor(12);
 	}
@@ -168,10 +168,15 @@ void LogManager::ApplyTimeColor() {
 	else if (GameManager::GetInstance().GetDayType() == DayType::NIGHT) {
 		Utils::SetColor(11);
 	}
-	// D-day
+	// 낮
 	else {
 		Utils::SetColor(7);
 	}
+}
+
+void LogManager::ApplySpecialColor() {
+	//디폴트 색으로 변경 - 낮
+		Utils::SetColor(7);
 }
 
 // 날짜 로그 수정으로 변경
@@ -248,6 +253,7 @@ void LogManager::PrintPassDay()
 }
 
 void LogManager::PrintDayOver() {
+	ApplySpecialColor();
 	PrintTimeoutEndingAsciiArt();
 }
 
@@ -494,6 +500,7 @@ void LogManager::PrintDungeonList(const vector<string>& roomList)
 
 void LogManager::PrintDungeonBattleMainMenu(Room*& room, int floor, Player*& player, Monster*& monster)
 {
+	ApplySpecialColor();
 	ClearScreen();
 
 	cout << ".======================================================================================================================.\n";

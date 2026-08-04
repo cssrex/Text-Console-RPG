@@ -676,7 +676,7 @@ inline void PrintNormalDragonAsciiArt(short startX = 40, short startY = 0) {
 // 보스 드래곤 호출 함수
 inline void PrintBossDragonAsciiArt(short startX = 40, short startY = 0) {
     // ASCII아트 가로 크기를 55로 맞추주는 기능
-    constexpr size_t kTargetWidth = 34;
+    constexpr size_t kTargetWidth = 32;
     // 원본 문자열을 한 줄씩 읽는 스트림
     istringstream input(BossDragon_ASCII);
     vector<string> sourceLines;
