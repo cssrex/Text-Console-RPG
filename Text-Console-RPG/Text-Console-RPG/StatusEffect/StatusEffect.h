@@ -9,6 +9,7 @@ protected:
     std::string name_;
     int damage_;
     int turn_;
+    int duration_;
 
 public:
     StatusEffect(const std::string& name, int damage, int turn);
@@ -21,6 +22,7 @@ public:
     std::string GetName() const { return name_; }
     int GetDamage() const { return damage_; }
     int GetTurn() const { return turn_; }
+    void ResetTurn(int newTurn) { duration_ = newTurn; }
 };
 
 class BleedEffect : public StatusEffect {
