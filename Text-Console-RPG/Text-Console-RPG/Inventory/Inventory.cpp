@@ -33,7 +33,7 @@ bool Inventory::InventoryMenu(Player& player) {
 
 	while (true) {
 		LogManager::GetInstance().ClearScreen();
-		cout << TownAscii;
+		PrintBagIconAsciiArt();
 		cout <<
 			R"(+======================================================================================================================+
 |                                                      인벤토리                                                        |
@@ -60,7 +60,7 @@ bool Inventory::InventoryMenu(Player& player) {
 
 		case 1: {
 			LogManager::GetInstance().ClearScreen();
-			cout << TownAscii;
+			PrintBagIconAsciiArt();
 
 			int index = SelectEquipment(EquipmentType::Weapon);
 			if (index != -1) {
@@ -72,7 +72,7 @@ bool Inventory::InventoryMenu(Player& player) {
 
 		case 2: {
 			LogManager::GetInstance().ClearScreen();
-			cout << TownAscii;
+			PrintBagIconAsciiArt();
 
 			int index = SelectEquipment(EquipmentType::Armor);
 			if (index != -1) {
@@ -84,7 +84,7 @@ bool Inventory::InventoryMenu(Player& player) {
 
 		case 3: {
 			LogManager::GetInstance().ClearScreen();
-			cout << TownAscii;
+			PrintBagIconAsciiArt();
 
 			int index = SelectConsumable();
 			if (index != -1) {
@@ -96,7 +96,7 @@ bool Inventory::InventoryMenu(Player& player) {
 
 		case 4: {
 			LogManager::GetInstance().ClearScreen();
-			cout << TownAscii;
+			PrintBagIconAsciiArt();
 
 			int index = SelectLoot();
 			if (index != -1) {
