@@ -39,6 +39,8 @@ public:
 	void PrintPrologue();
 	//인게임 화면 색상 출력(낮,밤,디데이)
 	void ApplyTimeColor();
+	//인게임 화면 색상 출력(낮으로 강제변경)
+	void ApplySpecialColor();
 
 	// 캐릭터 (Character) 관련
 	void PrintTakeDamage(const std::string& name, int damage, int currentHp, int maxHp);
