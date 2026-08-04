@@ -730,15 +730,74 @@ int Inventory::FindMaterial(const string& name) {
 
 // 전투 중 소모품만 보이는 메뉴
 bool Inventory::BattleConsumableMenu(Player& player) {
-	LogManager::GetInstance().ClearScreen();
-	PrintBagIconAsciiArt();
+	vector<int> indexes;
+	int number;
+	int menu;
 
-	int index = SelectConsumable();
+	while (true) {
+		indexes.clear();
+		number = 1;
 
-	if (index == -1)
-	{
-		return false;
+		cout << "\n=========== 소모품 ============\n\n";
+
+		// 소모품만 출력
+		for (int i = 0; i < static_cast<int>(inventory_.size()); ++i) {
+			if (inventory_[i]->GetType() != ItemType::Consumable) continue;
+
+			cout << "[" << number << "] " << inventory_[i]->GetName() << " x " << inventory_[i]->GetCount() << "\n";
+
+			indexes.push_back(i);
+			number++;
+		}
+
+		// 소모품이 없는 경우
+		if (indexes.empty()) {
+			cout << "보유한 소모품이 없습니다.\n";
+			cout << "\n===============================\n\n";
+			cout << "▶ 아무 키나 입력해 주세요:";
+
+			_getch();
+
+			return false;
+		}
+
+		cout << "\n===============================\n";
+		cout << "0. 돌아가기 (취소)\n\n";
+		cout << "▶ 선택: ";
+
+		cin >> menu;
+
+		// 문자열 등 잘못된 입력
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+
+			cout << "잘못된 입력입니다.\n";
+			_getch();
+
+			return false;
+		}
+
+		// 취소
+		if (menu == 0) {
+			return false;
+		}
+
+		// 존재하지 않는 메뉴 번호
+		if (menu < 1 || menu > static_cast<int>(indexes.size())) {
+			cout << "존재하지 않는 아이템입니다.\n";
+			_getch();
+
+			return false;
+		}
+
+		// 메뉴 번호 → 실제 inventory_ 인덱스
+		int index = indexes[menu - 1];
+
+		// 소모품 사용
+		bool used = UseConsumable(player, index);
+		_getch();
+
+		return used;
 	}
-
-	return UseConsumable(player, index);
 }

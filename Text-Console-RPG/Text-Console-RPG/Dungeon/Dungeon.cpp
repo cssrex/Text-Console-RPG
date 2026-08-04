@@ -326,7 +326,6 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 				break;
 			case 3:
 				player->GetInventory()->BattleConsumableMenu(*player);
-				system("pause > nul");
 				break;
 			/* 용병 삭제됨
 			case 4:

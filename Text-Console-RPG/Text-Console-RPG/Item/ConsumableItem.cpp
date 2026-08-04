@@ -7,27 +7,17 @@
 using namespace std;
 
 bool ConsumableItem::Use(Player& player) {
-	auto PrintMessage = [](const string& message) {
-			const int BOX_WIDTH = 117;
-
-			cout << "| " << message;
-			int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(message);
-
-			for (int i = 0; i < space; i++) cout << " ";
-			cout << "|\n";
-		};
-
 	switch (effectType_) {
 		// HP 회복약 (소), (중), (대)
 	case ItemEffectType::HealHP: {
 		if (player.GetHp() >= player.GetMaxHp()) {
-			PrintMessage("HP가 이미 최대치입니다.");
+			cout << "HP가 이미 최대치입니다.";
 			return false;
 		}
 
 		int healHp = HealHP(player, effectValue_);
 
-		PrintMessage(name_ + " HP " + to_string(healHp) + " 회복");
+		cout << name_ + " HP " + to_string(healHp) + " 회복";
 
 		return true;
 	}
@@ -35,13 +25,13 @@ bool ConsumableItem::Use(Player& player) {
 	// MP 회복약 (소), (중), (대)
 	case ItemEffectType::HealMP: {
 		if (player.GetMp() >= player.GetMaxMp()) {
-			PrintMessage("MP가 이미 최대치입니다.");
+			cout << "MP가 이미 최대치입니다.";
 			return false;
 		}
 
 		int healMp = HealMP(player, effectValue_);
 
-		PrintMessage(name_ + " MP " + to_string(healMp) + " 회복");
+		cout << name_ + " MP " + to_string(healMp) + " 회복";
 
 		return true;
 	}
@@ -50,13 +40,13 @@ bool ConsumableItem::Use(Player& player) {
 	case ItemEffectType::HealHPMP: {
 		if (player.GetHp() >= player.GetMaxHp() &&
 			player.GetMp() >= player.GetMaxMp()) {
-			PrintMessage("HP와 MP가 이미 최대치입니다.");
+			cout << "HP와 MP가 이미 최대치입니다.";
 			return false;
 		}
 
 		pair<int, int> result = HealHPMP(player,player.GetMaxHp() / 2,player.GetMaxMp() / 2);
 
-		PrintMessage(name_ +" HP " +to_string(result.first) +", MP " +to_string(result.second) +" 회복");
+		cout << name_ + " HP " + to_string(result.first) + ", MP " + to_string(result.second) + " 회복";
 
 		return true;
 	}
@@ -65,13 +55,13 @@ bool ConsumableItem::Use(Player& player) {
 	case ItemEffectType::FullRecovery:{
 		if (player.GetHp() >= player.GetMaxHp() &&
 			player.GetMp() >= player.GetMaxMp()) {
-			PrintMessage("HP와 MP가 이미 최대치입니다.");
+			cout << "HP와 MP가 이미 최대치입니다.";
 			return false;
 		}
 
 		pair<int, int> result = FullRecovery(player);
 
-		PrintMessage(name_ +" HP " +to_string(result.first) +", MP " +to_string(result.second) +" 회복"	);
+		cout << name_ + " HP " + to_string(result.first) + ", MP " + to_string(result.second) + " 회복";
 
 		return true;
 	}
@@ -81,12 +71,12 @@ bool ConsumableItem::Use(Player& player) {
 		if (player.HasStatusEffect()) {
 			player.ClearStatusEffects();
 
-			PrintMessage("상태이상이 제거되었습니다.");
+			cout << "상태이상이 제거되었습니다.";
 
 			return true;
 		}
 
-		PrintMessage("제거할 상태이상이 없습니다.");
+		cout << "제거할 상태이상이 없습니다.";
 
 		return false;
 	}
