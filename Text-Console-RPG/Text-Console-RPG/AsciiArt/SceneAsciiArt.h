@@ -372,6 +372,32 @@ static const char* BagIconAscii = R"BagIcon(
 |                                                                                                                      |
 )BagIcon";
 
+static const char* GameMenuOutAscii = R"GameMuneout(
+.======================================================================================================================.
+|  용사가 버린 마을은 멸망했습니다.                                                                                    |
+|                                                                                                                      |
+|                                        ,~-.__                                __.-~,                                  |
+|                                   _.-~"      "-.,_____________________,.-"      "~-._                                |
+|                                .'///////////////////////M\\\\\\\\\\\\\\\\\\\\\\\\\\\\`.                              |
+|                              .'///////////////////>====(o)====<\\\\\\\\\\\\\\\\\\\\\\\\.                             |
+|                             ./                         |||                              \.                           |
+|                                                                                                                      |
+|                           )                    )              (                       )                 (            |
+|                              (       .    ,     .  (      .    )   )       .      (      (      .    ,               |
+|                          _)_        (   )         (         )          _)_          (   )        (                   |
+|     ,-.             /   \                                         /   \                            _)_               |
+|    /   \           | x x |___          ,        (              | x x |            (        (      /   \      ,-.     |
+|   | x x |          |_____|   \        )                  ___    |_____|    ,          )         | x x |     /   \    |
+|   |_____|        /       \   |__    (       )           /   \  /       \  (    ,           )    |_____|    | x x |   |
+|   |  #  |      | # # # # |_/    \       ___          | x x |_/  |  # #  |     )        (       /       \   |_____|   |
+|   |_____|      |_________|       \___ /   \____      |_____|    |_______|__       ___    ____| # # # # |   |  #  |   |
+|   ///////      ////////////\           |  |  |  \    /         \///////      \  /   \  /         \______/  |_____|   |
+|  /_______\    /____________  \_________|  |__|___\__/           \___________  \| x  |_/            //////  ///////   |
+|    ..   ..        ..     .. ' \  ~     ~   .. '  '  \\.    ..     ..    ~  '   \|____|'  ~     ..     ..    ..  ..   |
+|               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~            |
+|.  .   ,    .  '  .   ,  .    '  .   ,    .  '  .   .   ,  '   .  .   ,  .   '  .  ,   .  '   .   ,  .  '  .   ,   .  |
+)GameMuneout";
+
 inline void PrintTownAsciiArt(short startX = 0, short startY = 0) {
     const HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO screenInfo;
@@ -752,4 +778,24 @@ inline void PrintBagIconAsciiArt(short startX = 0, short startY = 0) {
     }
 
     cout << "\n";
+}
+
+//게임메뉴 - 게임종료
+inline void PrintGameMenuOutAsciiArt(short startX = 0, short startY = 0) {
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    istringstream input(GameMenuOutAscii);
+    string line;
+    short row = 0;
+
+    while (getline(input, line)) {
+        if (line.empty() && row == 0) {
+            continue;
+        }
+
+        SetConsoleCursorPosition(
+            console, { startX, static_cast<short>(startY + row) });
+
+        cout << line;
+        ++row;
+    }
 }

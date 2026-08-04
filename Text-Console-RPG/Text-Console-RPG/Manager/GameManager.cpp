@@ -248,7 +248,7 @@ void GameManager::ChangeScene() {
 		}
 		else if (isInputZero_)
 		{
-		
+			LogManager::GetInstance().PrintGameOut();
 		}
 		else
 		{

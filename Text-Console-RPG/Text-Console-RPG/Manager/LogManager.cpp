@@ -720,6 +720,12 @@ void LogManager::PrintDungeonReward(const std::string& item, int gold, int exp)
 
 }
 
+void LogManager::PrintGameOut() {
+	ApplySpecialColor();
+	ClearScreen();
+	PrintGameMenuOutAsciiArt();
+}
+
 void LogManager::PrintDungeonKillList(const std::map<std::string, int>& killedMonsterList_)
 {
 	cout << "\n";
