@@ -124,12 +124,12 @@ void Player::LevelUp() {
     maxExp_ += 25;
 
     int hpBonus = level_ * hpBonusPerLevel_;
-    int mpBonus = level_ * mpBonusPerLevel_;
+    /*int mpBonus = level_ * mpBonusPerLevel_;*/
     int attackBonus = level_ * attackBonusPerLevel_;
     int defenseBonus = defenseBonusPerLevel_;
 
     maxHp_ += hpBonus;
-    maxMp_ += mpBonus;
+   /* maxMp_ += mpBonus;*/
     attack_ += attackBonus;
     defense_ += defenseBonus;
 
