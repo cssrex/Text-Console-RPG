@@ -749,4 +749,6 @@ inline void PrintBagIconAsciiArt(short startX = 0, short startY = 0) {
         cout << line;
         ++row;
     }
+
+    cout << "\n";
 }

@@ -97,6 +97,13 @@ void GameManager::ShowMainMenu() {
 			system("pause");
 			continue;
 		}
+
+		if (day_ == 0 && num == 3)
+		{
+			std::cout << "여관이 봉쇄 되어서 입장 할 수 없습니다. . .\n";
+			system("pause");
+			continue;
+		}
 		
 		switch (num) {
 		case 0: {

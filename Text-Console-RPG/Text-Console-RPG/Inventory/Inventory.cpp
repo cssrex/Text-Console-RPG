@@ -465,18 +465,19 @@ bool Inventory::IsEquipped(const EquipmentItem& item) {
 }
 
 // 소모품 사용
-void Inventory::UseConsumable(Player& player, int index) {
+bool Inventory::UseConsumable(Player& player, int index) {
 	const int BOX_WIDTH = 117;
+
 	if (index < 0 || index >= static_cast<int>(inventory_.size())) {
 		string errorMessage = "잘못된 아이템입니다.";
 		cout << "| " << errorMessage;
-		
+
 		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
 
-		for (int i = 0; i < space; i++) { cout << " "; }
+		for (int i = 0; i < space; i++) cout << " ";
 		cout << "|\n";
 
-		return;
+		return false;
 	}
 
 	ConsumableItem* item = dynamic_cast<ConsumableItem*>(inventory_[index].get());
@@ -487,19 +488,25 @@ void Inventory::UseConsumable(Player& player, int index) {
 
 		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(errorMessage);
 
-		for (int i = 0; i < space; i++) { cout << " "; }
+		for (int i = 0; i < space; i++) cout << " ";
 		cout << "|\n";
 
-		return;
+		return false;
 	}
 
-	if (item->Use(player)) {
-		item->RemoveCount(1);
-
-		if (item->GetCount() == 0) {
-			inventory_.erase(inventory_.begin() + index);
-		}
+	// 실제 사용 성공 여부
+	if (!item->Use(player)) {
+		return false;
 	}
+
+	// 사용에 성공했을 때만 수량 감소
+	item->RemoveCount(1);
+
+	if (item->GetCount() == 0) {
+		inventory_.erase(inventory_.begin() + index);
+	}
+
+	return true;
 }
 
 // 장비 착용
@@ -719,4 +726,19 @@ int Inventory::FindMaterial(const string& name) {
 	}
 
 	return -1;
+}
+
+// 전투 중 소모품만 보이는 메뉴
+bool Inventory::BattleConsumableMenu(Player& player) {
+	LogManager::GetInstance().ClearScreen();
+	PrintBagIconAsciiArt();
+
+	int index = SelectConsumable();
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	return UseConsumable(player, index);
 }
