@@ -248,6 +248,8 @@ void GameManager::ChangeScene() {
 		}
 		else if (isInputZero_)
 		{
+			GameSound::StopBgm();
+			GameSound::StopWave();
 			LogManager::GetInstance().PrintGameOut();
 		}
 		else
