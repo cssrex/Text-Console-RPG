@@ -35,7 +35,7 @@ bool Inventory::InventoryMenu(Player& player) {
 		LogManager::GetInstance().ClearScreen();
 		PrintBagIconAsciiArt();
 		cout <<
-			R"(+======================================================================================================================+
+R"(+======================================================================================================================+
 |                                                      인벤토리                                                        |
 +======================================================================================================================+
 |                                                                                                                      |
@@ -50,7 +50,10 @@ bool Inventory::InventoryMenu(Player& player) {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			break;
+
+			cout << "잘못된 입력입니다.\n";
+			_getch();
+			continue;
 		}
 
 		switch (menu) {
@@ -187,9 +190,7 @@ R"(+============================================================================
 		else emptyMessage = "보유한 방어구가 없습니다.";
 
 		cout << "| " << emptyMessage;
-
 		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(emptyMessage);
-
 		for (int i = 0; i < space; i++) { cout << " "; }
 		cout << "|\n";
 
@@ -201,16 +202,14 @@ R"(+============================================================================
 			R"(+======================================================================================================================+
 )";
 
-		int select;
 		cout << "▶ 아무 키나 입력해주세요. : ";
-		cin >> select;
+		_getch();
 
 		return -1;
 	}
 
 	string back = "0. 돌아가기";
 	cout << "| " << back;
-
 	int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(back);
 	for (int i = 0; i < space; i++) { cout << " "; }
 	cout << "|\n";
@@ -226,12 +225,19 @@ R"(+============================================================================
 		cin.clear();
 		cin.ignore(1000, '\n');
 
+		cout << "잘못된 입력입니다.";
+		_getch();
+
 		return -1;
 	}
 
 	if (select == 0) return -1;
 	if (select < 1 || select > static_cast<int>(indexes.size())) {
-		return -1; }
+		cout << "잘못된 입력입니다.";
+		_getch();
+
+		return -1;
+	}
 
 	return indexes[select - 1];
 }
@@ -240,7 +246,7 @@ R"(+============================================================================
 int Inventory::SelectConsumable() {
 	vector<int> indexes;
 	cout <<
-		R"(+======================================================================================================================+
+R"(+======================================================================================================================+
 |                                                       소모품                                                         |
 +======================================================================================================================+
 |                                                                                                                      |
@@ -254,10 +260,10 @@ int Inventory::SelectConsumable() {
 		if (inventory_[i]->GetType() == ItemType::Consumable) {
 			string itemInfo = to_string(number) + ". " + inventory_[i]->GetName() + " x " + to_string(inventory_[i]->GetCount());
 			cout << "| " << itemInfo;
-
 			int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(itemInfo);
 			for (int j = 0; j < space; j++) cout << " ";
 			cout << "|\n";
+
 			indexes.push_back(i);
 			number++;
 		}
@@ -267,16 +273,30 @@ int Inventory::SelectConsumable() {
 	if (indexes.empty()) {
 		string emptyMessage = "보유한 소모품이 없습니다.";
 		cout << "| " << emptyMessage;
-
 		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(emptyMessage);
-		for (int i = 0; i < space; i++) cout << " ";
+		for (int i = 0; i < space; i++) { cout << " "; }
 		cout << "|\n";
 
-		// 빈 줄
 		cout << "| ";
-		for (int i = 0; i < BOX_WIDTH; i++) cout << " ";
+		for (int i = 0; i < BOX_WIDTH; i++) { cout << " "; }
 		cout << "|\n";
+
+		cout <<
+			R"(+======================================================================================================================+
+)";
+
+		cout << "▶ 아무 키나 입력해주세요. : ";
+		_getch();
+
+		return -1;
 	}
+
+	string back = "0. 돌아가기";
+	cout << "| " << back;
+	int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(back);
+	for (int i = 0; i < space; i++) { cout << " "; }
+	cout << "|\n";
+
 	cout <<
 		R"(+======================================================================================================================+
 )";
@@ -288,11 +308,19 @@ int Inventory::SelectConsumable() {
 		cin.clear();
 		cin.ignore(1000, '\n');
 
+		cout << "잘못된 입력입니다.";
+		_getch();
+
 		return -1;
 	}
 
 	if (select == 0) return -1;
-	if (select < 1 || select > static_cast<int>(indexes.size())) { return -1; }
+	if (select < 1 || select > static_cast<int>(indexes.size())) {
+		cout << "잘못된 입력입니다.";
+		_getch();
+		
+		return -1;
+	}
 
 	return indexes[select - 1];
 }
@@ -301,7 +329,7 @@ int Inventory::SelectConsumable() {
 int Inventory::SelectLoot() {
 	vector<int> indexes;
 	cout <<
-		R"(+======================================================================================================================+
+R"(+======================================================================================================================+
 |                                                       전리품                                                         |
 +======================================================================================================================+
 |                                                                                                                      |
@@ -314,11 +342,10 @@ int Inventory::SelectLoot() {
 		if (inventory_[i]->GetType() == ItemType::Loot) {
 			string itemInfo = to_string(number) + ". " + inventory_[i]->GetName() + " x " + to_string(inventory_[i]->GetCount());
 			cout << "| " << itemInfo;
-
 			int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(itemInfo);
-
 			for (int j = 0; j < space; j++) cout << " ";
 			cout << "|\n";
+
 			indexes.push_back(i);
 			number++;
 		}
@@ -329,32 +356,53 @@ int Inventory::SelectLoot() {
 		string emptyMessage = "보유한 전리품이 없습니다.";
 		cout << "| " << emptyMessage;
 		int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(emptyMessage);
-
-		for (int i = 0; i < space; i++) cout << " ";
+		for (int i = 0; i < space; i++) { cout << " "; }
 		cout << "|\n";
 
-		// 빈 줄
 		cout << "| ";
-		for (int i = 0; i < BOX_WIDTH; i++) cout << " ";
+		for (int i = 0; i < BOX_WIDTH; i++) { cout << " "; }
 		cout << "|\n";
+
+		cout <<
+			R"(+======================================================================================================================+
+)";
+
+		cout << "▶ 아무 키나 입력해주세요. : ";
+		_getch();
+
+		return -1;
 	}
+
+	string back = "0. 돌아가기";
+	cout << "| " << back;
+	int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(back);
+	for (int i = 0; i < space; i++) { cout << " "; }
+	cout << "|\n";
 
 	cout <<
 		R"(+======================================================================================================================+
 )";
 
 	int select;
-	cout << "▶ 아무 키나 입력해주세요. : ";
+	cout << "▶ 번호를 입력해주세요. : ";
 	cin >> select;
 	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(1000, '\n');
 
+		cout << "잘못된 입력입니다.";
+		_getch();
+
 		return -1;
 	}
 
 	if (select == 0) return -1;
-	if (select < 1 || select > static_cast<int>(indexes.size())) { return -1; }
+	if (select < 1 || select > static_cast<int>(indexes.size())) {
+		cout << "잘못된 입력입니다.";
+		_getch();
+		
+		return -1;
+	}
 
 	return indexes[select - 1];
 }
