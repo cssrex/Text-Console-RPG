@@ -73,65 +73,69 @@ void Blacksmith::StoreMenu(Player& player, Inventory& inventory) {
             return;
 
         case 1: {
-            LogManager::GetInstance().ClearScreen();
-            cout << EquipmentShopAscii;
+            while (true) {
+                LogManager::GetInstance().ClearScreen();
+                cout << PotionShopAscii;
 
-            cout <<
-R"(+======================================================================================================================+
+                cout <<
+                    R"(+======================================================================================================================+
 |                                                      구매 목록                                                       |
 +======================================================================================================================+
 |                                                                                                                      |
 )";
-            string goldText = "골드 : " + to_string(player.GetGold());
-            cout << "| " << goldText;
-            int space = 117 - LogManager::GetInstance().GetDisplayWidth(goldText);
-            for (int i = 0; i < space; i++) cout << " ";
-            cout << "|\n";
 
-            cout << "| ";
-            for (int i = 0; i < 117; i++) cout << " ";
-            cout << "|\n";
+                string goldText = "골드 : " + to_string(player.GetGold());
+                cout << "| " << goldText;
 
-            ShowItems();
-            cout << "▶ 번호를 입력해주세요 : ";
-            int index;
-            cin >> index;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(1000, '\n');
+                int space = 117 - LogManager::GetInstance().GetDisplayWidth(goldText);
+                for (int i = 0; i < space; i++) cout << " ";
+                cout << "|\n";
 
-                cout << "잘못된 입력입니다." << endl;
+                cout << "| ";
+                for (int i = 0; i < 117; i++) cout << " ";
+                cout << "|\n";
+
+                ShowItems();
+
+                cout << "▶ 번호를 입력해주세요 : ";
+
+                int index;
+                cin >> index;
+
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+
+                    cout << "잘못된 입력입니다." << endl;
+                    _getch();
+
+                    continue;
+                }
+
+                if (index == 0) {
+                    break;
+                }
+
+                BuyResult result = BuyItem(player, inventory, index - 1);
+
+                switch (result) {
+                case BuyResult::Success:
+                    cout << "아이템 구매가 완료되었습니다." << endl;
+                    break;
+
+                case BuyResult::NotEnoughGold:
+                    cout << "골드가 부족합니다." << endl;
+                    break;
+
+                case BuyResult::InvalidItem:
+                    cout << "존재하지 않는 아이템입니다." << endl;
+                    break;
+                }
+
                 _getch();
 
-                break;
+                continue;
             }
-
-            if (index == 0) {
-                break;
-            }
-
-            BuyResult result = BuyItem(player,inventory,index - 1);
-
-            switch (result) {
-            case BuyResult::Success:
-                cout << "구매 완료" << endl;
-                _getch();
-
-                break;
-
-            case BuyResult::NotEnoughGold:
-                cout << "골드가 부족합니다." << endl;
-                _getch();
-
-                break;
-
-            case BuyResult::InvalidItem:
-                cout << "존재하지 않는 아이템입니다." << endl;
-                _getch();
-
-                break;
-            }
-
             break;
         }
 
@@ -164,36 +168,51 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
     const int BOX_WIDTH = 117;
 
     auto PrintLine = [&](const string& text) {
-            cout << "| " << text;
+        cout << "| " << text;
 
-            int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(text);
+        int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(text);
 
-            for (int i = 0; i < space; i++) cout << " ";
-            cout << "|\n";
+        for (int i = 0; i < space; i++)
+            cout << " ";
+
+        cout << "|\n";
         };
 
 
     auto PrintResultBox = [&](const string& title, const string& message) {
-            LogManager::GetInstance().ClearScreen();
-            cout << EnhanceAscii;
+        LogManager::GetInstance().ClearScreen();
+        cout << EnhanceAscii;
 
-            cout << "+======================================================================================================================+\n";
+        cout << "+======================================================================================================================+\n";
 
-            string titleText = "                                                      " + title;
-            cout << "|" << titleText;
-            int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(titleText);
-            for (int i = 0; i < space; i++) cout << " ";
-            cout << "|\n";
-            cout << "+======================================================================================================================+\n";
+        string titleText = "                                                      " + title;
+        cout << "|" << titleText;
 
-            PrintLine("");
-            PrintLine(message);
-            PrintLine("");
-            cout << "+======================================================================================================================+\n";
+        int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(titleText);
+
+        for (int i = 0; i < space; i++)
+            cout << " ";
+
+        cout << "|\n";
+        cout << "+======================================================================================================================+\n";
+
+        PrintLine("");
+        PrintLine(message);
+        PrintLine("");
+
+        cout << "+======================================================================================================================+\n";
         };
 
-    cout <<
-R"(+======================================================================================================================+
+
+    // 여기부터 강화 메뉴 반복
+    while (true) {
+
+        // 매번 강화 메뉴를 새로 그린다.
+        LogManager::GetInstance().ClearScreen();
+        cout << EnhanceAscii;
+
+        cout <<
+            R"(+======================================================================================================================+
 |                                                      강화 목록                                                       |
 +======================================================================================================================+
 |                                                                                                                      |
@@ -203,245 +222,241 @@ R"(+============================================================================
 +======================================================================================================================+
 )";
 
-    bool hasEquipment = false;
-    for (const auto& item : inventory.GetInventory()) {
-        EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(item.get());
+        bool hasEquipment = false;
 
-        if (equipment != nullptr) {
-            hasEquipment = true;
-            break;
+        for (const auto& item : inventory.GetInventory()) {
+            EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(item.get());
+
+            if (equipment != nullptr) {
+                hasEquipment = true;
+                break;
+            }
         }
-    }
 
+        if (!hasEquipment) {
+            PrintResultBox("강화", "강화할 수 있는 장비가 없습니다.");
 
-    if (!hasEquipment) {
-        PrintResultBox("강화", "강화할 수 있는 장비가 없습니다.");
-        cout << "▶ 아무 키나 입력해주세요 : ";
-        _getch();
+            cout << "▶ 아무 키나 입력해주세요 : ";
+            _getch();
 
-        return;
-    }
+            return;
+        }
 
-    cout << "▶ 번호를 입력해주세요 : ";
-    int menu;
-    cin >> menu;
+        cout << "▶ 번호를 입력해주세요 : ";
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout<< "잘못된 입력입니다.";
-        _getch();
+        int menu;
+        cin >> menu;
 
-        return;
-    }
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
 
-    EquipmentSlot slot;
+            cout << "잘못된 입력입니다.";
+            _getch();
 
-    switch (menu) {
-    case 1:
-        slot = EquipmentSlot::Weapon;
+            continue;
+        }
 
-        break;
+        EquipmentSlot slot;
 
-    case 2:
-        slot = EquipmentSlot::Helmet;
+        switch (menu) {
+        case 1:
+            slot = EquipmentSlot::Weapon;
+            break;
 
-        break;
+        case 2:
+            slot = EquipmentSlot::Helmet;
+            break;
 
-    case 3:
-        slot = EquipmentSlot::Armor;
+        case 3:
+            slot = EquipmentSlot::Armor;
+            break;
 
-        break;
+        case 4:
+            slot = EquipmentSlot::Gloves;
+            break;
 
-    case 4:
-        slot = EquipmentSlot::Gloves;
+        case 5:
+            slot = EquipmentSlot::Boots;
+            break;
 
-        break;
+        case 0:
+            return;
 
-    case 5:
-        slot = EquipmentSlot::Boots;
+        default:
+            cout << "잘못된 입력입니다.";
+            _getch();
 
-        break;
+            continue;
+        }
 
-    case 0:
-        return;
+        LogManager::GetInstance().ClearScreen();
+        cout << EnhanceAscii;
 
+        int index = inventory.SelectEquipment(slot);
 
-    default:
-        cout << "잘못된 입력입니다.";
+        if (index == -2) {
+            continue;
+        }
 
-        _getch();
+        if (index == -1) {
+            continue;
+        }
 
-        return;
-    }
+        EquipmentItem* equipment =
+            dynamic_cast<EquipmentItem*>(inventory.GetInventory()[index].get());
 
-    LogManager::GetInstance().ClearScreen();
-    cout << EnhanceAscii;
-    int index = inventory.SelectEquipment(slot);
+        if (equipment == nullptr) {
+            PrintResultBox("강화", "장비가 아닙니다.");
 
-    if (index == -2) {
-        return;
-    }
+            cout << "▶ 아무 키나 입력해주세요 : ";
+            _getch();
 
-    if (index == -1) {
-        return;
-    }
+            continue;
+        }
 
-    EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(inventory.GetInventory()[index].get());
+        if (inventory.IsEquipped(*equipment)) {
+            cout << "착용 중인 장비는 강화할 수 없습니다.\n";
 
+            cout << "▶ 아무 키나 입력해주세요 : ";
+            _getch();
 
+            continue;
+        }
 
-    if (equipment == nullptr) {
-        PrintResultBox("강화", "장비가 아닙니다.");
+        LogManager::GetInstance().ClearScreen();
+        cout << EnhanceAscii;
 
-        cout << "▶ 아무 키나 입력해주세요 : ";
-        _getch();
-
-        return;
-    }
-
-
-    if (inventory.IsEquipped(*equipment)) {
-        cout << "착용 중인 장비는 강화할 수 없습니다.\n";
-
-        cout << "▶ 아무 키나 입력해주세요 : ";
-        _getch();
-
-        return;
-    }
-
-    LogManager::GetInstance().ClearScreen();
-    cout << EnhanceAscii;
-
-    cout <<
-R"(+======================================================================================================================+
+        cout <<
+            R"(+======================================================================================================================+
 |                                                      강화석 선택                                                     |
 +======================================================================================================================+
 |                                                                                                                      |
 )";
 
-    int srIndex = inventory.FindMaterial("강화석(SR)");
-    int ssrIndex = inventory.FindMaterial("강화석(SSR)");
-    int uIndex = inventory.FindMaterial("강화석(U)");
+        int srIndex = inventory.FindMaterial("강화석(SR)");
+        int ssrIndex = inventory.FindMaterial("강화석(SSR)");
+        int uIndex = inventory.FindMaterial("강화석(U)");
 
-    int srCount = (srIndex != -1) ? inventory.GetInventory()[srIndex]->GetCount() : 0;
+        int srCount = (srIndex != -1) ? inventory.GetInventory()[srIndex]->GetCount() : 0;
 
-    int ssrCount = (ssrIndex != -1) ? inventory.GetInventory()[ssrIndex]->GetCount() : 0;
+        int ssrCount = (ssrIndex != -1) ? inventory.GetInventory()[ssrIndex]->GetCount() : 0;
 
-    int uCount = (uIndex != -1) ? inventory.GetInventory()[uIndex]->GetCount() : 0;
-
-
-    PrintLine("1. 강화석(SR)   (성공률 25%)   보유: " + to_string(srCount) + "개" );
-
-    PrintLine("2. 강화석(SSR)  (성공률 50%)   보유: " + to_string(ssrCount) + "개" );
-
-    PrintLine("3. 강화석(U)    (성공률 100%)  보유: " + to_string(uCount) + "개" );
-
-    PrintLine("");
-
-    PrintLine("0. 돌아가기");
-
-    cout <<
-        "+======================================================================================================================+\n";
-
-    cout << "▶ 번호를 입력해주세요 : ";
-
-    int stoneMenu;
-    cin >> stoneMenu;
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << "잘못된 입력입니다.";
-        _getch();
-
-        return;
-    }
-
-    string stoneName;
-    double successRate;
-
-    switch (stoneMenu) {
-    case 0:
-        return;
-
-    case 1:
-        stoneName = "강화석(SR)";
-        successRate = 0.25;
-
-        break;
+        int uCount = (uIndex != -1) ? inventory.GetInventory()[uIndex]->GetCount() : 0;
 
 
-    case 2:
-        stoneName = "강화석(SSR)";
-        successRate = 0.5;
+        PrintLine("1. 강화석(SR)   (성공률 25%)   보유: " + to_string(srCount) + "개");
 
-        break;
+        PrintLine("2. 강화석(SSR)  (성공률 50%)   보유: " + to_string(ssrCount) + "개");
+
+        PrintLine("3. 강화석(U)    (성공률 100%)  보유: " + to_string(uCount) + "개");
+
+        PrintLine("");
+
+        PrintLine("0. 돌아가기");
+
+        cout <<
+            "+======================================================================================================================+\n";
+
+        cout << "▶ 번호를 입력해주세요 : ";
+
+        int stoneMenu;
+        cin >> stoneMenu;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "잘못된 입력입니다.";
+            _getch();
+
+            continue;
+        }
+
+        string stoneName;
+        double successRate;
+
+        switch (stoneMenu) {
+        case 0:
+            return;
+
+        case 1:
+            stoneName = "강화석(SR)";
+            successRate = 0.25;
+
+            break;
 
 
-    case 3:
-        stoneName = "강화석(U)";
-        successRate = 1.0;
+        case 2:
+            stoneName = "강화석(SSR)";
+            successRate = 0.5;
 
-        break;
-
-
-    default:
-        cout << "잘못된 입력입니다.";
-        _getch();
-
-        return;
-    }
-
-    int stoneIndex = inventory.FindMaterial(stoneName);
+            break;
 
 
+        case 3:
+            stoneName = "강화석(U)";
+            successRate = 1.0;
 
-    if (stoneIndex == -1) {
-        PrintResultBox("강화석 선택","보유 중인 " + stoneName + "이(가) 없습니다.");
+            break;
+
+
+        default:
+            cout << "잘못된 입력입니다.";
+            _getch();
+
+            continue;
+        }
+
+        int stoneIndex = inventory.FindMaterial(stoneName);
+
+
+
+        if (stoneIndex == -1) {
+            PrintResultBox("강화석 선택", "보유 중인 " + stoneName + "이(가) 없습니다.");
+
+            cout << "▶ 아무 키나 입력해주세요 : ";
+            _getch();
+
+            continue;
+        }
+
+        inventory.RemoveItem(stoneIndex, 1);
+
+        int random = rand() % 100;
+        string resultMessage;
+
+        if (random < successRate * 100) {
+            int beforeAttack = equipment->GetAttackValue();
+            int beforeDefense = equipment->GetDefenseValue();
+            int beforeHealth = equipment->GetHealthValue();
+
+            equipment->Enhance();
+
+            int increaseAttack = equipment->GetAttackValue() - beforeAttack;
+            int increaseDefense = equipment->GetDefenseValue() - beforeDefense;
+            int increaseHealth = equipment->GetHealthValue() - beforeHealth;
+
+            resultMessage = equipment->GetName() + " 강화 성공! ";
+
+            if (increaseAttack > 0) {
+                resultMessage += "공격력 +" + to_string(increaseAttack);
+            }
+
+            if (increaseDefense > 0) {
+                resultMessage += "방어력 +" + to_string(increaseDefense);
+            }
+
+            if (increaseHealth > 0) {
+                resultMessage += "체력 +" + to_string(increaseHealth);
+            }
+        }
+        else {
+            resultMessage = equipment->GetName() + " 강화 실패";
+        }
+
+        PrintResultBox("강화 결과", resultMessage);
+
 
         cout << "▶ 아무 키나 입력해주세요 : ";
         _getch();
-
-        return;
     }
-
-    inventory.RemoveItem(stoneIndex,1);
-
-    int random = rand() % 100;
-    string resultMessage;
-
-    if (random < successRate * 100) {
-        int beforeAttack = equipment->GetAttackValue();
-        int beforeDefense = equipment->GetDefenseValue();
-        int beforeHealth = equipment->GetHealthValue();
-
-        equipment->Enhance();
-
-        int increaseAttack = equipment->GetAttackValue() - beforeAttack;
-        int increaseDefense = equipment->GetDefenseValue() - beforeDefense;
-        int increaseHealth = equipment->GetHealthValue() - beforeHealth;
-
-        resultMessage = equipment->GetName() + " 강화 성공! ";
-
-        if (increaseAttack > 0) {
-            resultMessage += "공격력 +" + to_string(increaseAttack);
-        }
-
-        if (increaseDefense > 0) {
-            resultMessage += "방어력 +" + to_string(increaseDefense);
-        }
-
-        if (increaseHealth > 0) {
-            resultMessage += "체력 +" + to_string(increaseHealth);
-        }
-    }
-    else {
-        resultMessage = equipment->GetName() + " 강화 실패";
-    }
-
-    PrintResultBox("강화 결과",resultMessage);
-
-
-    cout << "▶ 아무 키나 입력해주세요 : ";
-    _getch();
 }

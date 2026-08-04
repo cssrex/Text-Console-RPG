@@ -54,69 +54,69 @@ void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
             return;
 
         case 1: {
-            LogManager::GetInstance().ClearScreen();
-            cout << PotionShopAscii;
-            cout <<
-R"(+======================================================================================================================+
+            while (true) {
+                LogManager::GetInstance().ClearScreen();
+                cout << PotionShopAscii;
+
+                cout <<
+                    R"(+======================================================================================================================+
 |                                                      구매 목록                                                       |
 +======================================================================================================================+
 |                                                                                                                      |
 )";
 
-            string goldText = "골드 : " + to_string(player.GetGold());
-            cout << "| " << goldText;
-            int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(goldText);
-            for (int i = 0; i < space; i++) cout << " ";
-            cout << "|\n";
+                string goldText = "골드 : " + to_string(player.GetGold());
+                cout << "| " << goldText;
 
-            cout << "| ";
-            for (int i = 0; i < BOX_WIDTH; i++) cout << " ";
-            cout << "|\n";
+                int space = BOX_WIDTH - LogManager::GetInstance().GetDisplayWidth(goldText);
+                for (int i = 0; i < space; i++) cout << " ";
+                cout << "|\n";
 
-            ShowItems();
+                cout << "| ";
+                for (int i = 0; i < BOX_WIDTH; i++) cout << " ";
+                cout << "|\n";
 
-            cout << "▶ 번호를 입력해주세요 : ";
-            int index;
-            cin >> index;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(1000, '\n');
+                ShowItems();
 
-                cout << "잘못된 입력입니다." << endl;
+                cout << "▶ 번호를 입력해주세요 : ";
+
+                int index;
+                cin >> index;
+
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+
+                    cout << "잘못된 입력입니다." << endl;
+                    _getch();
+
+                    continue;
+                }
+
+                if (index == 0) {
+                    break;
+                }
+
+                BuyResult result = BuyItem(player, inventory, index - 1);
+
+                switch (result) {
+                case BuyResult::Success:
+                    cout << "아이템 구매가 완료되었습니다." << endl;
+                    break;
+
+                case BuyResult::NotEnoughGold:
+                    cout << "골드가 부족합니다." << endl;
+                    break;
+
+                case BuyResult::InvalidItem:
+                    cout << "존재하지 않는 아이템입니다." << endl;
+                    break;
+                }
+
                 _getch();
 
-                break;
+                continue;
             }
-
-            if (index == 0) {
-                break;
-            }
-
-
-            BuyResult result = BuyItem(player,inventory,index - 1);
-
-            switch (result) {
-            case BuyResult::Success:
-                cout << "아이템 구매가 완료되었습니다." << endl;
-                _getch();
-
-                break;
-
-
-            case BuyResult::NotEnoughGold:
-                cout << "골드가 부족합니다." << endl;
-                _getch();
-
-                break;
-
-
-            case BuyResult::InvalidItem:
-                cout << "존재하지 않는 아이템입니다." << endl;
-                _getch();
-
-                break;
-            }
-
             break;
         }
 
