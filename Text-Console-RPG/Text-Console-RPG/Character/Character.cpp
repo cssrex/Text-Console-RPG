@@ -86,7 +86,6 @@ void Character::AddStatusEffect(StatusEffect* effect) {
             
             // 턴 갱신 로그
             LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName()); 
-            GameSound::PlayHitBeep();
 
             // 동적 할당 객체 메모리 해제
             delete effect;
@@ -97,7 +96,6 @@ void Character::AddStatusEffect(StatusEffect* effect) {
     // 목록에 없는 새로운 상태이상인 경우 -> 추가
     LogManager::GetInstance().PrintAddStatusEffect(name_, effect->GetName());
     statusEffects_.push_back(effect);
-    GameSound::PlayHitBeep();
 }
 
 // Turn 기반 상태이상 갱신(턴 종료 시 호출)
