@@ -17,7 +17,6 @@ private:
 	Scene				nextScene_;
 	int					day_;
 	DayType				dayType_;
-	bool				isInputZero_;
 private:
 	GameManager();
 	~GameManager();
