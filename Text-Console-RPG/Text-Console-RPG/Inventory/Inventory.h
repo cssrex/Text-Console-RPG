@@ -38,7 +38,7 @@ public:
 	void EquipmentMenu(Player& player, int index);
 
 	// 소모품 사용
-	void UseConsumable(Player& player, int index);
+	bool UseConsumable(Player& player, int index);
 
 	// 장비 착용
 	void WearEquipment(Player& player, int index);
@@ -51,6 +51,9 @@ public:
 
 	// 아이템 제거
 	bool RemoveItem(int index, int count);
+
+	// 전투 중 소모품만 보이는 메뉴
+	bool BattleConsumableMenu(Player& player);
 
 	// Getter
 	const vector<unique_ptr<Item>>& GetInventory() const {
