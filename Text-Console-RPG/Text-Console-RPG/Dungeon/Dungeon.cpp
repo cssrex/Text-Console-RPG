@@ -153,7 +153,14 @@ bool Dungeon::StartDungeonLoop(Player* player) {
 		}
 
 		if (player->IsDead()) {
-			GameManager::GetInstance().SetNextScene(Scene::HOTEL);
+			if (GameManager::GetInstance().GetDay() <= 0)
+			{
+				GameManager::GetInstance().SetNextScene(Scene::END);
+			}
+			else
+			{
+				GameManager::GetInstance().SetNextScene(Scene::HOTEL);
+			}
 
 			return true;
 		}
@@ -279,12 +286,12 @@ bool Dungeon::Battle(Player* player, Monster* monster, int roomIndex, int floor)
 	while (true)
 	{
 		// 플레이어 턴 시작 시 상태이상 업데이트
-		player->UpdateStatusEffects();
+		/*player->UpdateStatusEffects();
 
 		if (player->IsDead()) {
 			playerWon = false;
 			break;
-		}
+		}*/
 
 		// 행동 완료 여부 플래그 (MP 부족/취소 시 루프 재실행용)
 		bool validTurn = false;
