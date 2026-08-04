@@ -10,7 +10,6 @@
 
 using namespace std;
 
-
 Blacksmith::Blacksmith() {
     // 강화석
     items_.push_back(make_unique<MaterialItem>("강화석(SR)", 30, 30, MaterialType::EnhanceStone));
@@ -233,7 +232,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
 +======================================================================================================================+
 )";
 
-
         // 강화 가능한 장비가 있는지 확인
         bool hasEquipment = false;
 
@@ -247,7 +245,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
             }
         }
 
-
         if (!hasEquipment) {
             PrintResultBox(
                 "강화",
@@ -259,7 +256,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
 
             return;
         }
-
 
         cout << "▶ 번호를 입력해주세요 : ";
 
@@ -276,9 +272,7 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
             continue;
         }
 
-
         EquipmentSlot slot;
-
 
         switch (menu) {
         case 1:
@@ -331,19 +325,10 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 break;
             }
 
-
-            EquipmentItem* equipment =
-                dynamic_cast<EquipmentItem*>(
-                    inventory.GetInventory()[index].get()
-                    );
-
+            EquipmentItem* equipment = dynamic_cast<EquipmentItem*>(inventory.GetInventory()[index].get());
 
             if (equipment == nullptr) {
-                PrintResultBox(
-                    "강화",
-                    "장비가 아닙니다."
-                );
-
+                PrintResultBox("강화","장비가 아닙니다.");
                 cout << "▶ 아무 키나 입력해주세요 : ";
                 _getch();
 
@@ -353,7 +338,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
             // 착용 중인 장비는 강화할 수 없음
             if (inventory.IsEquipped(*equipment)) {
                 cout << "착용 중인 장비는 강화할 수 없습니다.\n";
-
                 cout << "▶ 아무 키나 입력해주세요 : ";
                 _getch();
 
@@ -362,41 +346,22 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
 
             // 강화석 선택
             while (true) {
-
                 LogManager::GetInstance().ClearScreen();
                 cout << EnhanceAscii;
-
                 cout <<
                     R"(+======================================================================================================================+
 |                                                      강화석 선택                                                     |
 +======================================================================================================================+
 |                                                                                                                      |
 )";
-                int srIndex =
-                    inventory.FindMaterial("강화석(SR)");
-
-                int ssrIndex =
-                    inventory.FindMaterial("강화석(SSR)");
-
-                int uIndex =
-                    inventory.FindMaterial("강화석(U)");
+                int srIndex = inventory.FindMaterial("강화석(SR)");
+                int ssrIndex = inventory.FindMaterial("강화석(SSR)");
+                int uIndex = inventory.FindMaterial("강화석(U)");
 
 
-                int srCount =
-                    (srIndex != -1)
-                    ? inventory.GetInventory()[srIndex]->GetCount()
-                    : 0;
-
-                int ssrCount =
-                    (ssrIndex != -1)
-                    ? inventory.GetInventory()[ssrIndex]->GetCount()
-                    : 0;
-
-                int uCount =
-                    (uIndex != -1)
-                    ? inventory.GetInventory()[uIndex]->GetCount()
-                    : 0;
-
+                int srCount = (srIndex != -1) ? inventory.GetInventory()[srIndex]->GetCount() : 0;
+                int ssrCount = (ssrIndex != -1) ? inventory.GetInventory()[ssrIndex]->GetCount() : 0;
+                int uCount = (uIndex != -1) ? inventory.GetInventory()[uIndex]->GetCount() : 0;
 
                 PrintLine(
                     "1. 강화석(SR)   (성공률 25%)   보유: "
@@ -424,8 +389,6 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
 
                 int stoneMenu;
                 cin >> stoneMenu;
-
-
                 if (cin.fail()) {
                     cin.clear();
                     cin.ignore(1000, '\n');
@@ -439,11 +402,8 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                 string stoneName;
                 double successRate;
 
-
                 switch (stoneMenu) {
-
                 case 0:
-                    // 강화석 선택 → 장비 목록으로 돌아감
                     break;
 
                 case 1:
@@ -513,9 +473,7 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                     int beforeHealth =
                         equipment->GetHealthValue();
 
-
                     equipment->Enhance();
-
 
                     int increaseAttack =
                         equipment->GetAttackValue()
@@ -529,11 +487,7 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                         equipment->GetHealthValue()
                         - beforeHealth;
 
-
-                    resultMessage =
-                        equipment->GetName()
-                        + " 강화 성공! ";
-
+                    resultMessage = equipment->GetName() + " 강화 성공! ";
 
                     if (increaseAttack > 0) {
                         resultMessage +=
@@ -541,13 +495,11 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                             + to_string(increaseAttack);
                     }
 
-
                     if (increaseDefense > 0) {
                         resultMessage +=
                             "방어력 +"
                             + to_string(increaseDefense);
                     }
-
 
                     if (increaseHealth > 0) {
                         resultMessage +=
@@ -555,14 +507,12 @@ void Blacksmith::Enhance(Player& player, Inventory& inventory) {
                             + to_string(increaseHealth);
                     }
                 }
-
                 // 강화 실패
                 else {
                     resultMessage =
                         equipment->GetName()
                         + " 강화 실패";
                 }
-
 
                 PrintResultBox("강화 결과",resultMessage);
 
