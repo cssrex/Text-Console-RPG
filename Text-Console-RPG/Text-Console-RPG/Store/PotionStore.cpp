@@ -31,17 +31,8 @@ PotionStore::PotionStore() {
 
 
 // 상점 메뉴
-void PotionStore::StoreMenu(Player& player, Inventory& inventory)
-{
+void PotionStore::StoreMenu(Player& player, Inventory& inventory) {
     const int BOX_WIDTH = 117;
-
-
-    auto PrintMessage = [&](const string& message)
-        {
-            cout << message << endl;
-            cout << "아무 숫자를 입력해주세요 : ";
-        };
-
 
     while (true)
     {
@@ -50,22 +41,14 @@ void PotionStore::StoreMenu(Player& player, Inventory& inventory)
 
 
         cout << "▶ 번호를 입력해주세요 : ";
-
-
         int menu;
-
         cin >> menu;
-
-
-        if (cin.fail())
-        {
+        if (cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            PrintMessage("잘못된 입력입니다.");
-
-            int wait;
-            cin >> wait;
+            cout << "잘못된 입력입니다.";
+            _getch();
 
             continue;
         }
