@@ -180,6 +180,8 @@ void LogManager::ApplySpecialColor() {
 }
 
 void LogManager::PrintBossEntranceMessage(Monster* monster) {
+	cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+	string dummy;
 	LogManager::ClearScreen();
 	GameSound::StopBgm();
 	GameSound::StopWave();
@@ -205,8 +207,10 @@ void LogManager::PrintBossEntranceMessage(Monster* monster) {
 		cout << "[ BOSS ] " << monster->GetName()
 			<< "이(가) 나타났습니다!\n";
 	}
-
-	Sleep(1500);
+	Sleep(2000);
+	Utils::MoveCursorTo(0, 31);
+	cout << "▶ 다음으로 넘아가려면 Enter 키를 누르세요" << flush;
+	getline(cin, dummy);
 }
 
 // 날짜 로그 수정으로 변경
